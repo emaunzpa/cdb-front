@@ -7,13 +7,15 @@ import LoginForm from './components/LoginForm'
 export default  class App extends React.Component {
 
   async componentDidMount() {
+
     let isSuccess = await userService.login({login : "lolo", password : "coucou" })
       .catch(err => console.log(err));
     if(isSuccess) {
-      let computers = await computerService.list({ page: "1", itemPerPage : "10", search : "Apple"})
+      let computers = await computerService.list({ page: "1", itemPerPage : "100" })
         .catch(err => console.log(err));
       console.log(computers);
     }
+
   }
 
   render () {
