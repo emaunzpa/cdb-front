@@ -18,5 +18,11 @@ export default class Company {
         this._name = value;
     }
 
+    toDto() {
+        return {
+            id : this.id,
+            name : this.name
+        };
+    }
 
 }

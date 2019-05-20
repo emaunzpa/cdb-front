@@ -14,6 +14,10 @@ class CompanyService {
         return companies.map(company => new Company(company));
     }
 
+    count(search) {
+        return http.get(`/companies/count?search=${search}`);
+    }
+
     /**
      * Fetch a specific company according to its id.
      * @param {*} id 
@@ -29,7 +33,7 @@ class CompanyService {
      * @param {*} company 
      */
     async create(company) {
-        const feedback = await http.post(`/companies`, company)
+        const feedback = await http.post(`/companies`, JSON.stringify(company.toDto()))
             .catch(err => Promise.reject(err));
         return new Feedback(feedback);
     }
@@ -39,7 +43,7 @@ class CompanyService {
      * @param {*} id 
      */
     async delete(id) {
-        const feedback = http.delete(`/companies/${id}`)
+        const feedback = await http.delete(`/companies/${id}`)
             .catch(err => Promise.reject(err));
         return new Feedback(feedback);
     }
