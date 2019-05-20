@@ -15,11 +15,19 @@ class ComputerService {
     }
 
     /**
+     * Count the total number of computers according to the search.
+     * @param {*} id 
+     */
+    count(search) {
+        return http.get(`/computers/count?search=${search || ""}`);
+    }
+
+    /**
      * Fetch a specific computer according to its id.
      * @param {*} id 
      */
     async get(id) {
-        const computer = await(`/computers/${id}`)
+        const computer = await http.get(`/computers/${id}`)
             .catch(err => Promise.reject(err));
         return new Computer(computer);
     }
@@ -29,7 +37,7 @@ class ComputerService {
      * @param {*} computer 
      */
     async create(computer) {
-        const feedback = await http.post(`/computers`, computer.toDto())
+        const feedback = await http.post(`/computers`, JSON.stringify(computer.toDto()))
             .catch(err => Promise.reject(err));
         return new Feedback(feedback);
     }
@@ -39,7 +47,7 @@ class ComputerService {
      * @param {*} computer 
      */
     async edit(computer) {
-        const feedback = await http.patch(`/computers`, computer.toDto())
+        const feedback = await http.put(`/computers/${computer.id}`, JSON.stringify(computer.toDto()))
             .catch(err => Promise.reject(err));
         return new Feedback(feedback);
     }

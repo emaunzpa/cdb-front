@@ -33,11 +33,11 @@ class Http {
     }
        
 
-    patch(uri, body) {
+    put(uri, body) {
         let options = Object.assign({}, this.httpOptions);
         options.headers.Authorization = "Bearer " + localStorage.getItem("token");
 
-        return fetch(this.baseUrl + uri,{...this.httpOptions, method : "PATCH", body : body })
+        return fetch(this.baseUrl + uri,{...this.httpOptions, method : "PUT", body : body })
             .then(response => response.json());   
     }
 
