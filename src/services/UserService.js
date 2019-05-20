@@ -19,7 +19,7 @@ class UserService {
      * @param {*} user 
      */
     async create(user) {
-        const feedback = await http.post(`/users`, user)
+        const feedback = await http.post(`/users`, JSON.stringify(user))
             .catch(err => Promise.reject(err));
         return new Feedback(feedback);
     }

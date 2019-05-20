@@ -8,8 +8,8 @@ class CompanyService {
      * Fetch companies according to the page and itemPerPage.
      * @param {*} param0 
      */
-    async list({page, itemPerPage}){
-        const companies = await http.get(`/companies?page${page || ""}&itemPerPage=${itemPerPage}`)
+    async list({page, itemPerPage, search}){
+        const companies = await http.get(`/companies?page=${page || ""}&itemPerPage=${itemPerPage || ""}&search=${search || ""}`)
             .catch(err => Promise.reject(err));
         return companies.map(company => new Company(company));
     }
