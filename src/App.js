@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import computerService from './services/ComputerService';
-import userService from './services/UserService';
 import LoginForm from './components/LoginForm'
+import userService from './services/UserService';
 
 export default  class App extends React.Component {
 
