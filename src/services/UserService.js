@@ -31,6 +31,13 @@ class UserService {
         localStorage.setItem("token", undefined);
         return true;
     }
+
+    /**
+     * Return true if the user has a token. 
+     */
+    isAuthenticated(){
+        return localStorage.getItem("token") !== undefined; 
+    }
 }
 
 export default new UserService();
