@@ -3,6 +3,7 @@ import './App.css';
 import userService from './services/UserService';
 import LoginForm from './components/LoginForm'
 import computerService from './services/ComputerService';
+import Header from './components/header/header';
 
 export default  class App extends React.Component {
 
@@ -21,6 +22,7 @@ export default  class App extends React.Component {
   render () {
     return (
       <div className="App">
+        <Header/>
         <LoginForm/>
       </div>
     );
