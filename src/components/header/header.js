@@ -7,7 +7,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
 
 import './header.css';
 import UserService from '../../services/UserService';
@@ -31,7 +31,7 @@ class Header extends Component {
         UserService.logout();
         if(!UserService.isAuthenticated()){
             this.setState({ ...this.state, auth: false})
-            this.props.history.push('/login');
+            this.props.history.push("/login");
         }
     };
 
@@ -89,4 +89,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

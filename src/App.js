@@ -7,7 +7,6 @@ import Footer from './components/footer/Footer';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
 
-
 export default class App extends React.Component {
 
   render() {
