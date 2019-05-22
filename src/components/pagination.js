@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import { mixedTypeAnnotation } from '@babel/types';
 
 
 class Pagination extends Component{
@@ -10,7 +9,6 @@ class Pagination extends Component{
     }
 
     changePage = (update) => {
-        console.log(this.props.size +" "+ Math.max(this.props.size / this.state.itemPerPage,1))
         if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
             this.setState({
                 page:update
@@ -27,7 +25,13 @@ class Pagination extends Component{
     }
 
     newOptionsPage(update){
-        return {page: update, itemPerPage:this.state.itemPerPage};
+        let newOptions = {page: update, itemPerPage:this.state.itemPerPage};
+        if(this.props.otherOptions){
+            Object.keys(this.props.otherOptions).forEach(element => {
+                newOptions[element] = this.props.otherOptions[element]
+            });
+        }
+        return newOptions;
     }
 
     newOptionsSize(update){
