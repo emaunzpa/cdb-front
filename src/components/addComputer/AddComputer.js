@@ -10,11 +10,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import computerService from '../../services/ComputerService';
 import companyService from '../../services/CompanyService';
-import Footer from '../Footer'
+import Footer from '../../components/footer/Footer'
 import Grid from '@material-ui/core/Grid';
 import Computer from "../../models/Computer";
 import { withRouter } from 'react-router-dom';
-import './AddComputer.css'
+import './AddComputer.css';
 
 class AddComputer extends React.Component {
 
@@ -29,12 +29,12 @@ class AddComputer extends React.Component {
 
     async addNewComputer() {
         var company = this.state.companies.find(obj => obj.id === this.state.companyId);
-        var computer = new Computer({ name: this.state.computerName, introduced: this.state.introducedDate, discontinued: this.state.discontinuedDate, companyId: this.state.companyId, companyName: company.name})
+        var computer = new Computer({ name: this.state.computerName, introduced: this.state.introducedDate, discontinued: this.state.discontinuedDate, companyId: this.state.companyId, companyName: company.name })
 
         computerService.create(computer)
-        .then(this.props.history.push("/"))
-        .catch(err => console.log(err))
-        
+            .then(this.props.history.push("/"))
+            .catch(err => console.log(err))
+
     }
 
     async componentWillMount() {
@@ -49,15 +49,15 @@ class AddComputer extends React.Component {
         return (
             <div>
                 <Grid container justify="center">
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    <Card className="card" id="card">
+                        <CardContent id="cardContent">
+                            <Typography className="title" color="textSecondary" gutterBottom>
                                 Add a new computer
                         </Typography>
                             <TextField
                                 id="computerName"
                                 label="Computer name"
-                                className={classes.textField}
+                                className="textField"
                                 onChange={this.handleChange("computerName")}
                                 margin="normal"
                             />
@@ -67,7 +67,7 @@ class AddComputer extends React.Component {
                                 label="Introduced date"
                                 type="date"
                                 onChange={this.handleChange("introducedDate")}
-                                className={classes.textField}
+                                className="textField"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -78,7 +78,7 @@ class AddComputer extends React.Component {
                                 label="Discontinued date"
                                 type="date"
                                 onChange={this.handleChange("discontinuedDate")}
-                                className={classes.textField}
+                                className="textField"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -88,14 +88,9 @@ class AddComputer extends React.Component {
                                 id="companyId"
                                 select
                                 label="Company"
-                                className={classes.textField}
+                                className="textField"
                                 value={this.state.defaultCompanyID}
                                 onChange={this.handleChange("companyId")}
-                                SelectProps={{
-                                    MenuProps: {
-                                        className: classes.menu,
-                                    },
-                                }}
                                 helperText="Please select the company"
                                 margin="normal"
                                 variant="outlined"
@@ -109,11 +104,12 @@ class AddComputer extends React.Component {
 
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={(event) => this.addNewComputer(event)}>Login</Button>
+                            <Button variant="contained" color="primary" className="button">
+                                Create computer
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>
-                <Footer />
             </div>
         );
     }
