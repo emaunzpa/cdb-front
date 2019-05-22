@@ -10,18 +10,13 @@ class CompanyList extends Component {
     }
 
      updateList = async (options) => {
-        let isSuccess = await userService.login({login : "lolo", password : "coucou" })
-          .catch(err => console.log(err));
-        if(isSuccess) {
             this.setState({
               companies : await companyService.list(options)
               .catch(err => console.log(err)),
               size : await companyService.count()
               .catch(err => console.log(err))
               
-          }) 
-        }
-        
+          })       
         this.forceUpdate();
     }
 
