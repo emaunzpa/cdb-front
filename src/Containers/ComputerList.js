@@ -1,100 +1,110 @@
 import React, {Component} from 'react';
 import computerService from '../services/ComputerService';
 import ComputerDetail from '../components/ComputerDetail';
-
-const API = 'http://10.0.1.229:8080/api/v1/recipes';
-const UPDATE = 'http://10.0.1.229:8080/api/v1/recipes/';
+import userService from '../services/UserService';
+import Pagination from '../components/pagination';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 class ComputerList extends Component {
 
   state = {
     computers : [],
-    add : false
+    options: Pagination
   };
-
-
-  componentDidMount() {
-    /*fetch(API)
-      .then(response => response.json())
-      .then(data => this.setState({ computers: data }));*/
-      this.computers = computerService.list({ page: "1", itemPerPage : "100" })
-        .catch(err => console.log(err));
-  }
-
-  toggleAdd = () => {
-    this.setState({add: !this.state.add})
-  }
-
-  delete = (id) => {
-    this.deleteFetch(id);
-    this.setState({computers : this.state.computers.filter(item => item.id !== id)})
-  }
-
-  deleteFetch = (id) => {
-    var toSend = JSON.stringify({"id" : id});
-    console.log(toSend);
-    fetch(UPDATE, {
-        method: 'DELETE',
-        body: toSend,
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*'
+     updateComputer = async (options) => {
+        console.log(options);
+        let isSuccess = await userService.login({login : "lolo", password : "coucou" })
+          .catch(err => console.log(err));
+        if(isSuccess) {
+            console.log(options)
+            this.setState({
+              computers : await computerService.list(options)
+              .catch(err => console.log(err)),
+              size : await computerService.count()
+              .catch(err => console.log(err))
+              
+          }) 
         }
-    }).then(res => {
-      console.log("res : " + JSON.stringify(res));
-        return res;
-    }).catch(err => {console.log("error : " + err)});
-}
-
-  addInBack = (data) => {
-    console.log("add", JSON.stringify(data));
-    var toSend = JSON.stringify(
-{
-  "description": data.description,
-  "id": data.id,
-  "ingredients": [
-    {
-      "ingredientId": 1,
-      "name": "string",
-      "quantity": 0,
-      "recipeId": 0,
-      "unit": "string"
+        this.forceUpdate();
+        console.log(this.state.computers)
+        console.log(this.state.size)
     }
-  ],
-  "instructions": "string",
-  "name": data.name,
-  "picture": data.picture
-}
-      );
-    console.log(toSend);
-    fetch(UPDATE, {
-        method: 'POST',
-        body: toSend,
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*'
+
+
+
+
+    componentDidMount() {
+        let options = {
+            page : 1,
+            itemPerPage:10
         }
-    }).then(res => {
-      console.log("res : " + JSON.stringify(res));
-        return res;
-    }).catch(err => {console.log("error : " + err)});
+        this.updateComputer(options)
 }
 
+  orderBy = async (column) => {
+    this.setState({orderBy:column});
+      let options = {
+            page : 1,
+            itemPerPage:10,
+            orderBy: column
+        }
+        this.updateComputer(options)
+  }
 
 
   render () {  
     return (
       <div>
-        {
+      <Table>
+         <TableHead>
+         <TableRow>
+            <TableCell>Checkbox</TableCell>
+            <TableCell
+              >
+                <Tooltip
+                  title="Sort"
+                  enterDelay={300}
+                >
+                  <TableSortLabel
+                    onClick={() => this.orderBy("name")}
+                  >
+                    Name
+                  </TableSortLabel>
+                </Tooltip>
+              </TableCell>
+            <TableCell>Introduced</TableCell>
+            <TableCell>Discontinued</TableCell>
+            <TableCell>Company</TableCell>
+         </TableRow>
+      </TableHead>
+      <TableBody>
+       {
           this.state.computers.map(computer => 
-            <div md={3} key={computer.id}>
-              <ComputerDetail computer={computer} delete={this.delete} />
-            </div>
+              <ComputerDetail key={computer.id} computer={computer} />
             )
         }
-          
-            <ComputerDetail addRecipe={this.addRecipe} add={this.add}/>
-             
+      </TableBody>
+      </Table>
+
+          <Pagination otherOptions={{orderBy:this.state.orderBy}} size={this.state.size} update={(options)=> this.updateComputer(options)}></Pagination>
       </div>
     )
 
