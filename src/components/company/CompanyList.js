@@ -21,6 +21,7 @@ class CompanyList extends Component {
               
           }) 
         }
+        
         this.forceUpdate();
     }
 
