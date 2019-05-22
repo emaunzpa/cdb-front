@@ -1,30 +1,42 @@
 import React from 'react';
 import './App.css';
-import userService from './services/UserService';
-// import LoginForm from './components/LoginForm'
-import computerService from './services/ComputerService';
+import CompanyList from './components/company/CompanyList';
+import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
+import Footer from './components/footer/Footer';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import UserService from './services/UserService';
 import AddComputer from './components/addComputer/AddComputer';
 
-export default  class App extends React.Component {
+export default class App extends React.Component {
 
-  async componentDidMount() {
-
-    let isSuccess = await userService.login({login : "lolo", password : "coucou" })
-      .catch(err => console.log(err));
-    if(isSuccess) {
-      let computers = await computerService.list({ page: "1", itemPerPage : "100" })
-        .catch(err => console.log(err));
-      console.log(computers);
-    }
-
-  }
-
-  render () {
+  render() {
     return (
       <div className="App">
-        <Header/>
-        <AddComputer/>
+        <Router>
+          <Header />
+          <Route path="/login" component={LoginForm} />
+
+          <Route path="/" exact
+            render={() => (UserService.isAuthenticated() ? (
+              <h1>Vous êtes sur la page des computers</h1>
+            ) : <Redirect to="/login"></Redirect>
+            )} />
+
+          <Route path="/computers"
+            render={() => (UserService.isAuthenticated() ? (
+              <AddComputer/>
+            ) : <Redirect to="/login"></Redirect>
+            )} />
+
+          <Route path="/companies"
+            render={() => (UserService.isAuthenticated() ? (
+              <h1>Vous êtes sur la page des companies</h1>
+            ) : <Redirect to="/login"></Redirect>
+            )} />
+
+          <Footer />
+        </Router>
       </div>
     );
   }
