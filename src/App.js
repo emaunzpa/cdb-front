@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import userService from './services/UserService';
-import LoginForm from './components/LoginForm'
+// import LoginForm from './components/LoginForm'
 import computerService from './services/ComputerService';
 import Header from './components/header/header';
+import AddComputer from './components/addComputer/AddComputer';
 
 export default  class App extends React.Component {
 
@@ -23,7 +24,7 @@ export default  class App extends React.Component {
     return (
       <div className="App">
         <Header/>
-        <LoginForm/>
+        <AddComputer/>
       </div>
     );
   }

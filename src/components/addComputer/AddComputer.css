@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.textField {
+    width: 300;
+}
+
+.card {
+    min-width: 275;
+    margin-top: 13em;
+    width: 500;
+}
