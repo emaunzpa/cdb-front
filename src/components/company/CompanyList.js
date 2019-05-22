@@ -6,16 +6,13 @@ import Pagination from '../pagination';
 class CompanyList extends Component {
 
     state = {
-        companies :[],
-        options: Pagination
-        
+        companies :[]
     }
 
      updateList = async (options) => {
         let isSuccess = await userService.login({login : "lolo", password : "coucou" })
           .catch(err => console.log(err));
         if(isSuccess) {
-            console.log(options)
             this.setState({
               companies : await companyService.list(options)
               .catch(err => console.log(err)),
@@ -29,12 +26,11 @@ class CompanyList extends Component {
 
     componentDidMount() {
         let options = {
-            page : 1,
-            itemPerPage:10
+            page : this.props.page || 1,
+            itemPerPage: this.props.itemPerPage || 10
         }
         this.updateList(options)
     }
-
 
     render(){
         return (
@@ -50,7 +46,7 @@ class CompanyList extends Component {
                         }
                     </ul>
                 </div>
-                <Pagination size={this.state.size} update={(options)=> this.updateList(options)}></Pagination>
+                <Pagination options={{page:this.props.page,itemPerPage:this.props.itemPerPage}} size={this.state.size} update={(options)=> this.updateList(options)}></Pagination>
             </div>
         )
     }

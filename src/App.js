@@ -7,7 +7,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-          <CompanyList></CompanyList>
+          <CompanyList page={3}></CompanyList>
       </div>
     );
   }

@@ -4,8 +4,8 @@ import React,{Component} from 'react';
 class Pagination extends Component{
 
     state = {
-        page : 1,
-        itemPerPage:10
+        page : this.props.options.page || 1,
+        itemPerPage:this.props.options.itemPerPage || 10
     }
 
     changePage = (update) => {
@@ -28,14 +28,22 @@ class Pagination extends Component{
         let newOptions = {page: update, itemPerPage:this.state.itemPerPage};
         if(this.props.otherOptions){
             Object.keys(this.props.otherOptions).forEach(element => {
+                newOptions[element] = this.props.otherOptions[element];
+            });
+        }
+        console.log(newOptions)
+        return newOptions;
+    }
+
+
+    newOptionsSize(update){
+        let newOptions = {page: 1, itemPerPage:update};
+        if(this.props.otherOptions){
+            Object.keys(this.props.otherOptions).forEach(element => {
                 newOptions[element] = this.props.otherOptions[element]
             });
         }
         return newOptions;
-    }
-
-    newOptionsSize(update){
-        return {page: this.state.page, itemPerPage:update};
     }
 
     render(){
