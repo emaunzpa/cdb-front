@@ -15,7 +15,7 @@ class CompanyService {
     }
 
     count(search) {
-        return http.get(`/companies/count?search=${search}`);
+        return http.get(`/companies/count?search=${search || ""}`);
     }
 
     /**
