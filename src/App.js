@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import userService from './services/UserService';
 import LoginForm from './components/LoginForm'
-import computerService from './services/ComputerService';
 import Header from './components/header/header';
+<<<<<<< HEAD
 import ComputerList from './Containers/ComputerList';
+=======
+import { BrowserRouter as Router, Route } from "react-router-dom";
+>>>>>>> develop
 
-export default  class App extends React.Component {
+export default class App extends React.Component {
 
+<<<<<<< HEAD
   async componentDidMount() {
 
     let isSuccess = await userService.login({login : "lolo", password : "coucou" })
@@ -20,6 +23,15 @@ export default  class App extends React.Component {
         <Header/>
         <LoginForm/>
       <ComputerList/>
+=======
+  render() {
+    return (
+      <div className="App">
+          <Router>
+            <Route path="/**" component={Header} />
+            <Route path="/login" component={LoginForm} />
+          </Router>
+>>>>>>> develop
       </div>
     );
   }

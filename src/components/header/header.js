@@ -7,21 +7,32 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Link } from 'react-router-dom'
 
 import './header.css';
+import UserService from '../../services/UserService';
 
 class Header extends Component {
 
     state = {
-        anchorEl: null
+        anchorEl: null,
+        auth: UserService.isAuthenticated()
     };
 
     handleMenu = event => {
-        this.setState({ anchorEl: event.currentTarget });
+        this.setState({ ...this.state, anchorEl: event.currentTarget });
     };
 
     handleClose = () => {
-        this.setState({ anchorEl: null });
+        this.setState({ ...this.state, anchorEl: null });
+    };
+
+    handleLogout = () => {
+        UserService.logout();
+        if(!UserService.isAuthenticated()){
+            this.setState({ ...this.state, auth: false})
+            this.props.history.push('/login');
+        }
     };
 
     render() {
@@ -34,6 +45,7 @@ class Header extends Component {
             <div>
                 <AppBar position="static">
                     <Toolbar>
+                        { this.state.auth &&
                         <div>
                             <IconButton
                                 aria-owns={open ? 'menu-appbar' : undefined}
@@ -57,18 +69,19 @@ class Header extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}>Companies</MenuItem>
-                                <MenuItem onClick={this.handleClose}>Computers</MenuItem>
+                                <MenuItem onClick={this.handleClose}><Link to="/companies" className="menuLink">Companies</Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}><Link to="/computers" className="menuLink">Computers</Link></MenuItem>
                             </Menu>
-                        </div>
+                        </div> }
                         <Typography variant="h6" color="inherit" className="grow">
                             Welcome to cdb-front
                         </Typography>
+                        { this.state.auth &&
                         <div>
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={this.handleLogout}>
                                 <AccountCircle className="account-icon"/> Log out
                             </IconButton>
-                        </div>
+                        </div> }
                     </Toolbar>
                 </AppBar>
             </div>
