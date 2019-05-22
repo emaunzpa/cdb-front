@@ -29,8 +29,10 @@ class Header extends Component {
 
     handleLogout = () => {
         UserService.logout();
-        this.setState({ ...this.state, auth: false})
-        this.props.history.push('/login');
+        if(!UserService.isAuthenticated()){
+            this.setState({ ...this.state, auth: false})
+            this.props.history.push('/login');
+        }
     };
 
     render() {

@@ -28,7 +28,7 @@ class UserService {
      * Logout.
      */
     logout() {
-        localStorage.setItem("token", undefined);
+        localStorage.setItem("token", "");
         return true;
     }
 
@@ -36,7 +36,7 @@ class UserService {
      * Return true if the user has a token. 
      */
     isAuthenticated(){
-        return localStorage.getItem("token") !== undefined; 
+        return localStorage.getItem("token") !== ""; 
     }
 }
 
