@@ -19,3 +19,20 @@
     text-decoration: none;
 }
 
+#navDiv {
+    display: flex;
+}
+
+.langLabel {
+    margin-top: 0.1em;
+}
+
+.langLink { 
+    margin-right: 1em;
+    margin-top: 1em;
+    text-decoration: none;
+}
+
+.lang {
+    color: white;
+}
