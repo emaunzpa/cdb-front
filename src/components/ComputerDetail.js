@@ -1,38 +1,60 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import EditIcon from '@material-ui/icons/Edit';
+import Button from "@material-ui/core/Button";
+import ComputerService from '../services/ComputerService';
+
 
 
 class ComputerDetail extends Component {
   state = {
-    computer : this.props.computer
+    computer : this.props.computer,
+    editMode : false
   };
+
+  toggleEditMode = () => {
+    console.log(this.state.computer)
+    this.setState({editMode: !this.state.editMode});
+    if(this.state.editMode){
+      this.update();
+    }
+  }
+
+  updateName = (event) => {
+    this.state.computer.name = event.target.value
+    this.setState({computer: this.state.computer})
+  };
+
+  updateIntroduced = (event) => {
+    this.state.computer.introduced = event.target.value
+    console.log(this.state.computer.introduced)
+    this.setState({computer: this.state.computer})
+  };
+
+  updateDiscontinued = (event) => {
+    this.state.computer.discontinued = event.target.value
+    this.setState({computer: this.state.computer})
+  };
+
+  update = async () => {
+    let isSuccess = await ComputerService.edit(this.state.computer)
+    .catch(err => console.log(err));
+    console.log(isSuccess ? "Success" : "Fail");
+  }
 
 	render() {
 		return (
-      <TableRow key={this.state.computer.id} >
+      <TableRow key={this.state.computer.id}>
       <TableCell>
             <Checkbox/>
+            <Button onClick={this.toggleEditMode}><EditIcon/></Button>
             </TableCell>
-            <TableCell>{ this.state.computer.name }</TableCell>
-            <TableCell>{ this.state.computer.introduced }</TableCell>
-            <TableCell>{ this.state.computer.discontinued }</TableCell>
-            <TableCell>{this.state.computer.company.name }</TableCell>
+            <TableCell>{ this.state.editMode ? <input onChange={this.updateName} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
+            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
+            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
+            <TableCell>{ this.state.editMode ? <label>ici company list</label> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
       </TableRow>
 		)
   }

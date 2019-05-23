@@ -36,17 +36,20 @@ export default class Computer {
         return this._introduced;
     }
     set introduced(value) {
-        if(this.discontinued && value && this.discontinued.getTime() < value.getTime()){
+        let dateDiscontinued = new Date(this.discontinued)
+        let dateValue = new Date(value)
+        if(this.discontinued && value && dateDiscontinued.getTime() < dateValue.getTime()){
             throw new Error(this.UNCONSISTENT_DATES_ERROR);
         }
         this._introduced = value;
-        
     }
     get discontinued() {
         return this._discontinued;
     }
     set discontinued(value) {
-        if(this.introduced && value && this.introduced.getTime() > value.getTime()){
+        let dateIntroduced = new Date(this.introduced)
+        let dateValue = new Date(value)
+        if(this.introduced && value && dateIntroduced.getTime() > dateValue.getTime()){
             throw new Error(this.UNCONSISTENT_DATES_ERROR);
         }
         this._discontinued = value;
@@ -58,7 +61,7 @@ export default class Computer {
         this._company = value;
     }
 
-    toDto() {
+    toDto(){
         return { 
             id : this.id, 
             name : this.name,
