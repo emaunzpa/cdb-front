@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import CompanyList from './components/company/CompanyList';
 import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
+import AddComputer from './components/addComputer/AddComputer';
 
 const langUri = '/:locale(en|fr)?';
 
@@ -25,7 +25,7 @@ export default class App extends React.Component {
 
           <Route path={`${langUri}/computers`}
             render={() => (UserService.isAuthenticated() ? (
-              <h1>Vous êtes sur la page des computers</h1>
+              <AddComputer/>
             ) : <Redirect to={`${langUri}/login`}></Redirect>
             )} />
 
