@@ -1,20 +1,40 @@
 import React from 'react';
 import './App.css';
-import LoginForm from './components/LoginForm';
+import CompanyList from './components/company/CompanyList';
+import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import ComputerList from './Containers/ComputerList';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import UserService from './services/UserService';
+const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
 
   render() {
     return (
       <div className="App">
-          <Router>
-            <Route path="/**" component={Header} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/computers" component={ComputerList}/>
-          </Router>
+        <Router>
+          <Header />
+          <Route path={`${langUri}/login`} component={LoginForm} />
+
+          <Route path={`${langUri}`} exact
+            render={() => (UserService.isAuthenticated() ? (
+              <h1>Vous êtes sur la page d'accueil</h1>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            )} />
+
+          <Route path={`${langUri}/computers`}
+            render={() => (UserService.isAuthenticated() ? (
+              <h1>Vous êtes sur la page des computers</h1>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            )} />
+
+          <Route path={`${langUri}/companies`}
+            render={() => (UserService.isAuthenticated() ? (
+              <CompanyList></CompanyList>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
+
+            )} />
+        </Router>
       </div>
     );
   }
