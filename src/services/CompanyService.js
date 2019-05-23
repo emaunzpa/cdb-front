@@ -14,6 +14,12 @@ class CompanyService {
         return companies.map(company => new Company(company));
     }
 
+    async getAll(){
+        const companies = await http.get(`/companies/all`)
+            .catch(err => Promise.reject(err));
+        return companies.map(company => new Company(company));
+    }
+
     count(search) {
         return http.get(`/companies/count?search=${search || ""}`);
     }
