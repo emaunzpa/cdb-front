@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import {TableCell,TableRow }from '@material-ui/core';
+import {TableCell,TableRow,TextField ,Button }from '@material-ui/core';
 
 class Company{
 
@@ -21,11 +21,29 @@ class CompanyDetails extends Component{
 
 class CompanyHeader extends Component{
 
+    state ={
+        search: ""
+    }
+    
+    updateSearch = (event) => {
+        this.setState({search:event.target.value})
+    }
+
+    keyHandler = (event) => {
+        if(event.key == 'Enter'){
+            this.props.search(this.state.search);
+        }
+    }
+
     render(){
         return(
         <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell>NAME </TableCell>
+            <TableCell>
+                Name
+                <TextField id="searchField" display="right" label="Search name"  type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
+                <Button id="searchButton"  onClick={() => this.props.search(this.state.search)} variant="outlined"  >Search</Button>
+            </TableCell>
         </TableRow>
         )
     }

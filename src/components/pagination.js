@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {Button} from '@material-ui/core';
 
 
 class Pagination extends Component{
@@ -50,23 +51,23 @@ class Pagination extends Component{
         return (
             <div className="pagination" display ="inline">
                 <div className = "pageNavigate" display ="inline-block">
-                    <button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)}>
+                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
                         Previous
-                    </button>
-                        <button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}>
+                    </Button>
+                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
                         Next
-                        </button>
+                    </Button>
                 </div>
                 <div className = "sizeNavigate" display="inline-block">
-                    <button className = "pageButton" onClick={() => this.changeSize(10)}>
+                    <Button className = "pageButton" onClick={() => this.changeSize(10)}  variant="outlined">
                         10
-                    </button>
-                    <button className = "pageButton" onClick={() => this.changeSize(50)}>
+                    </Button>
+                    <Button className = "pageButton" onClick={() => this.changeSize(50)}  variant="outlined">
                         50
-                    </button>
-                    <button className = "pageButton" onClick={() => this.changeSize(100)}>
+                    </Button>
+                    <Button className = "pageButton" onClick={() => this.changeSize(100)}  variant="outlined">
                         100
-                    </button>
+                    </Button>
                 </div>
             </div> 
         )

@@ -3,7 +3,7 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import {CompanyDetails,CompanyHeader} from './CompanyDetails'
-import {Table,TableBody,TableHead }from '@material-ui/core';
+import {Table,TableBody,TableHead}from '@material-ui/core';
 
 class CompanyList extends Component {
 
@@ -11,25 +11,29 @@ class CompanyList extends Component {
         companies :[]
     }
 
-     updateList = async (options) => {
+    search = (value) => {
+        let options = {page:1,itemPerPage:10,search:value};
+        this.updateList(options);
+    }
+
+    updateList = async (options) => {
         let isSuccess = await userService.login({login : "lolo", password : "coucou" })
-        .catch(err => console.log(err));
-      if(isSuccess) {
+            .catch(err => console.log(err));
+        if(isSuccess) {
             this.setState({
               companies : await companyService.list(options)
               .catch(err => console.log(err)),
               size : await companyService.count(options.search)
               .catch(err => console.log(err))
-          })       
-      }
-        this.forceUpdate();
+            })       
+        }
     }
 
     componentDidMount() {
         let options = {
             page : this.props.page || 1,
             itemPerPage: this.props.itemPerPage || 10,
-            search: this.props.search || "i"
+            search: this.props.search || ""
         }
         this.updateList(options)
     }
@@ -39,7 +43,7 @@ class CompanyList extends Component {
         <div className="tableContainer">
             <Table className = "companyTable">
                 <TableHead className ="tableHeader">
-                    <CompanyHeader orderBy={() => this.orderBy()}/>
+                    <CompanyHeader search={(value) => this.search(value)}/>
                 </TableHead>
                 <TableBody className="tableBody">
                         {
