@@ -11,6 +11,7 @@ class UserService {
         const response = await http.post(`/authenticate`, JSON.stringify(auth))
             .catch(err => Promise.reject(err));
         localStorage.setItem("token", response.token);
+        localStorage.setItem("role", response.role);
         return true;
     }
 
@@ -29,6 +30,7 @@ class UserService {
      */
     logout() {
         localStorage.setItem("token", "");
+        localStorage.setItem("role", "");
         return true;
     }
 
@@ -36,7 +38,11 @@ class UserService {
      * Return true if the user has a token. 
      */
     isAuthenticated(){
-        return localStorage.getItem("token") !== ""; 
+        return localStorage.getItem("token") !== "";
+    }
+
+    isAdmin(){
+        return localStorage.getItem("role") !== "";
     }
 }
 
