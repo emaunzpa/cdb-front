@@ -17,16 +17,12 @@ class CompanyList extends Component {
     }
 
     updateList = async (options) => {
-        let isSuccess = await userService.login({login : "lolo", password : "coucou" })
-            .catch(err => console.log(err));
-        if(isSuccess) {
-            this.setState({
-              companies : await companyService.list(options)
-              .catch(err => console.log(err)),
-              size : await companyService.count(options.search)
-              .catch(err => console.log(err))
-            })       
-        }
+        this.setState({
+            companies : await companyService.list(options)
+                .catch(err => console.log(err)),
+            size : await companyService.count(options.search)
+                .catch(err => console.log(err))
+        })       
     }
 
     componentDidMount() {
