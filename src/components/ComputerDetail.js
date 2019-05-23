@@ -19,7 +19,6 @@ class ComputerDetail extends Component {
   };
 
   toggleEditMode = () => {
-    console.log(this.state.computer)
     this.setState({editMode: !this.state.editMode});
     if(this.state.editMode){
       this.update();
@@ -33,7 +32,6 @@ class ComputerDetail extends Component {
 
   updateIntroduced = (event) => {
     this.state.computer.introduced = event.target.value
-    console.log(this.state.computer.introduced)
     this.setState({computer: this.state.computer})
   };
 
@@ -44,7 +42,6 @@ class ComputerDetail extends Component {
 
   updateCompany = (event) => {
     this.state.computer.company = this.state.companies.find(obj => obj.id === event.target.value);
-    console.log(this.state.computer.company)
     this.setState({computer: this.state.computer})
   };
 
@@ -70,20 +67,14 @@ class ComputerDetail extends Component {
             <TableCell>{ this.state.editMode ? <input onChange={this.updateName} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
             <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
             <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
-            <TableCell>{ this.state.editMode ? <TextField
-                                id="companyId"
-                                select
-                                label="Company"
-                                className="textField"
-                                value={this.state.computer.company.id}
-                                onChange={this.updateCompany}
-                                helperText="Please select the company"
-                                margin="normal"
-                                variant="outlined" >
+            <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField"
+                                value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
+                                helperText="Please select the company"  margin="normal" variant="outlined" >
                                 {this.state.companies.map(option => (
                                     <MenuItem key={option.id} value={option.id}>
                                         {option.name}
-                                    </MenuItem> ))}
+                                    </MenuItem> ))
+                                }
                             </TextField> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
       </TableRow>
 		)
