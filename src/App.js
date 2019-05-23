@@ -5,7 +5,6 @@ import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
-
 const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
