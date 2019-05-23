@@ -9,7 +9,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import userService from '../services/UserService';
 import computerService from '../services/ComputerService';
-import Footer from './footer/Footer';
 import Grid from '@material-ui/core/Grid';
 
 
