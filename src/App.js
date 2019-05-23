@@ -2,9 +2,10 @@ import React from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
-import Footer from './components/footer/Footer';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
+
+const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
 
@@ -13,27 +14,25 @@ export default class App extends React.Component {
       <div className="App">
         <Router>
           <Header />
-          <Route path="/login" component={LoginForm} />
+          <Route path={`${langUri}/login`} component={LoginForm} />
 
-          <Route path="/" exact
+          <Route path={`${langUri}`} exact
             render={() => (UserService.isAuthenticated() ? (
-              <h1>Vous êtes sur la page des computers</h1>
-            ) : <Redirect to="/login"></Redirect>
+              <h1>Vous êtes sur la page d'accueil</h1>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
             )} />
 
-          <Route path="/computers"
+          <Route path={`${langUri}/computers`}
             render={() => (UserService.isAuthenticated() ? (
               <h1>Vous êtes sur la page des computers</h1>
-            ) : <Redirect to="/login"></Redirect>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
             )} />
 
-          <Route path="/companies"
+          <Route path={`${langUri}/companies`}
             render={() => (UserService.isAuthenticated() ? (
               <h1>Vous êtes sur la page des companies</h1>
-            ) : <Redirect to="/login"></Redirect>
+            ) : <Redirect to={`${langUri}/login`}></Redirect>
             )} />
-
-          <Footer />
         </Router>
       </div>
     );
