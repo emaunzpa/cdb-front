@@ -6,11 +6,13 @@ import {CompanyDetails,CompanyHeader} from './CompanyDetails'
 import {Table,TableBody,TableHead, TextField,Button}from '@material-ui/core';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
+import SearchIcon from '@material-ui/icons/Search'
 
 class CompanyList extends Component {
 
     state = {
-        companies :[]
+        companies :[],
+
     }
 
     toggleAdd = ( ) => {
@@ -26,6 +28,27 @@ class CompanyList extends Component {
         console.log(company)
         await companyService.create(company)
             .catch(err => console.log(err));
+    }
+
+    buttonSearch = () => {
+        console.log("click")
+        if(this.state.searchMode){
+            this.search(this.state.search);
+        }else{
+            this.setState({
+                searchMode:true
+            })
+        }
+    }
+
+    updateSearch = (event) => {
+        this.setState({search:event.target.value || ""})
+    }
+
+    keyHandler = (event) => {
+        if(event.key === 'Enter'){
+            this.search(this.state.search || "");
+        }
     }
 
     search = (value) => {
@@ -65,16 +88,23 @@ class CompanyList extends Component {
     render(){
         return (
         <div className="tableContainer">
-            <div display="in-line-left">
-                <Button onClick={()=> this.toggleAdd()}>
+            <div>
+                <Button variant="outlined" align-self="left" onClick={()=> this.toggleAdd()}>
                     ADD A COMPANY
                 </Button>
                 {
-                    this.state.toggleAdd ?
-                        <div>
-                            <TextField id="AddField" label="Name new company" onChange={this.updateNewName}/>
-                            <Button onClick={() => this.addCompany()}><Plus/></Button>
-                        </div>
+                    this.state.toggleAdd &&
+                    <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName}/>                        
+                }
+                {
+                    this.state.toggleAdd &&
+                     <Button  align-self="left" onClick={() => this.addCompany()}><Plus/></Button>
+                }
+                
+                <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon/></Button>
+                {
+                    this.state.searchMode ?
+                    <TextField id="searchField" align-self="right" label="Search name"  type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
                     : <div/>
                 }
             </div>
