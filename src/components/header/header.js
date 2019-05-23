@@ -7,7 +7,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Link, withRouter } from 'react-router-dom';
+import LanguageIcon from '@material-ui/icons/Language';
+import I18n from '../../config/i18n';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 
 import './header.css';
 import UserService from '../../services/UserService';
@@ -16,7 +18,8 @@ class Header extends Component {
 
     state = {
         anchorEl: null,
-        auth: UserService.isAuthenticated()
+        auth: UserService.isAuthenticated(),
+        currentLang: 'fr'
     };
 
     handleMenu = event => {
@@ -35,10 +38,15 @@ class Header extends Component {
         }
     };
 
+    changeLang = () => {
+        this.setState({...this.state, currentLang: this.state.currentLang === 'fr' ? 'en' : 'fr' });
+    }
+
     render() {
 
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
+        console.log(this.state.currentLang)
 
         return (
 
@@ -69,19 +77,22 @@ class Header extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}><Link to="/companies" className="menuLink">Companies</Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}><Link to="/computers" className="menuLink">Computers</Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + (this.state.currentLang === 'fr' ? 'en' : 'fr')} className="menuLink"><I18n t="home"/></Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + (this.state.currentLang === 'fr' ? 'en' : 'fr') + "/companies"} className="menuLink"><I18n t="companies"/></Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + (this.state.currentLang === 'fr' ? 'en' : 'fr') + "/computers" } className="menuLink"><I18n t="computers"/></Link></MenuItem>
                             </Menu>
                         </div> }
                         <Typography variant="h6" color="inherit" className="grow">
-                            Welcome to cdb-front
+                            <I18n t="welcome"/>
                         </Typography>
+                        <div id="navDiv">
+                            { this.state.currentLang === 'fr' ? <NavLink ignoreLocale to="/fr" className="lang langLink" onClick={this.changeLang}><LanguageIcon className="lang"/><p className="lang langLabel">Fr</p></NavLink> :
+                            <NavLink ignoreLocale to="/en" className="lang langLink" onClick={this.changeLang}><LanguageIcon className="lang"/><p className="lang langLabel">En</p></NavLink> }
                         { this.state.auth &&
-                        <div>
                             <IconButton color="inherit" onClick={this.handleLogout}>
-                                <AccountCircle className="account-icon"/> Log out
-                            </IconButton>
-                        </div> }
+                                <AccountCircle className="account-icon"/><I18n t="logout"/>
+                            </IconButton> }
+                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
