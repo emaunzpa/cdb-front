@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import CompanyList from './components/company/CompanyList';
 import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import Footer from './components/footer/Footer';
