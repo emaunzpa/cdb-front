@@ -10,8 +10,7 @@ class Pagination extends Component{
     }
 
     changePage = (update) => {
-        if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
-
+        if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
             this.setState({
                 page:update
             })

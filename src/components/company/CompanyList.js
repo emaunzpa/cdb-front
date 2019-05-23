@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import companyService from '../../services/CompanyService';
-import userService from '../../services/UserService';
+//import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import {CompanyDetails,CompanyHeader} from './CompanyDetails'
 import {Table,TableBody,TableHead}from '@material-ui/core';

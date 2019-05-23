@@ -30,7 +30,7 @@ class CompanyHeader extends Component{
     }
 
     keyHandler = (event) => {
-        if(event.key == 'Enter'){
+        if(event.key === 'Enter'){
             this.props.search(this.state.search);
         }
     }
