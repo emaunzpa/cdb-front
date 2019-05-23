@@ -118,7 +118,7 @@ class AddComputer extends React.Component {
     }
 
     async componentWillMount() {
-        var companyList = await companyService.list(0, 0)
+        var companyList = await companyService.getAll();
         companyList.splice(0, 0, new Company({ id: 0, name: "Choose a company" }))
         this.setState({ companies: companyList })
     }
