@@ -8,50 +8,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import userService from '../services/UserService';
-import computerService from '../services/ComputerService';
 import Grid from '@material-ui/core/Grid';
 
-
-
-const styles = theme => ({
-    container: {
-        display: "flex",
-        flexWrap: "wrap"
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
-    card: {
-        minWidth: 275,
-        marginTop: '13em',
-    },
-});
-
-class LoginForm extends React.Component {
-
-    componentDidMount(){
-        document.addEventListener("keydown", this.handleEnter, false);
-    }
-
-    handleEnter = (event) => {
-        if(event.keyCode === 13) {
-          this.validateLoginForm();
-        }
-      }
-
-    handleChange = name => event => {
-        this.setState({ [name]: event.target.value });
-    };
-
-    async validateLoginForm() {
-        let isSuccess = await userService.login({ login: this.state.loginInput, password: this.state.passwordInput })
-            .catch(err => console.log(err));
-        if (isSuccess) {
-            window.location.replace("/");
-        }
-    }
-
+class SignUpForm extends React.Component {
     render() {
         const { classes } = this.props;
 
@@ -79,10 +38,18 @@ class LoginForm extends React.Component {
                             onChange={this.handleChange("passwordInput")}
                             margin="normal"
                         />
+
+                        <TextField
+                            id="passwordConfirmInput"
+                            label="passwordConfirm"
+                            className={classes.textField}
+                            type="password"
+                            onChange={this.handleChange("passwordConfirm")}
+                            margin="normal"
+                        />
                     </CardContent>
                     <CardActions>
                         <Button size="small" onClick={(event) => this.validateLoginForm(event)}>Login</Button>
-                        <Button variant="contained" color="primary" size="small" >Sign Up</Button>
                     </CardActions>
                 </Card>
                 </Grid>
@@ -95,4 +62,4 @@ LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(SignUpForm);
