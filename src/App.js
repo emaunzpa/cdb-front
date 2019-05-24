@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
+
 const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
@@ -20,7 +21,7 @@ export default class App extends React.Component {
           <Route path={`${langUri}`} exact
             render={() => (UserService.isAuthenticated() ? (
               <h1>Vous êtes sur la page d'accueil</h1>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
             )} />
 
           <Route path={`${langUri}/computers`}
@@ -32,7 +33,7 @@ export default class App extends React.Component {
           <Route path={`${langUri}/companies`}
             render={() => (UserService.isAuthenticated() ? (
               <CompanyList></CompanyList>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
 
             )} />
         </Router>

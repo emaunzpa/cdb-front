@@ -30,6 +30,16 @@ const styles = theme => ({
 
 class LoginForm extends React.Component {
 
+    componentDidMount(){
+        document.addEventListener("keydown", this.handleEnter, false);
+    }
+
+    handleEnter = (event) => {
+        if(event.keyCode === 13) {
+          this.validateLoginForm();
+        }
+      }
+
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
@@ -38,9 +48,7 @@ class LoginForm extends React.Component {
         let isSuccess = await userService.login({ login: this.state.loginInput, password: this.state.passwordInput })
             .catch(err => console.log(err));
         if (isSuccess) {
-            let computers = await computerService.list({ page: "1", itemPerPage: "10", search: "Apple" })
-                .catch(err => console.log(err));
-            console.log(computers);
+            window.location.replace("/");
         }
     }
 

@@ -1,6 +1,34 @@
 import React,{Component} from 'react';
-import {Button} from '@material-ui/core';
+import {Button, ButtonBase} from '@material-ui/core';
 
+
+class Index extends Component{
+
+    render(){
+        return(
+            <ButtonBase>
+            {
+                this.props.page - 2 >0 &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 2)}>{this.props.page - 2}</Button>
+            }
+            {
+                this.props.page - 1 >0 &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 1)}>{this.props.page - 1}</Button>
+            }
+                <Button variant="contained" >{this.props.page}</Button>
+            {
+                this.props.page + 1 < this.props.max &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 1)} >{this.props.page + 1}</Button>
+            }
+            {
+                this.props.page + 2 < this.props.max &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 2)}>{this.props.page + 2}</Button>
+            }
+            </ButtonBase>
+        )
+    }
+
+}
 
 class Pagination extends Component{
 
@@ -54,6 +82,7 @@ class Pagination extends Component{
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
                         Previous
                     </Button>
+                    <Index changePage={this.changePage} page={this.state.page} max={Math.max(this.props.size / this.state.itemPerPage,1)}/>
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
                         Next
                     </Button>

@@ -1,6 +1,8 @@
 import React,{ Component } from "react";
 import {TableCell,TableRow,TextField ,Button }from '@material-ui/core';
 
+import DeleteIcon from '@material-ui/icons/Delete'
+
 class Company{
 
 }
@@ -10,9 +12,11 @@ class CompanyDetails extends Component{
     render() {
         return(
         <TableRow key ={this.props.company.id}>
-            <TableCell> {this.props.company.id} </TableCell>
-            <TableCell> {this.props.company.name} </TableCell> 
+            <TableCell align="left"> {this.props.company.id} </TableCell>
+            <TableCell align="left"> {this.props.company.name} </TableCell> 
+            <TableCell align="right"> <Button onClick={() => this.props.delete(this.props.company.id)}><DeleteIcon/></Button> </TableCell>
         </TableRow>
+
         )
             
 
@@ -21,6 +25,7 @@ class CompanyDetails extends Component{
 
 class CompanyHeader extends Component{
 
+<<<<<<< HEAD
     state ={
         search: ""
     }
@@ -34,16 +39,15 @@ class CompanyHeader extends Component{
             this.props.search(this.state.search);
         }
     }
+=======
+>>>>>>> develop
 
     render(){
         return(
-        <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>
-                Name
-                <TextField id="searchField" display="right" label="Search name"  type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
-                <Button id="searchButton"  onClick={() => this.props.search(this.state.search)} variant="outlined"  >Search</Button>
-            </TableCell>
+        <TableRow >
+            <TableCell align="left">ID</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="right"/>
         </TableRow>
         )
     }
