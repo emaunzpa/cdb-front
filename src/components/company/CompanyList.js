@@ -73,7 +73,8 @@ class CompanyList extends Component {
                 .catch(err => console.log(err)),
             size : await companyService.count(options.search)
                 .catch(err => console.log(err))
-        })       
+        })
+        this.forceUpdate();      
     }
 
     componentDidMount() {
@@ -88,10 +89,12 @@ class CompanyList extends Component {
     render(){
         return (
         <div className="tableContainer">
-            <div>
+            <div>{
+                userService.isAdmin() && 
                 <Button variant="outlined" align-self="left" onClick={()=> this.toggleAdd()}>
                     ADD A COMPANY
                 </Button>
+                }
                 {
                     this.state.toggleAdd &&
                     <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName}/>                        

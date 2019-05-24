@@ -1,5 +1,6 @@
 import React,{ Component } from "react";
 import {TableCell,TableRow,TextField ,Button }from '@material-ui/core';
+import userService from '../../services/UserService'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 
@@ -14,17 +15,13 @@ class CompanyDetails extends Component{
         <TableRow key ={this.props.company.id}>
             <TableCell align="left"> {this.props.company.id} </TableCell>
             <TableCell align="left"> {this.props.company.name} </TableCell> 
-            <TableCell align="right"> <Button onClick={() => this.props.delete(this.props.company.id)}><DeleteIcon/></Button> </TableCell>
+        <TableCell align="right"> { userService.isAdmin() && <Button onClick={() => this.props.delete(this.props.company.id)}><DeleteIcon/></Button> }</TableCell>
         </TableRow>
-
         )
-            
-
     }
 }
 
 class CompanyHeader extends Component{
-
 
     render(){
         return(

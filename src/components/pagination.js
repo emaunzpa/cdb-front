@@ -38,7 +38,7 @@ class Pagination extends Component{
     }
 
     changePage = (update) => {
-        if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
+        if(update >= 1 && update <= (this.props.size / this.state.itemPerPage) +1) {
             this.setState({
                 page:update
             })
@@ -82,7 +82,7 @@ class Pagination extends Component{
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
                         Previous
                     </Button>
-                    <Index changePage={this.changePage} page={this.state.page} max={Math.max(this.props.size / this.state.itemPerPage,1)}/>
+                    <Index changePage={this.changePage} page={this.state.page} max={(this.props.size / this.state.itemPerPage)+1}/>
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
                         Next
                     </Button>
