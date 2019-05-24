@@ -20,19 +20,19 @@ export default class App extends React.Component {
           <Route path={`${langUri}`} exact
             render={() => (UserService.isAuthenticated() ? (
               <h1>Vous êtes sur la page d'accueil</h1>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
             )} />
 
           <Route path={`${langUri}/computers`}
             render={() => (UserService.isAuthenticated() ? (
               <h1>Vous êtes sur la page des computers</h1>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
             )} />
 
           <Route path={`${langUri}/companies`}
             render={() => (UserService.isAuthenticated() ? (
               <CompanyList></CompanyList>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
 
             )} />
         </Router>

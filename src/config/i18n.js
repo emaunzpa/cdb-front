@@ -7,6 +7,9 @@ const locales = ['en', 'fr'];
 // Dictionary of translations
 const translations = {
   en: {
+    settings: 'Settings',
+    english: 'English',
+    french: 'French',
     home: 'Home',
     welcome: 'Welcome to cdb-front',
     logout: 'Log out',
@@ -14,6 +17,9 @@ const translations = {
     computers: 'Computers'
   },
   fr: {
+    settings: 'Paramètres',
+    english: 'Anglais',
+    french: 'Français',
     home: 'Accueil',
     welcome: 'Bienvenue sur cdb-front',
     logout: 'Déconnexion',
