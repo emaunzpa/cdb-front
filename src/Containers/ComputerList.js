@@ -53,7 +53,7 @@ class ComputerList extends Component {
         this.updateComputer(options)
   }
 
-   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   handleChange = (event) => {
     this.setState({ search: event.target.value });
   };
 
