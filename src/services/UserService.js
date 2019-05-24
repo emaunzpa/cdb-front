@@ -35,7 +35,6 @@ class UserService {
     }
 
     isAdmin(){
-        console.log(localStorage.getItem("role"))
         return localStorage.getItem("role") === "ROLE_MANAGER";
     }
 
