@@ -19,20 +19,30 @@
     text-decoration: none;
 }
 
-#navDiv {
+.dropdownItem {
     display: flex;
-}
-
-.langLabel {
-    margin-top: 0.1em;
-}
-
-.langLink { 
-    margin-right: 1em;
-    margin-top: 1em;
-    text-decoration: none;
-}
-
-.lang {
+    align-items: center;
+    align-content: space-between;
+    text-align: center;
     color: white;
+    text-decoration: none;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.dropdownItem:hover {
+    background-color: #253385;
+}
+
+#dropdownMenu {
+    padding: 0.5em;
+    display: none;
+    background-color: #3f51b5;
+    flex-direction: column;
+    position: absolute;
+    top: 4.2em;
+    right: 1em;
+    border-radius: 1em;
 }
