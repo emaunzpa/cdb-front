@@ -61,7 +61,18 @@ class Header extends Component {
         }
     }
 
+    handleUrl = (lang) => {
+        var urlTab = window.location.pathname.split("/");
+        if (urlTab[1] === 'fr' || urlTab[1] === 'en'){
+            urlTab.splice(1, 1);
+        }
+        urlTab = urlTab.join('/');
+        urlTab = "/" + lang + urlTab;
+        return urlTab;
+    }
+
     changeLang = () => {
+        console.log()
         localStorage.setItem("language", localStorage.getItem("language") === "fr" ? "en" : "fr");
         this.toggleMenu();
     }
@@ -115,8 +126,8 @@ class Header extends Component {
                             </IconButton> 
                         }
                             <div id="dropdownMenu">
-                                <NavLink ignoreLocale to="/en"className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="english"/></NavLink>
-                                <NavLink ignoreLocale to="/fr" className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="french"/></NavLink>
+                                <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon/><I18n t="english"/></NavLink>
+                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="french"/></NavLink>
                                 <a className="dropdownItem" onClick={this.handleLogout}><InputIcon/><I18n t="logout"/></a>
                             </div>
                         </div>
