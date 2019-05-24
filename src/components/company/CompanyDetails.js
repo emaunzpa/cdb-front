@@ -25,7 +25,6 @@ class CompanyDetails extends Component{
 
 class CompanyHeader extends Component{
 
-<<<<<<< HEAD
     state ={
         search: ""
     }
@@ -39,8 +38,6 @@ class CompanyHeader extends Component{
             this.props.search(this.state.search);
         }
     }
-=======
->>>>>>> develop
 
     render(){
         return(
