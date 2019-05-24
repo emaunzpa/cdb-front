@@ -11,8 +11,13 @@ class UserService {
         const response = await http.post(`/authenticate`, JSON.stringify(auth))
             .catch(err => Promise.reject(err));
         localStorage.setItem("token", response.token);
+<<<<<<< HEAD
         localStorage.setItem("role", response.role);
         localStorage.setItem("language", "fr");
+=======
+
+        localStorage.setItem("role", response.role);
+>>>>>>> feat/company
         return true;
     }
 
@@ -33,6 +38,10 @@ class UserService {
         localStorage.setItem("token", "");
         localStorage.setItem("role", "");
         return true;
+    }
+
+    isAdmin(){
+        return localStorage.getItem("role") === "ROLE_MANAGER";
     }
 
     /**

@@ -15,8 +15,13 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <Router>
+<<<<<<< HEAD
           <Header />
           <Route path={`${langUri}/login`} component={LoginForm} />
+=======
+          <Header/>
+          <Route path="/login" component={LoginForm} />
+>>>>>>> feat/company
 
           <Route path={`${langUri}`} exact
             render={() => (UserService.isAuthenticated() ? (
