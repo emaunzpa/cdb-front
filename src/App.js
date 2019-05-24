@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
 import AddComputer from './components/addComputer/AddComputer';
+import CompanyList from './components/company/CompanyList';
 
 const langUri = '/:locale(en|fr)?';
 
