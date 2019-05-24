@@ -65,8 +65,8 @@ export default class Computer {
         return { 
             id : this.id, 
             name : this.name,
-            introduced : typeof this.introduced === "object" ? this.introduced.toISOString().split("T")[0] : "",
-            discontinued : typeof this.discontinued === "object" ? this.discontinued.toISOString().split("T")[0] : "",
+            introduced : this.introduced ? this.introduced.toISOString().split("T")[0] : "",
+            discontinued : this.discontinued ? this.discontinued.toISOString().split("T")[0] : "",
             companyId : this.company.id,
             companyName : this.company.name
         };
