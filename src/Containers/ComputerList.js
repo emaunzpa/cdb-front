@@ -10,14 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-<<<<<<< HEAD
-=======
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
->>>>>>> ComputerList
+import Button from "@material-ui/core/Button";
 
 class ComputerList extends Component {
 
@@ -41,20 +35,6 @@ class ComputerList extends Component {
         this.forceUpdate();
     }
 
-<<<<<<< HEAD
-=======
-    searchByName = async () => {
-    this.setState({search:this.state.search});
-      let options = {
-            page : 1,
-            itemPerPage:10,
-            search: this.state.search
-        }
-        this.updateComputer(options)
-    }
-
-
->>>>>>> ComputerList
     componentDidMount() {
         let options = {
             page : 1,

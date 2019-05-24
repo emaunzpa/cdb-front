@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Checkbox from '@material-ui/core/Checkbox';
-<<<<<<< HEAD
+import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,15 +9,6 @@ import Button from "@material-ui/core/Button";
 import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
-=======
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Collapse from '@material-ui/core/Collapse';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-
->>>>>>> ComputerList
 
 class ComputerDetail extends Component {
   state = {
@@ -75,37 +65,27 @@ class ComputerDetail extends Component {
 
     const open = false;
 		return (
-<<<<<<< HEAD
       <TableRow key={this.state.computer.id}>
-      <TableCell>
-            <Checkbox/>
-            <Button onClick={this.toggleEditMode}><EditIcon/></Button>
-            </TableCell>
-            <TableCell>{ this.state.editMode ? <input onChange={this.updateName} onKeyPress={this.keyHandler} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
-            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
-            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
-            <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
-                                value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
-                                helperText="Please select the company"  margin="normal" variant="outlined" >
-                                {this.state.companies.map(option => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {option.name}
-                                    </MenuItem> ))
-                                }
-                            </TextField> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
-=======
-        <TableRow key={this.state.computer.id} >
-              <TableCell>{ this.state.computer.name }</TableCell>
-              <TableCell>{ this.state.computer.introduced }</TableCell>
-              <TableCell>{ this.state.computer.discontinued }</TableCell>
-              <TableCell>{this.state.computer.company.name }</TableCell>
-              <TableCell><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></TableCell>
->>>>>>> ComputerList
+        <TableCell>{ this.state.editMode ? <input onChange={this.updateName} onKeyPress={this.keyHandler} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
+        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
+        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
+        <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
+                            value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
+                            helperText="Please select the company"  margin="normal" variant="outlined" >
+                            {this.state.companies.map(option => (
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem> ))
+                            }
+                        </TextField> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
+        <TableCell>
+          <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
+          <Button onClick={this.toggleEditMode}><EditIcon/></Button>
+          </TableCell>
       </TableRow>
         
 		)
   }
 }
-
 
 export default ComputerDetail;
