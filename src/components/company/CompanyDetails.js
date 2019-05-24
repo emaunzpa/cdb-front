@@ -23,7 +23,6 @@ class CompanyDetails extends Component{
 
 class CompanyHeader extends Component{
 
-<<<<<<< HEAD
     state ={
         search: ""
     }
@@ -38,8 +37,6 @@ class CompanyHeader extends Component{
         }
     }
 
-=======
->>>>>>> feat/company
     render(){
         return(
         <TableRow >

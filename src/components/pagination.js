@@ -39,11 +39,7 @@ class Pagination extends Component{
     
 
     changePage = (update) => {
-<<<<<<< HEAD
-        if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
-=======
         if(update >= 1 && update <= (this.props.size / this.state.itemPerPage) +1) {
->>>>>>> feat/company
             this.setState({
                 page:update
             })
