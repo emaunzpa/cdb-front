@@ -45,4 +45,5 @@
     top: 4.2em;
     right: 1em;
     border-radius: 1em;
+    z-index: 100;
 }
