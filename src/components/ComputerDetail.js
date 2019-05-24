@@ -10,13 +10,17 @@ import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
 
-
-
 class ComputerDetail extends Component {
   state = {
     computer : this.props.computer,
     editMode : false
   };
+
+  keyHandler = (event) => {
+    if(event.key === 'Enter' && this.state.editMode){
+        this.toggleEditMode();
+    }
+  }
 
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
@@ -64,10 +68,10 @@ class ComputerDetail extends Component {
             <Checkbox/>
             <Button onClick={this.toggleEditMode}><EditIcon/></Button>
             </TableCell>
-            <TableCell>{ this.state.editMode ? <input onChange={this.updateName} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
-            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
-            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
-            <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField"
+            <TableCell>{ this.state.editMode ? <input onChange={this.updateName} onKeyPress={this.keyHandler} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
+            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
+            <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
+            <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
                                 value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
                                 helperText="Please select the company"  margin="normal" variant="outlined" >
                                 {this.state.companies.map(option => (
