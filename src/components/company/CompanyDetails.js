@@ -1,14 +1,17 @@
-import React,{ Component } from "react";
-import {TableCell,TableRow,TextField ,Button }from '@material-ui/core';
-import userService from '../../services/UserService'
+import React, { Component } from "react";
+import { TableCell, TableRow, TextField, Button } from '@material-ui/core';
+import userService from '../../services/UserService';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-import DeleteIcon from '@material-ui/icons/Delete'
 
-class Company{
+class Company {
 
 }
 
-class CompanyDetails extends Component{
+class CompanyDetails extends Component {
 
     render() {
         return(
@@ -21,31 +24,37 @@ class CompanyDetails extends Component{
     }
 }
 
-class CompanyHeader extends Component{
+class CompanyHeader extends Component {
 
     state = {
         search: ""
     }
-    
+
     updateSearch = (event) => {
-        this.setState({search:event.target.value})
+        this.setState({ search: event.target.value })
     }
 
     keyHandler = (event) => {
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             this.props.search(this.state.search);
         }
     }
 
-    render(){
-        return(
-        <TableRow >
-            <TableCell align="left">ID</TableCell>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="right"/>
-        </TableRow>
+    render() {
+        return (
+            <TableRow >
+                <TableCell align="left">ID
+                <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropUp /></TableSortLabel>
+                <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropDown /></TableSortLabel>
+                </TableCell>
+                <TableCell align="left">Name
+                <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropUp /></TableSortLabel>
+                <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropDown /></TableSortLabel>
+                </TableCell>
+                <TableCell align="right" />
+            </TableRow>
         )
     }
 }
 export default Company;
-export { CompanyDetails,CompanyHeader};
+export { CompanyDetails, CompanyHeader };
