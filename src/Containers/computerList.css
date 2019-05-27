@@ -43,3 +43,16 @@
     cursor: not-allowed;
   }
   
+  .snackbar-success {
+    background-color: green !important;
+  }
+
+  .snackbarMessage {
+    display: flex;
+    align-items: center;
+  }
+
+  .snackbarIcon {
+    font-size: 20;
+    margin-right: 0.5em;
+  }
