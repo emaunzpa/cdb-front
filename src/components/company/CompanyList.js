@@ -15,7 +15,7 @@ class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack:false
+        openSnack: false
     }
 
     toggleAdd = () => {
@@ -31,9 +31,8 @@ class CompanyList extends Component {
         await companyService.create(company)
             .catch(err => console.log(err));
         this.setState({
-            snackMessage:"Company Added",
-            snackColor: 'green',
-            openSnack:true
+            snackMessage: "Company Added",
+            openSnack: true
         })
     }
 
@@ -81,11 +80,8 @@ class CompanyList extends Component {
         };
         this.updateList(options);
         this.setState({
-            snackMessage:"Company deleted",
-            snackColor: 'green',
-            openSnack:true,
-            deleteId:'',
-            deleteName:'',
+            snackMessage: "Company deleted",
+            openSnack: true
         })
         this.closeDeleteDialog()
     }
@@ -99,6 +95,7 @@ class CompanyList extends Component {
             size: await companyService.count(options.search)
                 .catch(err => console.log(err))
         })
+        console.log(this.state.companies)
         this.forceUpdate();
     }
 
@@ -113,14 +110,18 @@ class CompanyList extends Component {
 
     closeSnack = () => {
         this.setState({
-            openSnack:false
+            openSnack: false
         })
     }
 
-    closeDeleteDialog = () => {
-        this.setState({
-            openDeleteDialog:false
-        })
+    orderBy = async (column) => {
+        this.setState({ orderBy: column });
+        let options = {
+            page: 1,
+            itemPerPage: 10,
+            orderBy: column
+        }
+        this.updateList(options)
     }
 
     render() {
@@ -183,7 +184,7 @@ class CompanyList extends Component {
                 </div>
                 <Table className="companyTable">
                     <TableHead className="tableHeader">
-                        <CompanyHeader search={(value) => this.search(value)} />
+                        <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)}/>
                     </TableHead>
                     <TableBody className="tableBody">
                         {
