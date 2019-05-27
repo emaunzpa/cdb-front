@@ -326,7 +326,7 @@ class ComputerList extends Component {
           </TableBody>
         </Table>
 
-        <Pagination options={{ page: this.props.page, itemPerPage: this.props.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}></Pagination>
+        <Pagination options={{ page: this.props.page, itemPerPage: this.props.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}></Pagination>    
       </div>
     )
 
