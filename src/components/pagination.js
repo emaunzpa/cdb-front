@@ -90,15 +90,24 @@ class Pagination extends Component{
 
     render(){
         return (
+            
             <div className="pagination" display ="inline">
                 <div className = "pageNavigate" display ="inline-block">
-                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
-                        Previous
-                    </Button>
+                    {
+                        this.state.page > 1 &&
+                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
+                            Previous
+                        </Button>
+                    }
                     <Index changePage={this.changePage} page={this.state.page} max={this.numberPages()}/>
-                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
-                        Next
-                    </Button>
+                    
+                    {
+                        
+                        this.state.page < Math.trunc(this.numberPages()) &&
+                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
+                            Next
+                        </Button>
+                    }
                 </div>
                 <div className = "sizeNavigate" display="inline-block">
                     <Button className = "pageButton" onClick={() => this.changeSize(10)}  variant="outlined">
