@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
           <Route path={`${langUri}`} exact
             render={() => (UserService.isAuthenticated() ? (
-              <h1>Vous êtes sur la page d'accueil</h1>
+              <ComputerList></ComputerList>
             ) : <Redirect to={`/login`}></Redirect>
             )} />
 
