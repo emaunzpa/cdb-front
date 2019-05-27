@@ -96,6 +96,7 @@ class SignUpForm extends React.Component {
               ]}
             />
           </Snackbar>
+          
             <Dialog open={this.props.open} onClose={this.props.handleSignUp} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title"><I18n t="signup" /></DialogTitle>
               <DialogContent>

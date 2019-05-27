@@ -45,13 +45,17 @@ class ComputerDetail extends Component {
   };
 
   updateCompany = (event) => {
-    this.state.computer.company = this.state.companies.find(obj => obj.id === event.target.value);
+    let newId = event.target.value;
+    this.state.computer.company = newId === 0 ? new Company({id:"", name:""}) :this.state.companies.find(obj => obj.id === newId);
+    
+    console.log(this.state.computer.company.id)
     this.setState({computer: this.state.computer})
   };
 
   update = async () => {
     let isSuccess = await ComputerService.edit(this.state.computer)
     .catch(err => console.log(err));
+    console.log(this.state.computer);
     console.log(isSuccess ? "Success" : "Fail");
   }
 
@@ -70,7 +74,7 @@ class ComputerDetail extends Component {
         <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
         <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
         <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
-                            value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
+                            value={this.state.computer.company && this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
                             helperText="Please select the company"  margin="normal" variant="outlined" >
                             {this.state.companies.map(option => (
                                 <MenuItem key={option.id} value={option.id}>
