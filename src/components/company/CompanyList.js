@@ -30,6 +30,7 @@ class CompanyList extends Component {
         await companyService.create(company)
             .catch(err => console.log(err));
         this.setState({
+            newName:'',
             snackMessage:"Company Added",
             snackColor: 'green',
             openSnack:true
@@ -129,6 +130,7 @@ class CompanyList extends Component {
 
     closeAddDialog = () => {
         this.setState({
+            newName:'',
             openAddDialog:false
         })
     }
@@ -165,9 +167,16 @@ class CompanyList extends Component {
                                 <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick ={() => this.addCompany(this.state.newName)}>
-                                <Plus/>
-                            </Button>
+                            {
+                                this.state.newName ?
+                                <Button onClick ={() => this.addCompany(this.state.newName)}>
+                                    <Plus/>
+                                </Button>
+                                :
+                                <Button disabled={true}>
+                                    <Plus/>
+                                </Button>
+                            }
                         </DialogActions>
                     </Dialog>
                 }
