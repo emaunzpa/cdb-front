@@ -3,12 +3,15 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
-import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent,DialogActions} from '@material-ui/core';
+import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, SnackbarContent } from '@material-ui/core';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import SearchIcon from '@material-ui/icons/Search'
 import Snackbar from '@material-ui/core/Snackbar';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 
 
 
@@ -16,10 +19,10 @@ class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack:false
+        openSnack: false
     }
 
-  
+
 
     updateNewName = (event) => {
         this.setState({ newName: event.target.value });
@@ -30,10 +33,10 @@ class CompanyList extends Component {
         await companyService.create(company)
             .catch(err => console.log(err));
         this.setState({
-            newName:'',
-            snackMessage:"Company Added",
+            newName: '',
+            snackMessage: "Company Added",
             snackColor: 'green',
-            openSnack:true
+            openSnack: true
         })
         this.closeAddDialog();
     }
@@ -59,15 +62,15 @@ class CompanyList extends Component {
     }
 
     search = (value) => {
-        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: value };
+        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: value };
         this.updateList(options);
     }
 
-    deleteDialog = (id,name) => {
+    deleteDialog = (id, name) => {
         this.setState({
-            openDeleteDialog:true,
-            deleteName:name,
-            deleteId:id
+            openDeleteDialog: true,
+            deleteName: name,
+            deleteId: id
         })
     }
 
@@ -82,11 +85,11 @@ class CompanyList extends Component {
         };
         this.updateList(options);
         this.setState({
-            snackMessage:"Company deleted",
+            snackMessage: "Company deleted",
             snackColor: 'green',
-            openSnack:true,
-            deleteId:'',
-            deleteName:'',
+            openSnack: true,
+            deleteId: '',
+            deleteName: '',
         })
         this.closeDeleteDialog()
     }
@@ -114,13 +117,13 @@ class CompanyList extends Component {
 
     closeSnack = () => {
         this.setState({
-            openSnack:false
+            openSnack: false
         })
     }
 
     closeDeleteDialog = () => {
         this.setState({
-            openDeleteDialog:false
+            openDeleteDialog: false
         })
     }
 
@@ -130,8 +133,8 @@ class CompanyList extends Component {
 
     closeAddDialog = () => {
         this.setState({
-            newName:'',
-            openAddDialog:false
+            newName: '',
+            openAddDialog: false
         })
     }
 
@@ -155,8 +158,8 @@ class CompanyList extends Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                {  
-                     userService.isAdmin() &&
+                {
+                    userService.isAdmin() &&
                     <Dialog
                         open={this.state.openAddDialog}
                         onClose={this.closeAddDialog}
@@ -164,37 +167,50 @@ class CompanyList extends Component {
                         <DialogTitle> Add Company</DialogTitle>
                         <DialogContent>
                             <DialogContentText>Enter the new company's name</DialogContentText>
-                                <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
                                 this.state.newName ?
-                                <Button onClick ={() => this.addCompany(this.state.newName)}>
-                                    <Plus/>
-                                </Button>
-                                :
-                                <Button disabled={true}>
-                                    <Plus/>
-                                </Button>
+                                    <Button onClick={() => this.addCompany(this.state.newName)}>
+                                        <Plus />
+                                    </Button>
+                                    :
+                                    <Button disabled={true}>
+                                        <Plus />
+                                    </Button>
                             }
                         </DialogActions>
                     </Dialog>
                 }
                 <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
+                    bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}
-                    autoHideDuration={2000}
                     onClose={this.closeSnack}
-                    message={<span id="message-id">{this.state.snackMessage}</span>}
-                    action={[
-                        <Button onClick={() => this.closeSnack()}>
-                            Ok
-                        </Button>
-                    ]}
-                />
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    autoHideDuration={2000}
+                    message={<span id="message-id">I love snacks</span>}
+                >
+                    <SnackbarContent
+                        className="snackbar-success"
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar" className="snackbarMessage">
+                                <CheckCircleIcon className="snackbarIcon" />
+                                {this.state.snackMessage}
+                            </span>
+                        }
+                        action={[
+                            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
+                                <CloseIcon />
+                            </IconButton>,
+                        ]}
+                    />
+                </Snackbar>
                 <div>{
                     userService.isAdmin() &&
                     <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
@@ -216,7 +232,7 @@ class CompanyList extends Component {
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>
-                                    <CompanyDetails company={company} delete={(id,name) => this.deleteDialog(id,name)} />
+                                    <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
                                 : <div> ERROR NO COMPANIES FOUND</div>
                         }
