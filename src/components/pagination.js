@@ -36,9 +36,10 @@ class Pagination extends Component{
         page : this.props.options.page || 1,
         itemPerPage:this.props.options.itemPerPage || 10
     }
+    
 
     changePage = (update) => {
-        if(update >= 1 && update <= Math.max(this.props.size / this.state.itemPerPage,1)) {
+        if(update >= 1 && update <= (this.props.size / this.state.itemPerPage) +1) {
             this.setState({
                 page:update
             })
@@ -60,7 +61,6 @@ class Pagination extends Component{
                 newOptions[element] = this.props.otherOptions[element];
             });
         }
-        console.log(newOptions)
         return newOptions;
     }
 
@@ -75,6 +75,19 @@ class Pagination extends Component{
         return newOptions;
     }
 
+    numberPages(){
+
+        return this.props.size %this.state.itemPerPage === 0 ? 
+            (this.props.size / this.state.itemPerPage) 
+           :(this.props.size / this.state.itemPerPage) +1
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.options.page != prevState.page){
+            return{page:nextProps.options.page }
+        }
+    }
+
     render(){
         return (
             <div className="pagination" display ="inline">
@@ -82,7 +95,7 @@ class Pagination extends Component{
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
                         Previous
                     </Button>
-                    <Index changePage={this.changePage} page={this.state.page} max={Math.max(this.props.size / this.state.itemPerPage,1)}/>
+                    <Index changePage={this.changePage} page={this.state.page} max={this.numberPages()}/>
                     <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
                         Next
                     </Button>

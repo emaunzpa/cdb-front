@@ -111,9 +111,10 @@ class AddComputer extends React.Component {
                 companyId: this.state.company.id,
                 companyName: this.state.company.name
             })
-            computerService.create(computer)
-                .then(this.props.history.push("/"))
-                .catch(err => console.log(err))
+            console.log(computer);
+            // computerService.create(computer)
+            //     .then(this.props.history.push("/"))
+            //     .catch(err => console.log(err))
         }
     }
 
@@ -126,94 +127,73 @@ class AddComputer extends React.Component {
     render() {
 
         return (
-            <div>
-                <Grid container justify="center">
-                    <Card className="card" id="card">
-                        <CardContent id="cardContent">
-                            <Typography className="title" color="textSecondary" gutterBottom>
-                                Add a new computer
-                        </Typography>
-                            <TextField
-                                id="computerName"
-                                label="Computer name"
-                                className="textField"
-                                onChange={this.handleChangeComputerName}
-                                margin="normal"
-                            />
-                            {
-                                this.state.validField.computerName ?
-                                    <span id="computerNameValidator" className="spanValidator valid">OK !</span> :
-                                    <span id="computerNameValidator" className="spanValidator invalid">This field is required</span>
-                            }
-                            <TextField
-                                id="introducedDate"
-                                label="Introduced date"
-                                type="date"
-                                onChange={this.handleChangeIntroduced}
-                                className="textField"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                            {
-                                this.state.validField.introduced ?
-                                    <span id="introducedDateValidator" className="spanValidator valid">OK !</span> :
-                                    <span id="introducedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
-                            }
+            <div className="container">
 
-                            <TextField
-                                id="discontinuedDate"
-                                label="Discontinued date"
-                                type="date"
-                                onChange={this.handleChangeDiscontinued}
-                                className="textField"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                            {
-                                this.state.validField.discontinued ?
-                                    <span id="discontinuedDateValidator" className="spanValidator valid">OK !</span> :
-                                    <span id="discontinuedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
-                            }
+                    <TextField
+                        id="computerName"
+                        label="Computer name"
+                        className="textField"
+                        onChange={this.handleChangeComputerName}
+                        margin="normal"
+                    />
+                    {
+                        this.state.validField.computerName ?
+                            <span id="computerNameValidator" className="spanValidator valid">OK !</span> :
+                            <span id="computerNameValidator" className="spanValidator invalid">This field is required</span>
+                    }
+                    <TextField
+                        id="introducedDate"
+                        label="Introduced date"
+                        type="date"
+                        onChange={this.handleChangeIntroduced}
+                        className="textField"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    {
+                        this.state.validField.introduced ?
+                            <span id="introducedDateValidator" className="spanValidator valid">OK !</span> :
+                            <span id="introducedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
+                    }
 
-                            <TextField
-                                id="companyId"
-                                select
-                                label="Company"
-                                className="textField"
-                                value={this.state.defaultCompanyID}
-                                onChange={this.handleChangeCompany}
-                                helperText="Please select the company"
-                                margin="normal"
-                                variant="outlined"
-                            >
-                                {this.state.companies.map(option => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            {
-                                this.state.validField.companyId ?
-                                    <span id="companyValidator" className="spanValidator valid">OK !</span> :
-                                    <span id="companyValidator" className="spanValidator invalid">This field is required</span>
-                            }
+                    <TextField
+                        id="discontinuedDate"
+                        label="Discontinued date"
+                        type="date"
+                        onChange={this.handleChangeDiscontinued}
+                        className="textField"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    {
+                        this.state.validField.discontinued ?
+                            <span id="discontinuedDateValidator" className="spanValidator valid">OK !</span> :
+                            <span id="discontinuedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
+                    }
 
-                        </CardContent>
-                        {
-                            (this.state.validField.computerName && this.state.validField.introduced
-                                && this.state.validField.discontinued && this.state.validField.companyId) ?
-                                <span id="validAddMessage" className="spanValidator valid">All field are valid</span> :
-                                <span id="errorAddMessage" className="spanValidator invalid">All field must be valid to add the new computer</span>
-                        }
-                        <CardActions>
-                            <button id="submitBtn" className="button" onClick={this.addNewComputer}>
-                                Create computer
+                    <TextField
+                        id="companyId"
+                        select
+                        label="Company"
+                        className="textField"
+                        value={this.state.defaultCompanyID}
+                        onChange={this.handleChangeCompany}
+                        helperText="Please select the company"
+                        margin="normal"
+                        variant="outlined"
+                    >
+                        {this.state.companies.map(option => (
+                            <MenuItem key={option.id} value={option.id}>
+                                {option.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    <button id="submitBtn" className="button" onClick={this.addNewComputer}>
+                        Create computer
                             </button>
-                        </CardActions>
-                    </Card>
-                </Grid>
             </div>
         );
     }

@@ -61,6 +61,16 @@ class Header extends Component {
         }
     }
 
+    handleUrl = (lang) => {
+        var urlTab = window.location.pathname.split("/");
+        if (urlTab[1] === 'fr' || urlTab[1] === 'en'){
+            urlTab.splice(1, 1);
+        }
+        urlTab = urlTab.join('/');
+        urlTab = "/" + lang + urlTab;
+        return urlTab;
+    }
+
     changeLang = () => {
         localStorage.setItem("language", localStorage.getItem("language") === "fr" ? "en" : "fr");
         this.toggleMenu();
@@ -100,9 +110,9 @@ class Header extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") } className="menuLink"><I18n t="home"/></Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><I18n t="companies"/></Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><I18n t="computers"/></Link></MenuItem>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="home"/></MenuItem></Link>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies"/></MenuItem></Link>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers"/></MenuItem></Link>
                             </Menu>
                         </div> }
                         <Typography variant="h6" color="inherit" className="grow">
@@ -115,8 +125,8 @@ class Header extends Component {
                             </IconButton> 
                         }
                             <div id="dropdownMenu">
-                                <NavLink ignoreLocale to="/en"className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="english"/></NavLink>
-                                <NavLink ignoreLocale to="/fr" className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="french"/></NavLink>
+                                <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon/><I18n t="english"/></NavLink>
+                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="french"/></NavLink>
                                 <a className="dropdownItem" onClick={this.handleLogout}><InputIcon/><I18n t="logout"/></a>
                             </div>
                         </div>

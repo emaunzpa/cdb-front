@@ -35,6 +35,10 @@ class UserService {
         return true;
     }
 
+    isAdmin(){
+        return localStorage.getItem("role") === "ROLE_MANAGER";
+    }
+
     /**
      * Return true if the user has a token. 
      */
