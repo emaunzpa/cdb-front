@@ -339,6 +339,4 @@ class ComputerList extends Component {
 
   }
 }
-
-
 export default ComputerList;
