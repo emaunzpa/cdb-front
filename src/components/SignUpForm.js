@@ -17,19 +17,47 @@ class SignUpForm extends React.Component {
         signUpErr : "" });
     };
 
-    validateSignUp = async () => {
-      let isSuccess = await userService.create({ login: this.state.loginInput ? this.state.loginInput : "", 
-        password: this.state.passwordInput ? this.state.passwordInput : "", 
-        confirmation: this.state.confirmationInput ? this.state.confirmationInput : ""})
+    validateSignUp = () => {
+      if(!this.state.loginInput || !this.state.passwordInput || !this.state.confirmationInput){
+        this.setState({ signUpErr : "Please complete all fields." });
+        return false;
+      }
+
+      if(this.state.passwordInput.length < 6){
+        this.setState({ signUpErr : "Password must be at least 6 characters." });
+        return false;
+      }
+
+      if(this.state.confirmationInput !== this.state.passwordInput){
+        this.setState({ signUpErr : "Password don't match" });
+        return false;
+      }
+
+      return true;
+    }
+
+    signUp = async () => {
+      if(!this.validateSignUp()) return;
+
+      let isSuccess = await userService.create({ login: this.state.loginInput, 
+        password: this.state.passwordInput, confirmation: this.state.confirmationInput})
       .catch(err => console.log(err));
+      
       if (isSuccess) {
-        this.setState({ signUpErr : isSuccess.message });
+        if(!isSuccess._success){
+          this.setState({ signUpErr : isSuccess.message });
+          console.log("fail");
+        }
+        else {
+          this.props.handleSignUp();
+          console.log("success");
+        }
       }
     }
 
     render() {
         return (
-          <div>
+          <div> 
             <Dialog open={this.props.open} onClose={this.props.handleSignUp} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
               <DialogContent>
@@ -67,7 +95,7 @@ class SignUpForm extends React.Component {
                 <Button onClick={this.props.handleSignUp} color="primary">
                   Cancel
                 </Button>
-                <Button onClick={this.validateSignUp} color="primary">
+                <Button onClick={this.signUp} color="primary">
                   Sign up
                 </Button>
               </DialogActions>
