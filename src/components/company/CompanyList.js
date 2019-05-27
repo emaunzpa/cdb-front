@@ -114,6 +114,11 @@ class CompanyList extends Component {
         })
     }
 
+    closeDeleteDialog = () => {
+        this.setState({
+            openDeleteDialog: false
+        })
+    }
     orderBy = async (column) => {
         this.setState({ orderBy: column });
         let options = {
@@ -152,7 +157,7 @@ class CompanyList extends Component {
                     open={this.state.openSnack}
                     autoHideDuration={2000}
                     onClose={this.closeSnack}
-                    color = {this.state.snackColor}
+                    color={this.state.snackColor}
                     message={<span id="message-id">{this.state.snackMessage}</span>}
                     action={[
                         <Button onClick={() => this.closeSnack()}>
@@ -184,13 +189,13 @@ class CompanyList extends Component {
                 </div>
                 <Table className="companyTable">
                     <TableHead className="tableHeader">
-                        <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)}/>
+                        <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)} />
                     </TableHead>
                     <TableBody className="tableBody">
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>
-                                    <CompanyDetails company={company} delete={(id,name) => this.deleteDialog(id,name)} />
+                                    <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
                                 : <div> ERROR NO COMPANIES FOUND</div>
                         }
