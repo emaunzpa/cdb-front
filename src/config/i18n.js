@@ -25,7 +25,8 @@ const translations = {
     discontinuedDate: 'Discontinued date',
     company: 'Company',
     add: 'Add',
-    chooseCompany: 'Choose a company'
+    chooseCompany: 'Choose a company',
+    snackbarSuccessMessage: 'New computer added'
   },
   fr: {
     // Header
@@ -46,7 +47,8 @@ const translations = {
     discontinuedDate: "Date d'abandon",
     company: 'Entreprise',
     add: 'Ajouter',
-    chooseCompany: 'Choisissez une entreprise'
+    chooseCompany: 'Choisissez une entreprise',
+    snackbarSuccessMessage: 'Nouvel ordinateur ajouté'
   }
 }
  
