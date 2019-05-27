@@ -7,12 +7,12 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-ARG env
-ENV NODE_ENV=$env
 # install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install --silent
 RUN npm install react-scripts -g --silent
+RUN npm install --save serve
 
+CMD ["npm", "run", "build"]
 # start app
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]
