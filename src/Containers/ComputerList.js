@@ -45,7 +45,8 @@ class ComputerList extends Component {
     computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }),
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
-    snackbar: false
+    snackbar: false,
+    snackbardelete: false
   };
 
   checkValidField = () => {
@@ -207,8 +208,14 @@ class ComputerList extends Component {
 
   deleteById = async (idToDelete) => {
     let isSuccess = await computerService.delete(idToDelete)
+    .then(this.handleSnackDelete({ vertical: 'bottom', horizontal: 'right' }))
       .catch(err => console.log(err));
-    this.updateComputer(this.state.options);
+      let options = {
+      page: 1,
+      itemPerPage: 10,
+      search: this.state.search || ""
+    }
+    this.updateComputer(options);
   }
 
   handleOpen = () => {
@@ -221,6 +228,10 @@ class ComputerList extends Component {
 
   handleSnack = () => {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
+  };
+
+  handleSnackDelete = () => {
+    this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
   };
 
   render() {
@@ -323,6 +334,34 @@ class ComputerList extends Component {
                 <span id="client-snackbar" className="snackbarMessage">
                   <CheckCircleIcon className="snackbarIcon"/>
                   <I18n t="snackbarSuccessMessage" />
+                </span>
+              }
+              action={[
+                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
+                  <CloseIcon/>
+                </IconButton>,
+              ]}
+            />
+          </Snackbar>
+            <Snackbar
+            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            key={`${'bottom'},${'right'}`}
+            open={this.state.snackbardelete}
+            onClose={this.handleSnackDelete}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            autoHideDuration={2000}
+            message={<span id="message-id">I love snacks</span>}
+          >
+            <SnackbarContent
+              className="snackbar-success-delete"
+              aria-describedby="client-snackbar"
+              message={
+                <span id="client-snackbar" className="snackbarMessage">
+                  <CheckCircleIcon className="snackbarIcon"/>
+                  <I18n t="snackbarSuccessMessageDelete" />
                 </span>
               }
               action={[
