@@ -4,6 +4,7 @@ import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
 import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent,DialogActions} from '@material-ui/core';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import SearchIcon from '@material-ui/icons/Search'
@@ -18,9 +19,7 @@ class CompanyList extends Component {
         openSnack:false
     }
 
-    toggleAdd = () => {
-        this.setState({ toggleAdd: !this.state.toggleAdd });
-    }
+  
 
     updateNewName = (event) => {
         this.setState({ newName: event.target.value });
@@ -35,6 +34,7 @@ class CompanyList extends Component {
             snackColor: 'green',
             openSnack:true
         })
+        this.closeAddDialog();
     }
 
     buttonSearch = () => {
@@ -58,7 +58,7 @@ class CompanyList extends Component {
     }
 
     search = (value) => {
-        let options = { page: 1, itemPerPage: 10, search: value };
+        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: value };
         this.updateList(options);
     }
 
@@ -107,7 +107,7 @@ class CompanyList extends Component {
             page: this.props.page || 1,
             itemPerPage: this.props.itemPerPage || 10,
             search: this.props.search || ""
-        }
+        };
         this.updateList(options);
     }
 
@@ -120,6 +120,16 @@ class CompanyList extends Component {
     closeDeleteDialog = () => {
         this.setState({
             openDeleteDialog:false
+        })
+    }
+
+    addDialog = () => {
+        this.setState({ openAddDialog: true });
+    }
+
+    closeAddDialog = () => {
+        this.setState({
+            openAddDialog:false
         })
     }
 
@@ -143,6 +153,24 @@ class CompanyList extends Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                {  
+                     userService.isAdmin() &&
+                    <Dialog
+                        open={this.state.openAddDialog}
+                        onClose={this.closeAddDialog}
+                    >
+                        <DialogTitle> Add Company</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Enter the new company's name</DialogContentText>
+                                <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick ={() => this.addCompany(this.state.newName)}>
+                                <Plus/>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                }
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -151,7 +179,6 @@ class CompanyList extends Component {
                     open={this.state.openSnack}
                     autoHideDuration={2000}
                     onClose={this.closeSnack}
-                    color = {this.state.snackColor}
                     message={<span id="message-id">{this.state.snackMessage}</span>}
                     action={[
                         <Button onClick={() => this.closeSnack()}>
@@ -161,19 +188,10 @@ class CompanyList extends Component {
                 />
                 <div>{
                     userService.isAdmin() &&
-                    <Button variant="outlined" align-self="left" onClick={() => this.toggleAdd()}>
+                    <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
                         ADD A COMPANY
-                </Button>
+                    </Button>
                 }
-                    {
-                        this.state.toggleAdd && userService.isAdmin() &&
-                        <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
-                    }
-                    {
-                        this.state.toggleAdd && userService.isAdmin() &&
-                        <Button align-self="left" onClick={() => this.addCompany()}><Plus /></Button>
-                    }
-
                     <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
                     {
                         this.state.searchMode ?
