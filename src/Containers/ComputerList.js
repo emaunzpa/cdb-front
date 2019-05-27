@@ -194,6 +194,12 @@ class ComputerList extends Component {
     this.updateComputer(options)
   }
 
+    keyHandler = (event) => {
+        if(event.key === 'Enter'){
+            this.searchByName(this.state.search || "");
+        }
+    }
+
   deleteById = async (idToDelete) => {
     console.log(idToDelete)
     let isSuccess = await computerService.delete(idToDelete)
@@ -299,6 +305,7 @@ class ComputerList extends Component {
             label="Search"
             type="search"
             margin="normal"
+            onKeyPress={this.keyHandler}
             onChange={this.handleChange}
           />
           <Button onClick={() => this.searchByName(this.state.search)}>Search</Button>
