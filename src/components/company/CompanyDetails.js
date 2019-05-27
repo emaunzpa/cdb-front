@@ -23,7 +23,7 @@ class CompanyDetails extends Component{
 
 class CompanyHeader extends Component{
 
-    state ={
+    state = {
         search: ""
     }
     
