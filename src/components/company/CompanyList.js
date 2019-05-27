@@ -122,99 +122,98 @@ class CompanyList extends Component {
         this.setState({
             openDeleteDialog: false
         })
-
-        orderBy = async (column) => {
-            this.setState({ orderBy: column });
-            let options = {
-                page: 1,
-                itemPerPage: 10,
-                orderBy: column
-            }
-            this.updateList(options)
-        }
-
-        render() {
-            return (
-                <div className="tableContainer">
-                    <Dialog
-                        open={this.state.openDeleteDialog}
-                        onClose={this.closeDeleteDialog}
-                    >
-                        <DialogTitle>Delete : {this.state.deleteName} ?</DialogTitle>
-                        <DialogContent>
-                            Are you sure to delete this company ?
-                    </DialogContent>
-                        <DialogActions>
-                            <Button onClick={() => this.delete()}>
-                                Yes
-                        </Button>
-                            <Button onClick={() => this.closeDeleteDialog()}>
-                                No
-                        </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        open={this.state.openSnack}
-                        autoHideDuration={2000}
-                        onClose={this.closeSnack}
-                        color={this.state.snackColor}
-                        message={<span id="message-id">{this.state.snackMessage}</span>}
-                        action={[
-                            <Button onClick={() => this.closeSnack()}>
-                                Ok
-                        </Button>
-                        ]}
-                    />
-                    <div>{
-                        userService.isAdmin() &&
-                        <Button variant="outlined" align-self="left" onClick={() => this.toggleAdd()}>
-                            ADD A COMPANY
-                </Button>
-                    }
-                        {
-                            this.state.toggleAdd && userService.isAdmin() &&
-                            <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
-                        }
-                        {
-                            this.state.toggleAdd && userService.isAdmin() &&
-                            <Button align-self="left" onClick={() => this.addCompany()}><Plus /></Button>
-                        }
-
-                        <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
-                        {
-                            this.state.searchMode ?
-                                <TextField id="searchField" align-self="right" label="Search name" type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
-                                : <div />
-                        }
-                    </div>
-                    <Table className="companyTable">
-                        <TableHead className="tableHeader">
-                            <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)} />
-                        </TableHead>
-                        <TableBody className="tableBody">
-                            {
-                                this.state.companies ?
-                                    this.state.companies.map(company =>
-                                        <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
-                                    )
-                                    : <div> ERROR NO COMPANIES FOUND</div>
-                            }
-                        </TableBody>
-                    </Table>
-                    <Pagination otherOptions={{ search: this.state.search }}
-                        options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
-                        size={this.state.size}
-                        update={(options) => this.updateList(options)}
-                    />
-                </div>
-            )
-        }
-
     }
+    orderBy = async (column) => {
+        this.setState({ orderBy: column });
+        let options = {
+            page: 1,
+            itemPerPage: 10,
+            orderBy: column
+        }
+        this.updateList(options)
+    }
+
+    render() {
+        return (
+            <div className="tableContainer">
+                <Dialog
+                    open={this.state.openDeleteDialog}
+                    onClose={this.closeDeleteDialog}
+                >
+                    <DialogTitle>Delete : {this.state.deleteName} ?</DialogTitle>
+                    <DialogContent>
+                        Are you sure to delete this company ?
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.delete()}>
+                            Yes
+                        </Button>
+                        <Button onClick={() => this.closeDeleteDialog()}>
+                            No
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.openSnack}
+                    autoHideDuration={2000}
+                    onClose={this.closeSnack}
+                    color={this.state.snackColor}
+                    message={<span id="message-id">{this.state.snackMessage}</span>}
+                    action={[
+                        <Button onClick={() => this.closeSnack()}>
+                            Ok
+                        </Button>
+                    ]}
+                />
+                <div>{
+                    userService.isAdmin() &&
+                    <Button variant="outlined" align-self="left" onClick={() => this.toggleAdd()}>
+                        ADD A COMPANY
+                </Button>
+                }
+                    {
+                        this.state.toggleAdd && userService.isAdmin() &&
+                        <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
+                    }
+                    {
+                        this.state.toggleAdd && userService.isAdmin() &&
+                        <Button align-self="left" onClick={() => this.addCompany()}><Plus /></Button>
+                    }
+
+                    <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
+                    {
+                        this.state.searchMode ?
+                            <TextField id="searchField" align-self="right" label="Search name" type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
+                            : <div />
+                    }
+                </div>
+                <Table className="companyTable">
+                    <TableHead className="tableHeader">
+                        <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)} />
+                    </TableHead>
+                    <TableBody className="tableBody">
+                        {
+                            this.state.companies ?
+                                this.state.companies.map(company =>
+                                    <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
+                                )
+                                : <div> ERROR NO COMPANIES FOUND</div>
+                        }
+                    </TableBody>
+                </Table>
+                <Pagination otherOptions={{ search: this.state.search }}
+                    options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
+                    size={this.state.size}
+                    update={(options) => this.updateList(options)}
+                />
+            </div>
+        )
+    }
+
 }
 
 export default new CompanyList();
