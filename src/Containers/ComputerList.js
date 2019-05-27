@@ -144,9 +144,6 @@ class ComputerList extends Component {
   }
 
   updateComputer = async (options) => {
-    let isSuccess = await userService.login({ login: "lolo", password: "coucou" })
-      .catch(err => console.log(err));
-    if (isSuccess) {
       this.setState({
         computers: await computerService.list(options)
           .catch(err => console.log(err)),
@@ -154,7 +151,6 @@ class ComputerList extends Component {
           .catch(err => console.log(err))
 
       })
-    }
     this.forceUpdate();
   }
 
