@@ -259,4 +259,4 @@ class CompanyList extends Component {
 
 }
 
-export default new CompanyList();
+export default CompanyList;
