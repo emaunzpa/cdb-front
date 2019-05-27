@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import companyService from '../../services/CompanyService';
-//import userService from '../../services/UserService';
+import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import {CompanyDetails,CompanyHeader} from './CompanyDetails'
 import {Table,TableBody,TableHead, TextField,Button}from '@material-ui/core';
@@ -25,13 +25,11 @@ class CompanyList extends Component {
 
     addCompany = async() => {
         let company = new Company({id:undefined,name: this.state.newName});
-        console.log(company)
         await companyService.create(company)
             .catch(err => console.log(err));
     }
 
     buttonSearch = () => {
-        console.log("click")
         if(this.state.searchMode){
             this.search(this.state.search);
         }else{
@@ -69,12 +67,17 @@ class CompanyList extends Component {
 
     updateList = async (options) => {
         this.setState({
+            page: options.page,
+            itemPerPage:options.itemPerPage,
             companies : await companyService.list(options)
                 .catch(err => console.log(err)),
             size : await companyService.count(options.search)
                 .catch(err => console.log(err))
-        })       
+        })
+        this.forceUpdate();
     }
+
+    
 
     componentDidMount() {
         let options = {
@@ -88,16 +91,18 @@ class CompanyList extends Component {
     render(){
         return (
         <div className="tableContainer">
-            <div>
+            <div>{
+                userService.isAdmin() && 
                 <Button variant="outlined" align-self="left" onClick={()=> this.toggleAdd()}>
                     ADD A COMPANY
                 </Button>
+                }
                 {
-                    this.state.toggleAdd &&
+                    this.state.toggleAdd && userService.isAdmin() &&
                     <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName}/>                        
                 }
                 {
-                    this.state.toggleAdd &&
+                    this.state.toggleAdd && userService.isAdmin() &&
                      <Button  align-self="left" onClick={() => this.addCompany()}><Plus/></Button>
                 }
                 
@@ -123,7 +128,7 @@ class CompanyList extends Component {
                 </TableBody>
             </Table>
             <Pagination otherOptions={{search:this.state.search}} 
-                        options={{page:this.props.page,itemPerPage:this.props.itemPerPage}}
+                        options={{page:this.state.page,itemPerPage:this.state.itemPerPage}}
                         size={this.state.size}
                         update={(options)=> this.updateList(options)}
                         />

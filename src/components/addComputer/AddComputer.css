@@ -1,24 +1,13 @@
 .container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: center;
 }
 
 .textField {
-  width: 300;
+  width: 100%;
   margin-bottom: 1em;
-}
-
-.card {
-  margin-top: 5em;
-}
-
-#card {
-  width: 35%;
-}
-
-#cardContent {
-  display: flex;
-  flex-direction: column;
 }
 
 .spanValidator {
