@@ -15,7 +15,7 @@ class CompanyDetails extends Component{
         <TableRow key ={this.props.company.id}>
             <TableCell align="left"> {this.props.company.id} </TableCell>
             <TableCell align="left"> {this.props.company.name} </TableCell> 
-        <TableCell align="right"> { userService.isAdmin() && <Button onClick={() => this.props.delete(this.props.company.id)}><DeleteIcon/></Button> }</TableCell>
+        <TableCell align="right"> { userService.isAdmin() && <Button onClick={() => this.props.delete(this.props.company.id,this.props.company.name)}><DeleteIcon/></Button> }</TableCell>
         </TableRow>
         )
     }
