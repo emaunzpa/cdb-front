@@ -3,12 +3,11 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
-import { Table, TableBody, TableHead, TextField, Button } from '@material-ui/core';
+import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent,DialogActions} from '@material-ui/core';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import SearchIcon from '@material-ui/icons/Search'
 import Snackbar from '@material-ui/core/Snackbar';
-
 
 
 
@@ -33,6 +32,7 @@ class CompanyList extends Component {
             .catch(err => console.log(err));
         this.setState({
             snackMessage:"Company Added",
+            snackColor: 'green',
             openSnack:true
         })
     }
@@ -62,19 +62,32 @@ class CompanyList extends Component {
         this.updateList(options);
     }
 
-    delete = async (id) => {
-        await companyService.delete(id)
+    deleteDialog = (id,name) => {
+        this.setState({
+            openDeleteDialog:true,
+            deleteName:name,
+            deleteId:id
+        })
+    }
+
+
+    delete = async () => {
+        await companyService.delete(this.state.deleteId)
             .catch(err => console.log(err));
         let options = {
-            page: this.props.page || 1,
-            itemPerPage: this.props.itemPerPage || 10,
-            search: this.props.search || ""
+            page: this.state.page || 1,
+            itemPerPage: this.state.itemPerPage || 10,
+            search: this.state.search || ""
         };
         this.updateList(options);
         this.setState({
             snackMessage:"Company deleted",
-            openSnack:true
+            snackColor: 'green',
+            openSnack:true,
+            deleteId:'',
+            deleteName:'',
         })
+        this.closeDeleteDialog()
     }
 
     updateList = async (options) => {
@@ -104,17 +117,41 @@ class CompanyList extends Component {
         })
     }
 
+    closeDeleteDialog = () => {
+        this.setState({
+            openDeleteDialog:false
+        })
+    }
+
     render() {
         return (
             <div className="tableContainer">
+                <Dialog
+                    open={this.state.openDeleteDialog}
+                    onClose={this.closeDeleteDialog}
+                >
+                    <DialogTitle>Delete : {this.state.deleteName} ?</DialogTitle>
+                    <DialogContent>
+                        Are you sure to delete this company ?
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.delete()}>
+                            Yes
+                        </Button>
+                        <Button onClick={() => this.closeDeleteDialog()}>
+                            No
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
                     }}
                     open={this.state.openSnack}
-                    autoHideDuration={10000}
+                    autoHideDuration={2000}
                     onClose={this.closeSnack}
+                    color = {this.state.snackColor}
                     message={<span id="message-id">{this.state.snackMessage}</span>}
                     action={[
                         <Button onClick={() => this.closeSnack()}>
@@ -152,7 +189,7 @@ class CompanyList extends Component {
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>
-                                    <CompanyDetails company={company} delete={(id) => this.delete(id)} />
+                                    <CompanyDetails company={company} delete={(id,name) => this.deleteDialog(id,name)} />
                                 )
                                 : <div> ERROR NO COMPANIES FOUND</div>
                         }
