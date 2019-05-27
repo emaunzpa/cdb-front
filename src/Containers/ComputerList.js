@@ -208,7 +208,7 @@ class ComputerList extends Component {
 
   deleteById = async (idToDelete) => {
     let isSuccess = await computerService.delete(idToDelete)
-    .then(this.handleSnackDelete({ vertical: 'bottom', horizontal: 'right' }))
+    .then(this.handleSnackDelete())
       .catch(err => console.log(err));
       let options = {
       page: 1,
@@ -318,7 +318,7 @@ class ComputerList extends Component {
           <Snackbar
             bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            key={`${'bottom'},${'right'}`}
+            
             open={this.state.snackbar}
             onClose={this.handleSnack}
             ContentProps={{
