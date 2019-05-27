@@ -72,7 +72,6 @@ class Header extends Component {
     }
 
     changeLang = () => {
-        console.log()
         localStorage.setItem("language", localStorage.getItem("language") === "fr" ? "en" : "fr");
         this.toggleMenu();
     }
@@ -111,9 +110,9 @@ class Header extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") } className="menuLink"><I18n t="home"/></Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><I18n t="companies"/></Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}><Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><I18n t="computers"/></Link></MenuItem>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="home"/></MenuItem></Link>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies"/></MenuItem></Link>
+                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers"/></MenuItem></Link>
                             </Menu>
                         </div> }
                         <Typography variant="h6" color="inherit" className="grow">

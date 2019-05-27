@@ -6,7 +6,7 @@ import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
-
+import AddComputer from './components/addComputer/AddComputer';
 const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
@@ -33,6 +33,13 @@ export default class App extends React.Component {
           <Route path={`${langUri}/companies`}
             render={() => (UserService.isAuthenticated() ? (
               <CompanyList></CompanyList>
+            ) : <Redirect to={`/login`}></Redirect>
+
+            )} />
+
+          <Route path={`${langUri}/add-computer`}
+            render={() => (UserService.isAuthenticated() ? (
+              <AddComputer></AddComputer>
             ) : <Redirect to={`/login`}></Redirect>
 
             )} />
