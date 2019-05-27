@@ -8,10 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import userService from '../services/UserService';
-import computerService from '../services/ComputerService';
 import Grid from '@material-ui/core/Grid';
-
-
+import SignUpForm from '../components/SignUpForm'
 
 const styles = theme => ({
     container: {
@@ -29,6 +27,9 @@ const styles = theme => ({
 });
 
 class LoginForm extends React.Component {
+    state = {
+        signUp : false
+    }
 
     componentDidMount(){
         document.addEventListener("keydown", this.handleEnter, false);
@@ -43,6 +44,10 @@ class LoginForm extends React.Component {
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
+
+    handleSignUp = () => {
+        this.setState({signUp: !this.state.signUp});
+    }
 
     async validateLoginForm() {
         let isSuccess = await userService.login({ login: this.state.loginInput, password: this.state.passwordInput })
@@ -82,10 +87,11 @@ class LoginForm extends React.Component {
                     </CardContent>
                     <CardActions>
                         <Button size="small" onClick={(event) => this.validateLoginForm(event)}>Login</Button>
-                        <Button variant="contained" color="primary" size="small" >Sign Up</Button>
+                        <Button variant="contained" color="primary" size="small" onClick={this.handleSignUp}>Sign Up</Button>
                     </CardActions>
                 </Card>
                 </Grid>
+                <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp}></SignUpForm>
             </div>
         );
     }

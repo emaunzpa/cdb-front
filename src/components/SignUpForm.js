@@ -1,65 +1,80 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import userService from '../services/UserService';
-import Grid from '@material-ui/core/Grid';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { DialogContentText } from "@material-ui/core";
 
 class SignUpForm extends React.Component {
+    state = { }
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value,
+        signUpErr : "" });
+    };
+
+    validateSignUp = async () => {
+      let isSuccess = await userService.create({ login: this.state.loginInput ? this.state.loginInput : "", 
+        password: this.state.passwordInput ? this.state.passwordInput : "", 
+        confirmation: this.state.confirmationInput ? this.state.confirmationInput : ""})
+      .catch(err => console.log(err));
+      if (isSuccess) {
+        this.setState({ signUpErr : isSuccess.message });
+      }
+    }
+
     render() {
-        const { classes } = this.props;
-
         return (
-            <div>
-                <Grid container justify = "center">
-                <Card className={classes.card}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Login Form
-                        </Typography>
-                        <TextField
-                            id="loginInput"
-                            label="Name"
-                            className={classes.textField}
-                            onChange={this.handleChange("loginInput")}
-                            margin="normal"
-                        />
+          <div>
+            <Dialog open={this.props.open} onClose={this.props.handleSignUp} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+              <DialogContent>
+                  <DialogContentText color="error">
+                  {this.state.signUpErr}
+                  </DialogContentText>
+                <TextField
+                    autoFocus
+                    id="loginInput"
+                    label="Name"
+                    onChange={this.handleChange("loginInput")}
+                    margin="dense"
+                    fullWidth
+                />
 
-                        <TextField
-                            id="passwordInput"
-                            label="Password"
-                            className={classes.textField}
-                            type="password"
-                            onChange={this.handleChange("passwordInput")}
-                            margin="normal"
-                        />
+                <TextField
+                    id="passwordInput"
+                    label="Password"
+                    onChange={this.handleChange("passwordInput")}
+                    type="password"
+                    margin="dense"
+                    fullWidth
+                />
 
-                        <TextField
-                            id="passwordConfirmInput"
-                            label="passwordConfirm"
-                            className={classes.textField}
-                            type="password"
-                            onChange={this.handleChange("passwordConfirm")}
-                            margin="normal"
-                        />
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small" onClick={(event) => this.validateLoginForm(event)}>Login</Button>
-                    </CardActions>
-                </Card>
-                </Grid>
-            </div>
+                <TextField
+                    id="confirmationInput"
+                    label="Confirmation"
+                    onChange={this.handleChange("confirmationInput")}
+                    type="password"
+                    margin="dense"
+                    fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.props.handleSignUp} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.validateSignUp} color="primary">
+                  Sign up
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
         );
     }
 }
 
-LoginForm.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(SignUpForm);
+export default SignUpForm;
