@@ -22,6 +22,7 @@ import Company from "../models/Company";
 import Computer from "../models/Computer";
 import companyService from '../services/CompanyService';
 import MenuItem from '@material-ui/core/MenuItem';
+
 import './computerList.css';
 
 class ComputerList extends Component {
@@ -52,13 +53,11 @@ class ComputerList extends Component {
 
   handleChangeComputerName = (event) => {
     try {
-      this.setState({ ...this.state, computer: { ...this.state.computer, name: event.target.value}})
+      this.state.computer.name = event.target.value;
       this.setState({ ...this.state, validField: { ...this.state.validField, computerName: true } });
     } catch (err) {
       console.log(err);
       this.setState({ ...this.state, validField: { ...this.state.validField, computerName: false } });
-    } finally {
-      this.forceUpdate();
     }
 
     if (this.checkValidField) {
@@ -71,13 +70,11 @@ class ComputerList extends Component {
 
   handleChangeIntroduced = (event) => {
     try {
-      this.setState({ ...this.state, computer: { ...this.state.computer, introduced: new Date(event.target.value)}})
+      this.state.computer.introduced = new Date(event.target.value);
       this.setState({ ...this.state, validField: { ...this.state.validField, introduced: true } });
     } catch (err) {
       console.log(err);
       this.setState({ ...this.state, validField: { ...this.state.validField, introduced: false } });
-    } finally {
-      this.forceUpdate();
     }
 
     if (this.checkValidField) {
@@ -90,13 +87,11 @@ class ComputerList extends Component {
 
   handleChangeDiscontinued = (event) => {
     try {
-      this.setState({ ...this.state, computer: { ...this.state.computer, discontinued: new Date(event.target.value)}})
+      this.state.computer.discontinued = new Date(event.target.value);
       this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: true } });
     } catch (err) {
       console.log(err);
       this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: false } });
-    } finally {
-      this.forceUpdate();
     }
 
     if (this.checkValidField) {
@@ -109,14 +104,12 @@ class ComputerList extends Component {
 
   handleChangeCompany = (event) => {
     try {
-      this.setState({ ...this.state, company: this.state.companies.find(obj => obj.id === event.target.value)})
-      this.setState({ ...this.state, defaultCompanyID: this.state.company.id})
+      this.state.company = this.state.companies.find(obj => obj.id === event.target.value);
+      this.state.defaultCompanyID = this.state.company.id;
       this.setState({ ...this.state, validField: { ...this.state.validField, companyId: true } });
     } catch (err) {
       console.log(err);
       this.setState({ ...this.state, validField: { ...this.state.validField, companyId: false } });
-    } finally {
-      this.forceUpdate();
     }
     
     if (this.checkValidField) {
@@ -138,10 +131,9 @@ class ComputerList extends Component {
         companyId: this.state.company.id,
         companyName: this.state.company.name
       })
-      console.log(computer);
-      // computerService.create(computer)
-      //     .then(this.props.history.push("/"))
-      //     .catch(err => console.log(err))
+      computerService.create(computer)
+          .then(this.handleOpen)
+          .catch(err => console.log(err))
     }
   }
 
@@ -237,7 +229,7 @@ class ComputerList extends Component {
                 />
                 {
                   this.state.validField.computerName ?
-                    <span id="computerNameValidator" className="spanValidator valid">OK !</span> :
+                    <span id="computerNameValidator" className="spanValidator valid"></span> :
                     <span id="computerNameValidator" className="spanValidator invalid">This field is required</span>
                 }
                 <TextField
@@ -252,7 +244,7 @@ class ComputerList extends Component {
                 />
                 {
                   this.state.validField.introduced ?
-                    <span id="introducedDateValidator" className="spanValidator valid">OK !</span> :
+                    <span id="introducedDateValidator" className="spanValidator valid"></span> :
                     <span id="introducedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
                 }
 
@@ -268,7 +260,7 @@ class ComputerList extends Component {
                 />
                 {
                   this.state.validField.discontinued ?
-                    <span id="discontinuedDateValidator" className="spanValidator valid">OK !</span> :
+                    <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
                     <span id="discontinuedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
                 }
 
