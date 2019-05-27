@@ -22,6 +22,7 @@ import Company from "../models/Company";
 import Computer from "../models/Computer";
 import companyService from '../services/CompanyService';
 import MenuItem from '@material-ui/core/MenuItem';
+import I18n from '../config/i18n';
 
 import './computerList.css';
 
@@ -139,7 +140,7 @@ class ComputerList extends Component {
 
   async componentWillMount() {
     var companyList = await companyService.getAll();
-    companyList.splice(0, 0, new Company({ id: 0, name: "Choose a company" }))
+    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany"/> }))
     this.setState({ companies: companyList })
   }
 
@@ -208,17 +209,17 @@ class ComputerList extends Component {
       <div>
         <div>
           <Button onClick={this.handleOpen}>
-            <AddCircle fontSize="large" />Create a new computer
+            <AddCircle fontSize="large" /><I18n t="addNewComputer"/>
           </Button>
 
           <Dialog fullWidth={"sm"} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Add a new computer</DialogTitle>
+            <DialogTitle id="form-dialog-title"><I18n t="addNewComputer"/></DialogTitle>
             <DialogContent>
               <div className="container">
 
                 <TextField
                   id="computerName"
-                  label="Computer name"
+                  label={<I18n t="computerName"/>}
                   className="textField"
                   onChange={this.handleChangeComputerName}
                   margin="normal"
@@ -226,11 +227,11 @@ class ComputerList extends Component {
                 {
                   this.state.validField.computerName ?
                     <span id="computerNameValidator" className="spanValidator valid"></span> :
-                    <span id="computerNameValidator" className="spanValidator invalid">This field is required</span>
+                    <span id="computerNameValidator" className="spanValidator invalid">{<I18n t="required"/>}</span>
                 }
                 <TextField
                   id="introducedDate"
-                  label="Introduced date"
+                  label={<I18n t="introducedDate"/>}
                   type="date"
                   onChange={this.handleChangeIntroduced}
                   className="textField"
@@ -241,12 +242,12 @@ class ComputerList extends Component {
                 {
                   this.state.validField.introduced ?
                     <span id="introducedDateValidator" className="spanValidator valid"></span> :
-                    <span id="introducedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
+                    <span id="introducedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates"/>}</span>
                 }
 
                 <TextField
                   id="discontinuedDate"
-                  label="Discontinued date"
+                  label={<I18n t="discontinuedDate"/>}
                   type="date"
                   onChange={this.handleChangeDiscontinued}
                   className="textField"
@@ -257,17 +258,16 @@ class ComputerList extends Component {
                 {
                   this.state.validField.discontinued ?
                     <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
-                    <span id="discontinuedDateValidator" className="spanValidator invalid">Invalid on unconsistend date</span>
+                    <span id="discontinuedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates"/>}</span>
                 }
 
                 <TextField
                   id="companyId"
                   select
-                  label="Company"
+                  label={<I18n t="company"/>}
                   className="textField"
                   value={this.state.defaultCompanyID}
                   onChange={this.handleChangeCompany}
-                  helperText="Please select the company"
                   margin="normal"
                   variant="outlined"
                 >
@@ -281,7 +281,7 @@ class ComputerList extends Component {
             </DialogContent>
             <DialogActions>
               <button id="submitBtn" className="button" onClick={this.addNewComputer}>
-                Create computer
+              {<I18n t="add"/>}
                             </button>
             </DialogActions>
           </Dialog>
