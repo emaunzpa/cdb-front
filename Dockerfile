@@ -13,6 +13,5 @@ RUN npm install --silent
 RUN npm install react-scripts -g --silent
 RUN npm install --save serve
 
-CMD ["npm", "run", "build"]
-# start app
-CMD ["serve", "-s", "build"]
+RUN npm run build
+RUN serve -s build

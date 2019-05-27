@@ -3,11 +3,7 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
-<<<<<<< HEAD
-import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent,DialogActions} from '@material-ui/core';
-=======
 import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
->>>>>>> b0bf08475ad75ff54be9d47344c14a42d1f90378
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import SearchIcon from '@material-ui/icons/Search'
@@ -36,10 +32,7 @@ class CompanyList extends Component {
             .catch(err => console.log(err));
         this.setState({
             snackMessage: "Company Added",
-<<<<<<< HEAD
-=======
             snackColor: 'green',
->>>>>>> b0bf08475ad75ff54be9d47344c14a42d1f90378
             openSnack: true
         })
     }
@@ -69,19 +62,11 @@ class CompanyList extends Component {
         this.updateList(options);
     }
 
-<<<<<<< HEAD
-    deleteDialog = (id,name) => {
-        this.setState({
-            openDeleteDialog:true,
-            deleteName:name,
-            deleteId:id
-=======
     deleteDialog = (id, name) => {
         this.setState({
             openDeleteDialog: true,
             deleteName: name,
             deleteId: id
->>>>>>> b0bf08475ad75ff54be9d47344c14a42d1f90378
         })
     }
 
@@ -97,14 +82,10 @@ class CompanyList extends Component {
         this.updateList(options);
         this.setState({
             snackMessage: "Company deleted",
-<<<<<<< HEAD
-            openSnack: true
-=======
             snackColor: 'green',
             openSnack: true,
             deleteId: '',
             deleteName: '',
->>>>>>> b0bf08475ad75ff54be9d47344c14a42d1f90378
         })
         this.closeDeleteDialog()
     }
