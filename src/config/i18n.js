@@ -107,7 +107,7 @@ const translations = {
 
      //Pagination
      next:"Suivant",
-     previous:"Précédent",
+     previous:"Précedent",
   }
 }
  

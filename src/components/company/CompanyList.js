@@ -20,8 +20,7 @@ class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack: false,
-        reverse: false
+        openSnack: false
     }
 
 
@@ -142,12 +141,11 @@ class CompanyList extends Component {
         })
     }
     orderBy = async (column) => {
-        this.setState({ orderBy: column, reverse: !this.state.reverse });
+        this.setState({ orderBy: column });
         let options = {
             page: 1,
             itemPerPage: 10,
-            orderBy: column,
-            reverse: this.state.reverse
+            orderBy: column
         }
         this.updateList(options)
     }
@@ -181,7 +179,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany"/></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : 0 } label={<I18n t='newName'/>} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={ ()=> this.state.newName ? this.addCompany(this.state.newName) : 0 } label={<I18n t='newName'/>} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
