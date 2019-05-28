@@ -389,9 +389,11 @@ class ComputerList extends Component {
           </TableHead>
           <TableBody>
             {
+              this.state.computers ?
               this.state.computers.map(computer =>
                 <ComputerDetail key={computer.id} deleteById={this.deleteById} computer={computer} />
               )
+              : <div> <I18n t="errorNoComputers"/></div>
             }
           </TableBody>
         </Table>
