@@ -354,38 +354,39 @@ class ComputerList extends Component {
           </Snackbar>
           <TextField
             id="standard-search"
-            label="Search"
+            label={<I18n t="search" />}
             type="search"
             margin="normal"
             onKeyPress={this.keyHandler}
             onChange={this.handleChange}
           />
-          <Button onClick={() => this.searchByName(this.state.search)}>Search</Button>
+          <Button onClick={() => this.searchByName(this.state.search)}>{<I18n t="search" />}</Button>
         </div>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("name")}>Name<SortByAlpha className="az-icon"/></TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("name")}>{<I18n t="computerName" />}<SortByAlpha className="az-icon"/></TableSortLabel>
+
                 </Tooltip>
               </TableCell>
               <TableCell >
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced<UnfoldMore className="az-icon"/></TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("introduced")}>{<I18n t="introducedDate" />}<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued<UnfoldMore className="az-icon"/></TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>{<I18n t="discontinuedDate" />}<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("company")}>Company<SortByAlpha className="az-icon"/></TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("company")}>{<I18n t="company" />}<SortByAlpha className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Edit</TableCell>
+              <TableCell>{<I18n t="edit" />}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -39,6 +39,8 @@ const translations = {
     passwordTooShort : "Password must be at least 6 characters.",
     passDontMatch : "Passwords don't match.",
     snackbarSuccessMessageDelete: 'Computer deleted',
+    search: 'Search',
+    edit: "Edit",
     invalidCredentials : "Invalid credentials.",
     //CompanyList
     companyAdded:"Company Added",
@@ -90,8 +92,9 @@ const translations = {
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
     snackbarSuccessMessageDelete: 'Ordianteur supprimé',
+    search: 'Recherche',
+    edit: "Editer",
     invalidCredentials : "Les identifiants sont invalide.",
-
     //CompanyList
     companyAdded:"Entreprise ajoutée",
     companyDelete:"Entreprise Suprimée",
@@ -103,11 +106,10 @@ const translations = {
     enterNewCompanyName:"Entrez le nom de la nouvelle entreprise",
     searchName:"Rechercher nom",
     errorNoCompanies:"Erreur, aucune entreprise trouvée",
-    newName:"Nouveau nom",
-
      //Pagination
      next:"Suivant",
      previous:"Précédent",
+    newName:"Nouveau nom"
   }
 }
  
