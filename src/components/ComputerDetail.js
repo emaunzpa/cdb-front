@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
+import userService from '../services/UserService'
 import I18n from '../config/i18n';
 
 class ComputerDetail extends Component {
@@ -134,9 +135,14 @@ class ComputerDetail extends Component {
             </MenuItem>))
           }
         </TextField> : this.state.computer.company ? this.state.computer.company.name : ""}</TableCell>
-        <TableCell>
+        <TableCell>{
+                    userService.isAdmin() &&
           <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
+          }
+          {
+                    userService.isAdmin() &&
           <Button onClick={this.toggleEditMode}><EditIcon /></Button>
+        }
         </TableCell>
       </TableRow>
 
