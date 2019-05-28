@@ -106,7 +106,6 @@ class CompanyList extends Component {
             size: await companyService.count(options.search)
                 .catch(err => console.log(err))
         })
-        console.log(this.state.companies)
         this.forceUpdate();
     }
 
@@ -190,7 +189,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany"/></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() } label={<I18n t='newName'/>} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={ (event) => event.key === 'Enter' ? this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() : ({}) } label={<I18n t='newName'/>} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
