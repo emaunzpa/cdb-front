@@ -94,7 +94,7 @@ const translations = {
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
     nameEmpty : "Le nom est vide.",
-    snackbarSuccessMessageDelete: 'Ordianteur supprimé',
+    snackbarSuccessMessageDelete: 'Ordinateur supprimé',
     invalidCredentials : "Les identifiants sont invalide.",
 
     //CompanyList

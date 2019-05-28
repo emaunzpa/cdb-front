@@ -27,7 +27,7 @@ export default class App extends React.Component {
           <Route path={`${langUri}/computers`}
             render={() => (UserService.isAuthenticated() ? (
               <ComputerList></ComputerList>
-            ) : <Redirect to={`${langUri}/login`}></Redirect>
+            ) : <Redirect to={`/login`}></Redirect>
             )} />
 
           <Route path={`${langUri}/companies`}
