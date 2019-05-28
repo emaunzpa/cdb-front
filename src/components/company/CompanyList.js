@@ -21,7 +21,10 @@ class CompanyList extends Component {
     state = {
         companies: [],
         openSnack: false,
-        reverse: false
+        reverse: false,
+        openDeleteDialog:false,
+        openAddDialog:false,
+        openSnack:false,
     }
 
 
@@ -115,7 +118,7 @@ class CompanyList extends Component {
         let options = {
             page: this.props.page || 1,
             itemPerPage: this.props.itemPerPage || 10,
-            search: this.props.search || ""
+            search: this.props.search || "",
         };
         this.updateList(options);
     }
@@ -163,7 +166,7 @@ class CompanyList extends Component {
     }
 
     render() {
-        console.log(this.state.snackColor)
+        console.log("open : "+this.state.openDeleteDialog)
         return (
             <div className="tableContainer">
                 <Dialog
@@ -259,7 +262,7 @@ class CompanyList extends Component {
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>
-                                    <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
+                                    <CompanyDetails key={company.id} company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
                                 : <div> <I18n t="errorNoCompanies"/></div>
                         }

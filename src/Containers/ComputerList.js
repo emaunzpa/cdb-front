@@ -382,8 +382,10 @@ class ComputerList extends Component {
                 <Tooltip title="Sort" enterDelay={300}>
                   <TableSortLabel onClick={() => this.orderBy("company")}><I18n t="company" /><SortByAlpha className="az-icon" /></TableSortLabel>
                 </Tooltip>
-              </TableCell>
+              </TableCell>{
+                    userService.isAdmin() &&
               <TableCell><I18n t="edit" /></TableCell>
+            }
             </TableRow>
           </TableHead>
           <TableBody>
