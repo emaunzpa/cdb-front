@@ -179,7 +179,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany"/></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
-                            <TextField id="AddField" align-self="left" label={<I18n t='newName'/>} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : 0 } label={<I18n t='newName'/>} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
