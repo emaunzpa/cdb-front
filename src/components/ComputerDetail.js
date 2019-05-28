@@ -135,6 +135,8 @@ class ComputerDetail extends Component {
             </MenuItem>))
           }
         </TextField> : this.state.computer.company ? this.state.computer.company.name : ""}</TableCell>
+        {
+                    userService.isAdmin() &&
         <TableCell>{
                     userService.isAdmin() &&
           <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
@@ -144,6 +146,7 @@ class ComputerDetail extends Component {
           <Button onClick={this.toggleEditMode}><EditIcon /></Button>
         }
         </TableCell>
+      }
       </TableRow>
 
     )
