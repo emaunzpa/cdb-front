@@ -110,8 +110,12 @@ class Header extends Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
-                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    {
+                                        UserService.isAdmin() &&
+                                    <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="users" /></MenuItem></Link>
+                                }
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow">
@@ -126,7 +130,10 @@ class Header extends Component {
                                 <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
                                 <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
                                 {this.state.auth &&
-                                    <a href="#" className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></a>}
+                                    <div>
+                                        <NavLink to="#" className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></NavLink>
+                                    </div>
+                                }
                             </div>
                         </div>
 

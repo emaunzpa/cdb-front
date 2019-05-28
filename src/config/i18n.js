@@ -16,6 +16,7 @@ const translations = {
     logout: 'Log out',
     companies: 'Companies',
     computers: 'Computers',
+    users : 'Users',
     // Add Computer
     required: 'This field is required',
     invalidDates: 'Invalid or incoherences between dates',
@@ -54,9 +55,12 @@ const translations = {
     errorNoCompanies:"ERROR NO COMPANIES FOUND",
     newName:"New name",
     emptyName:"Name can't be empty",
+    edit: "Edit",
     //Pagination
     next:"Next",
     previous:"Previous",
+    search: "Search",
+     errorNoComputers: "Error, no computer found"
 
   },
   fr: {
@@ -69,6 +73,7 @@ const translations = {
     logout: 'Déconnexion',
     companies: 'Liste entreprises',
     computers: 'Liste ordinateurs',
+    users : 'Utilisateurs',
     // Add Computer
     required: 'Veuillez remplir ce champ',
     invalidDates: 'Dates invalides ou incohérentes',
@@ -92,7 +97,7 @@ const translations = {
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
     nameEmpty : "Le nom est vide.",
-    snackbarSuccessMessageDelete: 'Ordianteur supprimé',
+    snackbarSuccessMessageDelete: 'Ordinateur supprimé',
     invalidCredentials : "Les identifiants sont invalide.",
 
     //CompanyList
@@ -108,10 +113,12 @@ const translations = {
     errorNoCompanies:"Erreur, aucune entreprise trouvée",
     newName:"Nouveau nom",
     emptyName:"Le nom ne peut pas être vide",
-
+    edit: "Editer",
      //Pagination
      next:"Suivant",
      previous:"Précedent",
+     search: "Rechercher",
+     errorNoComputers: "Erreur, aucun ordinateur trouvée"
   }
 }
  

@@ -16,7 +16,7 @@ class CompanyDetails extends Component {
 
     render() {
         return(
-        <TableRow key ={this.props.company.id}>
+        <TableRow key ={this.props.company.id} hover={true} >
             <TableCell align="left"> {this.props.company.id} </TableCell>
             <TableCell align="left"> {this.props.company.name} </TableCell> 
         <TableCell align="right"> { userService.isAdmin() && <Button onClick={() => this.props.delete(this.props.company.id,this.props.company.name)}><DeleteIcon/></Button> }</TableCell>
@@ -43,7 +43,7 @@ class CompanyHeader extends Component {
 
     render() {
         return (
-            <TableRow >
+            <TableRow key = "head">
                 <TableCell align="left">ID
                 <TableSortLabel onClick={() => this.props.orderBy("id")}><UnfoldMore className="az-icon"/></TableSortLabel>
                 </TableCell>

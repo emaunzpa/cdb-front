@@ -13,14 +13,17 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import I18n from '../../config/i18n';
-
-
+import Footer from '../Footer'
 
 class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack: false
+        openSnack: false,
+        reverse: false,
+        openDeleteDialog: false,
+        openAddDialog: false,
+        openSnack: false,
     }
 
 
@@ -35,7 +38,7 @@ class CompanyList extends Component {
             .catch(err => console.log(err));
         this.setState({
             newName: '',
-            snackMessage: <I18n t='companyAdded'/>,
+            snackMessage: <I18n t='companyAdded' />,
             snackColor: 'green',
             openSnack: true
         })
@@ -87,7 +90,7 @@ class CompanyList extends Component {
         };
         this.updateList(options);
         this.setState({
-            snackMessage: <I18n t='companyDelete'/>,
+            snackMessage: <I18n t='companyDelete' />,
             snackColor: 'green',
             openSnack: true,
             deleteId: '',
@@ -100,12 +103,13 @@ class CompanyList extends Component {
         this.setState({
             page: options.page,
             itemPerPage: options.itemPerPage,
+            search: options.search,
+            orderBy: options.orderBy,
             companies: await companyService.list(options)
                 .catch(err => console.log(err)),
             size: await companyService.count(options.search)
                 .catch(err => console.log(err))
         })
-        console.log(this.state.companies)
         this.forceUpdate();
     }
 
@@ -113,7 +117,7 @@ class CompanyList extends Component {
         let options = {
             page: this.props.page || 1,
             itemPerPage: this.props.itemPerPage || 10,
-            search: this.props.search || ""
+            search: this.props.search || "",
         };
         this.updateList(options);
     }
@@ -141,41 +145,43 @@ class CompanyList extends Component {
         })
     }
     orderBy = async (column) => {
-        this.setState({ orderBy: column });
+        this.setState({ orderBy: column, reverse: !this.state.reverse });
         let options = {
             page: 1,
             itemPerPage: 10,
-            orderBy: column
+            orderBy: column,
+            reverse: this.state.reverse,
+            search: this.state.search
         }
         this.updateList(options)
     }
 
-    emptyName = () =>{
+    emptyName = () => {
         this.setState({
-            snackMessage:<I18n t="emptyName"/>,
-            snackColor:"red",
-            openSnack:true
+            snackMessage: <I18n t="emptyName" />,
+            snackColor: "red",
+            openSnack: true
         })
     }
 
     render() {
-        console.log(this.state.snackColor)
+        console.log("open : " + this.state.openDeleteDialog)
         return (
             <div className="tableContainer">
                 <Dialog
                     open={this.state.openDeleteDialog}
                     onClose={this.closeDeleteDialog}
                 >
-                    <DialogTitle> <I18n t='delete'/> : {this.state.deleteName} ?</DialogTitle>
+                    <DialogTitle> <I18n t='delete' /> : {this.state.deleteName} ?</DialogTitle>
                     <DialogContent>
-                        <I18n t='ConfirmationDelete'/>
+                        <I18n t='ConfirmationDelete' />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.delete()}>
-                            <I18n t="yes"/>
+                            <I18n t="yes" />
                         </Button>
                         <Button onClick={() => this.closeDeleteDialog()}>
-                            <I18n t="no"/>
+                            <I18n t="no" />
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -185,10 +191,10 @@ class CompanyList extends Component {
                         open={this.state.openAddDialog}
                         onClose={this.closeAddDialog}
                     >
-                        <DialogTitle><I18n t="addCompany"/></DialogTitle>
+                        <DialogTitle><I18n t="addCompany" /></DialogTitle>
                         <DialogContent>
-                            <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() } label={<I18n t='newName'/>} onChange={this.updateNewName} />
+                            <DialogContentText><I18n t="enterNewCompanyName" /></DialogContentText>
+                            <TextField id="AddField" align-self="left" onKeyPress={(event) => event.key === 'Enter' ? this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() : ({})} label={<I18n t='newName' />} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
@@ -205,7 +211,6 @@ class CompanyList extends Component {
                     </Dialog>
                 }
                 <Snackbar
-                    bodyStyle={{ backgroundColor: this.state.snackColor, color: 'coral' }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}
@@ -237,13 +242,13 @@ class CompanyList extends Component {
                 <div>{
                     userService.isAdmin() &&
                     <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
-                        <I18n t="addCompany"/>
+                        <I18n t="addCompany" />
                     </Button>
                 }
                     <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
                     {
                         this.state.searchMode ?
-                            <TextField id="searchField" align-self="right" label={<I18n t="searchName"/>} type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
+                            <TextField id="searchField" align-self="right" label={<I18n t="searchName" />} type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
                             : <div />
                     }
                 </div>
@@ -255,17 +260,20 @@ class CompanyList extends Component {
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>
-                                    <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
+                                    <CompanyDetails key={company.id} company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
-                                : <div> <I18n t="errorNoCompanies"/></div>
+                                : <div> <I18n t="errorNoCompanies" /></div>
                         }
                     </TableBody>
                 </Table>
-                <Pagination otherOptions={{ search: this.state.search,orderBy:this.state.orderBy }}
+                <Footer content={<Pagination
+                    otherOptions={{ search: this.state.search, orderBy: this.state.orderBy }}
                     options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
                     size={this.state.size}
                     update={(options) => this.updateList(options)}
+                    />} 
                 />
+                
             </div>
         )
     }

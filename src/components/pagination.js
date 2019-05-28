@@ -8,6 +8,11 @@ class Index extends Component{
         return(
             <div>
             {
+                this.props.page - 3 >0 &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(1)}>{1}</Button>
+            
+            }  
+            {
                 this.props.page - 2 >0 &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 2)}>{this.props.page - 2}</Button>
             }
@@ -15,7 +20,10 @@ class Index extends Component{
                 this.props.page - 1 >0 &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 1)}>{this.props.page - 1}</Button>
             }
-                <Button variant="contained" >{this.props.page}</Button>
+            {
+                this.props.page &&
+                <Button variant="contained">{this.props.page}</Button>
+            }
             {
                 this.props.page + 1 < this.props.max &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 1)} >{this.props.page + 1}</Button>
@@ -23,6 +31,10 @@ class Index extends Component{
             {
                 this.props.page + 2 < this.props.max &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 2)}>{this.props.page + 2}</Button>
+            }
+            {
+                this.props.page + 3 < this.props.max &&
+                <Button variant="outlined" onClick={()=>this.props.changePage(Math.trunc(this.props.max))}>{Math.trunc(this.props.max)}</Button>
             }
             </div>
         )
