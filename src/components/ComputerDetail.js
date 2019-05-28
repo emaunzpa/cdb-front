@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
+import I18n from '../config/i18n';
 
 class ComputerDetail extends Component {
   state = {

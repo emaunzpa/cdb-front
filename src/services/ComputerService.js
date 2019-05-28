@@ -9,7 +9,7 @@ class ComputerService {
      * @param {*} options 
      */
     async list(options) {
-        const computers = await http.get(`/computers?page=${options.page || ""}&itemPerPage=${options.itemPerPage || ""}&search=${options.search || ""}&orderby=${options.orderBy || ""}`)
+        const computers = await http.get(`/computers?page=${options.page || ""}&itemPerPage=${options.itemPerPage || ""}&search=${options.search || ""}&orderby=${options.orderBy || ""}&reverse=${options.reverse || ""}`)
             .catch(err => Promise.reject(err));
         return computers.map(computer => new Computer(computer));
     }

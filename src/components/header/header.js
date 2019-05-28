@@ -28,8 +28,8 @@ class Header extends Component {
     }
 
     handleClick = (event) => {
-        if(this.state.menuDisplayed === true & event.target.tagName !== 'A'){
-            this.setState({ ...this.state, menuDisplayed: !this.state.menuDisplayed});
+        if (this.state.menuDisplayed === true & event.target.tagName !== 'A') {
+            this.setState({ ...this.state, menuDisplayed: !this.state.menuDisplayed });
             document.getElementById('dropdownMenu').setAttribute("style", "display: none;");
         }
     }
@@ -45,15 +45,15 @@ class Header extends Component {
     handleLogout = () => {
         this.toggleMenu();
         UserService.logout();
-        if(!UserService.isAuthenticated()){
-            this.setState({ ...this.state, auth: false})
+        if (!UserService.isAuthenticated()) {
+            this.setState({ ...this.state, auth: false })
             this.props.history.push("/login");
         }
     };
 
     toggleMenu = () => {
         this.setState({ ...this.state, menuDisplayed: !this.state.menuDisplayed });
-        if (this.state.menuDisplayed){
+        if (this.state.menuDisplayed) {
             document.getElementById('dropdownMenu').setAttribute("style", "display: none;");
         }
         else {
@@ -63,7 +63,7 @@ class Header extends Component {
 
     handleUrl = (lang) => {
         var urlTab = window.location.pathname.split("/");
-        if (urlTab[1] === 'fr' || urlTab[1] === 'en'){
+        if (urlTab[1] === 'fr' || urlTab[1] === 'en') {
             urlTab.splice(1, 1);
         }
         urlTab = urlTab.join('/');
@@ -86,50 +86,50 @@ class Header extends Component {
             <div>
                 <AppBar position="static">
                     <Toolbar>
-                        { this.state.auth &&
-                        <div>
-                            <IconButton
-                                aria-owns={open ? 'menu-appbar' : undefined}
-                                aria-haspopup="true"
-                                onClick={this.handleMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={this.handleClose}
-                            >
-                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies"/></MenuItem></Link>
-                                <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers"/></MenuItem></Link>
-                            </Menu>
-                        </div> }
+                        {this.state.auth &&
+                            <div>
+                                <IconButton
+                                    aria-owns={open ? 'menu-appbar' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenu}
+                                    color="inherit"
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={open}
+                                    onClose={this.handleClose}
+                                >
+                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
+                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                </Menu>
+                            </div>}
                         <Typography variant="h6" color="inherit" className="grow">
-                            <I18n t="welcome"/>
+                            <I18n t="welcome" />
                         </Typography>
                         <div>
-                        { this.state.auth &&
+
                             <IconButton color="inherit" onClick={this.toggleMenu}>
-                                <AccountCircle className="account-icon"/><I18n t="settings"/>
-                            </IconButton> 
-                        }
+                                <AccountCircle className="account-icon" /><I18n t="settings" />
+                            </IconButton>
                             <div id="dropdownMenu">
-                                <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon/><I18n t="english"/></NavLink>
-                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon/><I18n t="french"/></NavLink>
-                                <a className="dropdownItem" onClick={this.handleLogout}><InputIcon/><I18n t="logout"/></a>
+                                <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
+                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
+                                {this.state.auth &&
+                                    <a href="#" className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></a>}
                             </div>
                         </div>
-                        
+
                     </Toolbar>
                 </AppBar>
             </div>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import computerService from '../services/ComputerService';
 import ComputerDetail from '../components/ComputerDetail';
-import userService from '../services/UserService';
 import Pagination from '../components/pagination';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,7 +15,6 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Company from "../models/Company";
 import Computer from "../models/Computer";
@@ -30,14 +27,16 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import SortByAlpha from '@material-ui/icons/SortByAlpha';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 class ComputerList extends Component {
 
   addComputer = React.createRef();
 
   state = {
+    page: 1,
     computers: [],
-    options: Pagination,
     search: "",
     open: false,
     defaultCompanyID: 0,
@@ -45,137 +44,127 @@ class ComputerList extends Component {
     computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }),
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
-    snackbar: false
+    snackbar: false,
+    snackbardelete: false,
+    reverse: false
   };
 
   checkValidField = () => {
-    Object.keys(this.state.validField).map(function (key) {
-      var field = this.state.validField[key];
+    var fields = Object.values(this.state.validField);
+    var result = true;
+    fields.forEach(function (field) {
       if (field === false) {
-        return false;
+        result = false;
       }
-      return true;
     });
+    return result;
   };
 
-  handleChangeComputerName = (event) => {
-    try {
-      this.state.computer.name = event.target.value;
-      this.setState({ ...this.state, validField: { ...this.state.validField, computerName: true } });
-    } catch (err) {
-      console.log(err);
-      this.setState({ ...this.state, validField: { ...this.state.validField, computerName: false } });
-    }
-
-    if (this.checkValidField) {
-      document.getElementById("submitBtn").disabled = false;
+  checkDates = (introduced, discontinued) => {
+    if (introduced !== "" & discontinued !== "" & introduced > discontinued) {
+      return false;
     }
     else {
-      document.getElementById("submitBtn").disabled = true;
+      return true;
     }
+  }
+
+  finishUpdate = () => {
+    document.getElementById('submitBtn').disabled = !this.checkValidField();
+    document.getElementById("submitBtn").addEventListener("click", this.addNewComputer);
+  }
+
+  handleChangeComputerName = (event) => {
+    var fieldName = true;
+    if (event.target.value === "") {
+      fieldName = false;
+    }
+    let computer = this.state.computer;
+    computer.name = event.target.value;
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, computerName: fieldName } }, this.finishUpdate)
   };
 
   handleChangeIntroduced = (event) => {
-    try {
-      this.state.computer.introduced = new Date(event.target.value);
-      this.setState({ ...this.state, validField: { ...this.state.validField, introduced: true } });
-    } catch (err) {
-      console.log(err);
-      this.setState({ ...this.state, validField: { ...this.state.validField, introduced: false } });
+    var fieldDate = true;
+    this.checkDates(event.target.value, this.state.computer.discontinued)
+    if (!this.checkDates(event.target.value, this.state.computer.discontinued)) {
+      fieldDate = false;
     }
-
-    if (this.checkValidField) {
-      document.getElementById("submitBtn").disabled = false;
-    }
-    else {
-      document.getElementById("submitBtn").disabled = true;
-    }
+    let computer = this.state.computer;
+    computer.introduced = new Date(event.target.value);
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, introduced: fieldDate } }, this.finishUpdate)
   };
 
   handleChangeDiscontinued = (event) => {
-    try {
-      this.state.computer.discontinued = new Date(event.target.value);
-      this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: true } });
-    } catch (err) {
-      console.log(err);
-      this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: false } });
+    var fieldDate = true;
+    this.checkDates(event.target.value, this.state.computer.discontinued)
+    if (!this.checkDates(this.state.computer.introduced, event.target.value)) {
+      fieldDate = false;
     }
-
-    if (this.checkValidField) {
-      document.getElementById("submitBtn").disabled = false;
-    }
-    else {
-      document.getElementById("submitBtn").disabled = true;
-    }
+    let computer = this.state.computer;
+    computer.discontinued = new Date(event.target.value);
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, discontinued: fieldDate } }, this.finishUpdate)
   };
 
   handleChangeCompany = (event) => {
-    try {
-      this.state.company = this.state.companies.find(obj => obj.id === event.target.value);
-      this.state.defaultCompanyID = this.state.company.id;
-      this.setState({ ...this.state, validField: { ...this.state.validField, companyId: true } });
-    } catch (err) {
-      console.log(err);
-      this.setState({ ...this.state, validField: { ...this.state.validField, companyId: false } });
-    }
+    this.setState({ ...this.state, company: this.state.companies.find(obj => obj.id === event.target.value), defaultCompanyID: this.state.companies.find(obj => obj.id === event.target.value).id, validField: { ...this.state.validField, companyId: true } });
+  }
 
+  addNewComputer = async () => {
     if (this.checkValidField) {
-      document.getElementById("submitBtn").disabled = false;
-    }
-    else {
-      document.getElementById("submitBtn").disabled = true;
-    }
-  };
 
-  addNewComputer = () => {
-    if (this.state.validField.computerName || this.state.validField.introduced
-      || this.state.validField.discontinued || this.state.validField.companyId) {
-
-      var computer = new Computer({
+      let computer = new Computer({
         name: this.state.computer.name,
         introduced: this.state.computer.introduced,
         discontinued: this.state.computer.discontinued,
         companyId: this.state.company.id,
         companyName: this.state.company.name
-      })
-      computerService.create(computer)
-        .then(this.handleOpen)
-        .then(this.handleSnack({ vertical: 'bottom', horizontal: 'right' }))
-        .catch(err => console.log(err))
+      });
+      await computerService.create(computer)
+        .catch(err => console.log(err));
+      
+      this.setState({...this.state, computer : new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField : { computerName: false, introduced: true, discontinued: true, companyId: true }});
+      this.handleOpen();
+      this.handleSnack({ vertical: 'bottom', horizontal: 'right' });
     }
   }
 
   async componentWillMount() {
-    var companyList = await companyService.getAll();
-    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }))
-    this.setState({ companies: companyList })
+    let companyList = await companyService.getAll();
+    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }));
+    this.setState({ companies: companyList });
   }
 
   updateComputer = async (options) => {
     this.setState({
+      page: options.page,
+      itemPerPage:options.itemPerPage,
+      search: options.search,
       computers: await computerService.list(options)
         .catch(err => console.log(err)),
-      size: await computerService.count()
+      size: await computerService.count(options.search)
         .catch(err => console.log(err))
-
     })
     this.forceUpdate();
   }
 
   componentDidMount() {
     let options = {
-      page: 1,
-      itemPerPage: 10
+      page: 1,
+      itemPerPage: this.props.itemPerPage || 10,
+      search: this.props.search || ""
     }
     this.updateComputer(options)
   }
 
   orderBy = async (column) => {
-    this.setState({ orderBy: column });
+    this.setState({ orderBy: column, reverse: !this.state.reverse });
     let options = {
       page: 1,
       itemPerPage: 10,
-      orderBy: column
+      orderBy: column,
+      search: this.state.search || "",
+      reverse: this.state.reverse || ""
     }
     this.updateComputer(options)
   }
@@ -189,7 +178,7 @@ class ComputerList extends Component {
     let options = {
       page: 1,
       itemPerPage: 10,
-      search: this.state.search
+      search: this.state.search || ""
     }
     this.updateComputer(options)
   }
@@ -201,10 +190,15 @@ class ComputerList extends Component {
   }
 
   deleteById = async (idToDelete) => {
-    console.log(idToDelete)
-    let isSuccess = await computerService.delete(idToDelete)
+    await computerService.delete(idToDelete)
+    .then(this.handleSnackDelete())
       .catch(err => console.log(err));
-    this.updateComputer(this.state.options);
+      let options = {
+      page: 1,
+      itemPerPage: 10,
+      search: this.state.search || ""
+    }
+    this.updateComputer(options);
   }
 
   handleOpen = () => {
@@ -212,7 +206,6 @@ class ComputerList extends Component {
   }
 
   submitNewComputer = () => {
-    console.log(this.addComputer)
     this.addComputer.addNewComputer();
   }
 
@@ -220,16 +213,28 @@ class ComputerList extends Component {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
   };
 
+  handleSnackDelete = () => {
+    this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
+  };
+
   render() {
-    console.log(this.refs.addComputer)
     return (
       <div>
         <div>
-          <Button onClick={this.handleOpen}>
+          <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
-
-          <Dialog fullWidth={"sm"} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
+          <TextField
+            id="standard-search"
+            label="Search"
+            type="search"
+            margin="normal"
+            onKeyPress={this.keyHandler}
+            onChange={this.handleChange}
+          />
+          <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align">Search</Button>
+        </div>
+        <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
             <DialogContent>
               <div className="container">
@@ -297,15 +302,13 @@ class ComputerList extends Component {
               </div>
             </DialogContent>
             <DialogActions>
-              <button id="submitBtn" className="button" onClick={this.addNewComputer}>
+              <button id="submitBtn" onClick={this.addNewComputer} disabled>
                 {<I18n t="add" />}
               </button>
             </DialogActions>
           </Dialog>
           <Snackbar
-            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            key={`${'bottom'},${'right'}`}
             open={this.state.snackbar}
             onClose={this.handleSnack}
             ContentProps={{
@@ -319,8 +322,36 @@ class ComputerList extends Component {
               aria-describedby="client-snackbar"
               message={
                 <span id="client-snackbar" className="snackbarMessage">
-                  <CheckCircleIcon className="snackbarIcon"/>
+                  <CheckCircleIcon className="snackbarIcon" />
                   <I18n t="snackbarSuccessMessage" />
+                </span>
+              }
+              action={[
+                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
+                  <CloseIcon />
+                </IconButton>,
+              ]}
+            />
+          </Snackbar>
+            <Snackbar
+            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            key={`${'bottom'},${'right'}`}
+            open={this.state.snackbardelete}
+            onClose={this.handleSnackDelete}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            autoHideDuration={2000}
+            message={<span id="message-id">I love snacks</span>}
+          >
+            <SnackbarContent
+              className="snackbar-success-delete"
+              aria-describedby="client-snackbar"
+              message={
+                <span id="client-snackbar" className="snackbarMessage">
+                  <CheckCircleIcon className="snackbarIcon"/>
+                  <I18n t="snackbarSuccessMessageDelete" />
                 </span>
               }
               action={[
@@ -330,35 +361,29 @@ class ComputerList extends Component {
               ]}
             />
           </Snackbar>
-          <TextField
-            id="standard-search"
-            label="Search"
-            type="search"
-            margin="normal"
-            onKeyPress={this.keyHandler}
-            onChange={this.handleChange}
-          />
-          <Button onClick={() => this.searchByName(this.state.search)}>Search</Button>
-        </div>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("name")}>Name</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("name")}>Name<SortByAlpha className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell >
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Company</TableCell>
+              <TableCell>
+                <Tooltip title="Sort" enterDelay={300}>
+                  <TableSortLabel onClick={() => this.orderBy("company")}>Company<SortByAlpha className="az-icon"/></TableSortLabel>
+                </Tooltip>
+              </TableCell>
               <TableCell>Edit</TableCell>
             </TableRow>
           </TableHead>
@@ -371,12 +396,10 @@ class ComputerList extends Component {
           </TableBody>
         </Table>
 
-        <Pagination options={{ page: this.props.page, itemPerPage: this.props.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}></Pagination>
+        <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}/>
       </div>
     )
 
   }
 }
-
-
 export default ComputerList;

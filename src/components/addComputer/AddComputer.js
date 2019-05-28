@@ -1,14 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from '@material-ui/core/MenuItem';
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import computerService from '../../services/ComputerService';
 import companyService from '../../services/CompanyService';
-import Grid from '@material-ui/core/Grid';
 import Computer from "../../models/Computer";
 import { withRouter } from 'react-router-dom';
 import './AddComputer.css';
@@ -37,10 +30,10 @@ class AddComputer extends React.Component {
 
     handleChangeComputerName = (event) => {
         try {
-            this.state.computer.name = event.target.value;
-            this.setState({ ...this.state, validField: { ...this.state.validField, computerName: true } });
+            let computer = this.state.computer;
+            computer.name = event.target.value;
+            this.setState({ ...this.state, validField: { ...this.state.validField, computer : computer, computerName: true } });
         } catch (err) {
-            console.log(err);
             this.setState({ ...this.state, validField: { ...this.state.validField, computerName: false } });
         }
         if (this.checkValidField) {
@@ -53,10 +46,10 @@ class AddComputer extends React.Component {
 
     handleChangeIntroduced = (event) => {
         try {
-            this.state.computer.introduced = new Date(event.target.value);
-            this.setState({ ...this.state, validField: { ...this.state.validField, introduced: true } });
+            let computer = this.state.computer;
+            computer.introduced = new Date(event.target.value);
+            this.setState({ ...this.state, validField: { ...this.state.validField, computer: computer, introduced: true } });
         } catch (err) {
-            console.log(err);
             this.setState({ ...this.state, validField: { ...this.state.validField, introduced: false } });
         }
         if (this.checkValidField) {
@@ -69,8 +62,9 @@ class AddComputer extends React.Component {
 
     handleChangeDiscontinued = (event) => {
         try {
-            this.state.computer.discontinued = new Date(event.target.value);
-            this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: true } });
+            let computer = this.state.computer;
+            computer.discontinued = new Date(event.target.value);
+            this.setState({ ...this.state, validField: { ...this.state.validField, computer : computer, discontinued: true } });
         } catch (err) {
             console.log(err);
             this.setState({ ...this.state, validField: { ...this.state.validField, discontinued: false } });
@@ -85,11 +79,9 @@ class AddComputer extends React.Component {
 
     handleChangeCompany = (event) => {
         try {
-            this.state.company = this.state.companies.find(obj => obj.id === event.target.value);
-            this.state.defaultCompanyID = this.state.company.id;
-            this.setState({ ...this.state, validField: { ...this.state.validField, companyId: true } });
+            let company = this.state.companies.find(obj => obj.id === event.target.value);
+            this.setState({ ...this.state, validField: { ...this.state.validField, company : company, defaultCompanyID:company.id, companyId: true } });
         } catch (err) {
-            console.log(err);
             this.setState({ ...this.state, validField: { ...this.state.validField, companyId: false } });
         }
         if (this.checkValidField) {

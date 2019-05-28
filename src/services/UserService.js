@@ -45,10 +45,6 @@ class UserService {
     isAuthenticated(){
         return localStorage.getItem("token") !== "";
     }
-
-    isAdmin(){
-        return localStorage.getItem("role") !== "";
-    }
 }
 
 export default new UserService();

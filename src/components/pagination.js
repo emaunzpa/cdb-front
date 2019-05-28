@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
-import {Button, ButtonBase} from '@material-ui/core';
-
+import {Button} from '@material-ui/core';
+import I18n from '../config/i18n';
 
 class Index extends Component{
 
     render(){
         return(
-            <ButtonBase>
+            <div>
             {
                 this.props.page - 2 >0 &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 2)}>{this.props.page - 2}</Button>
@@ -24,7 +24,7 @@ class Index extends Component{
                 this.props.page + 2 < this.props.max &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 2)}>{this.props.page + 2}</Button>
             }
-            </ButtonBase>
+            </div>
         )
     }
 
@@ -83,22 +83,32 @@ class Pagination extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
-        if(nextProps.options.page != prevState.page){
+        if(nextProps.options.page !== prevState.page){
             return{page:nextProps.options.page }
         }
+        return prevState;
     }
 
     render(){
         return (
+            
             <div className="pagination" display ="inline">
                 <div className = "pageNavigate" display ="inline-block">
-                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
-                        Previous
-                    </Button>
+                    {
+                        this.state.page > 1 &&
+                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
+                            <I18n t="previous"/>
+                        </Button>
+                    }
                     <Index changePage={this.changePage} page={this.state.page} max={this.numberPages()}/>
-                    <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
-                        Next
-                    </Button>
+                    
+                    {
+                        
+                        this.state.page < Math.trunc(this.numberPages()) &&
+                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
+                            <I18n t="next"/>
+                        </Button>
+                    }
                 </div>
                 <div className = "sizeNavigate" display="inline-block">
                     <Button className = "pageButton" onClick={() => this.changeSize(10)}  variant="outlined">

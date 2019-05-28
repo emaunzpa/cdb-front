@@ -1,14 +1,18 @@
-import React,{ Component } from "react";
-import {TableCell,TableRow,TextField ,Button }from '@material-ui/core';
-import userService from '../../services/UserService'
+import React, { Component } from "react";
+import { TableCell, TableRow, Button } from '@material-ui/core';
+import userService from '../../services/UserService';
+import DeleteIcon from '@material-ui/icons/Delete';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import SortByAlpha from '@material-ui/icons/SortByAlpha';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import I18n from "../../config/i18n";
 
-import DeleteIcon from '@material-ui/icons/Delete'
 
-class Company{
+class Company {
 
 }
 
-class CompanyDetails extends Component{
+class CompanyDetails extends Component {
 
     render() {
         return(
@@ -21,31 +25,35 @@ class CompanyDetails extends Component{
     }
 }
 
-class CompanyHeader extends Component{
+class CompanyHeader extends Component {
 
     state = {
         search: ""
     }
-    
+
     updateSearch = (event) => {
-        this.setState({search:event.target.value})
+        this.setState({ search: event.target.value })
     }
 
     keyHandler = (event) => {
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             this.props.search(this.state.search);
         }
     }
 
-    render(){
-        return(
-        <TableRow >
-            <TableCell align="left">ID</TableCell>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="right"/>
-        </TableRow>
+    render() {
+        return (
+            <TableRow >
+                <TableCell align="left">ID
+                <TableSortLabel onClick={() => this.props.orderBy("id")}><UnfoldMore className="az-icon"/></TableSortLabel>
+                </TableCell>
+                <TableCell align="left"><I18n t="name"/>
+                <TableSortLabel onClick={() => this.props.orderBy("name")}><SortByAlpha className="az-icon"/></TableSortLabel>
+                </TableCell>
+                <TableCell align="right" />
+            </TableRow>
         )
     }
 }
 export default Company;
-export { CompanyDetails,CompanyHeader};
+export { CompanyDetails, CompanyHeader };
