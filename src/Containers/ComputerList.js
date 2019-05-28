@@ -31,6 +31,7 @@ import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import userService from '../services/UserService';
 
+
 class ComputerList extends Component {
 
   addComputer = React.createRef();
@@ -220,10 +221,12 @@ class ComputerList extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div>{
+                    userService.isAdmin() &&
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
+        }
           <TextField
             id="standard-search"
             label={<I18n t="search" />}
@@ -334,7 +337,6 @@ class ComputerList extends Component {
           />
         </Snackbar>
         <Snackbar
-          bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           key={`${'bottom'},${'right'}`}
           open={this.state.snackbardelete}

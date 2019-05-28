@@ -20,7 +20,10 @@ class Index extends Component{
                 this.props.page - 1 >0 &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 1)}>{this.props.page - 1}</Button>
             }
-                <Button variant="contained" >{this.props.page}</Button>
+            {
+                this.props.page &&
+                <Button variant="contained" name="BUGGED">{this.props.page}</Button>
+            }
             {
                 this.props.page + 1 < this.props.max &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 1)} >{this.props.page + 1}</Button>

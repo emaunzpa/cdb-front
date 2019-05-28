@@ -6,7 +6,7 @@ import LoginForm from './components/LoginForm'
 import Header from './components/header/header';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserService from './services/UserService';
-import AddComputer from './components/addComputer/AddComputer';
+import AdminSignUpForm from './components/AdminForm/AdminSignUp';
 const langUri = '/:locale(en|fr)?';
 
 export default class App extends React.Component {
@@ -37,9 +37,9 @@ export default class App extends React.Component {
 
             )} />
 
-          <Route path={`${langUri}/add-computer`}
+          <Route path={`${langUri}/users`}
             render={() => (UserService.isAuthenticated() ? (
-              <AddComputer></AddComputer>
+              <AdminSignUpForm></AdminSignUpForm>
             ) : <Redirect to={`/login`}></Redirect>
 
             )} />

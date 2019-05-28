@@ -110,8 +110,9 @@ class Header extends Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
-                                    <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="users" /></MenuItem></Link>
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow">
