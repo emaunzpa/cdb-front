@@ -3,11 +3,15 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
-import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, SnackbarContent } from '@material-ui/core';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import SearchIcon from '@material-ui/icons/Search'
 import Snackbar from '@material-ui/core/Snackbar';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 
 
 
@@ -18,9 +22,7 @@ class CompanyList extends Component {
         openSnack: false
     }
 
-    toggleAdd = () => {
-        this.setState({ toggleAdd: !this.state.toggleAdd });
-    }
+
 
     updateNewName = (event) => {
         this.setState({ newName: event.target.value });
@@ -31,10 +33,12 @@ class CompanyList extends Component {
         await companyService.create(company)
             .catch(err => console.log(err));
         this.setState({
+            newName: '',
             snackMessage: "Company Added",
             snackColor: 'green',
             openSnack: true
         })
+        this.closeAddDialog();
     }
 
     buttonSearch = () => {
@@ -58,7 +62,7 @@ class CompanyList extends Component {
     }
 
     search = (value) => {
-        let options = { page: 1, itemPerPage: 10, search: value };
+        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: value };
         this.updateList(options);
     }
 
@@ -72,6 +76,7 @@ class CompanyList extends Component {
 
 
     delete = async () => {
+        console.log(this.state.deleteId)
         await companyService.delete(this.state.deleteId)
             .catch(err => console.log(err));
         let options = {
@@ -108,7 +113,7 @@ class CompanyList extends Component {
             page: this.props.page || 1,
             itemPerPage: this.props.itemPerPage || 10,
             search: this.props.search || ""
-        }
+        };
         this.updateList(options);
     }
 
@@ -121,6 +126,17 @@ class CompanyList extends Component {
     closeDeleteDialog = () => {
         this.setState({
             openDeleteDialog: false
+        })
+    }
+
+    addDialog = () => {
+        this.setState({ openAddDialog: true });
+    }
+
+    closeAddDialog = () => {
+        this.setState({
+            newName: '',
+            openAddDialog: false
         })
     }
     orderBy = async (column) => {
@@ -153,37 +169,65 @@ class CompanyList extends Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                {
+                    userService.isAdmin() &&
+                    <Dialog
+                        open={this.state.openAddDialog}
+                        onClose={this.closeAddDialog}
+                    >
+                        <DialogTitle> Add Company</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Enter the new company's name</DialogContentText>
+                            <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
+                        </DialogContent>
+                        <DialogActions>
+                            {
+                                this.state.newName ?
+                                    <Button onClick={() => this.addCompany(this.state.newName)}>
+                                        <Plus />
+                                    </Button>
+                                    :
+                                    <Button disabled={true}>
+                                        <Plus />
+                                    </Button>
+                            }
+                        </DialogActions>
+                    </Dialog>
+                }
                 <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
+                    bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}
-                    autoHideDuration={2000}
                     onClose={this.closeSnack}
-                    color={this.state.snackColor}
-                    message={<span id="message-id">{this.state.snackMessage}</span>}
-                    action={[
-                        <Button onClick={() => this.closeSnack()}>
-                            Ok
-                        </Button>
-                    ]}
-                />
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    autoHideDuration={2000}
+                    message={<span id="message-id">I love snacks</span>}
+                >
+                    <SnackbarContent
+                        className="snackbar-success"
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar" className="snackbarMessage">
+                                <CheckCircleIcon className="snackbarIcon" />
+                                {this.state.snackMessage}
+                            </span>
+                        }
+                        action={[
+                            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.closeSnack}>
+                                <CloseIcon />
+                            </IconButton>,
+                        ]}
+                    />
+                </Snackbar>
                 <div>{
                     userService.isAdmin() &&
-                    <Button variant="outlined" align-self="left" onClick={() => this.toggleAdd()}>
+                    <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
                         ADD A COMPANY
-                </Button>
+                    </Button>
                 }
-                    {
-                        this.state.toggleAdd && userService.isAdmin() &&
-                        <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
-                    }
-                    {
-                        this.state.toggleAdd && userService.isAdmin() &&
-                        <Button align-self="left" onClick={() => this.addCompany()}><Plus /></Button>
-                    }
-
                     <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
                     {
                         this.state.searchMode ?
@@ -205,7 +249,7 @@ class CompanyList extends Component {
                         }
                     </TableBody>
                 </Table>
-                <Pagination otherOptions={{ search: this.state.search }}
+                <Pagination otherOptions={{ search: this.state.search,orderBy:this.state.orderBy }}
                     options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
                     size={this.state.size}
                     update={(options) => this.updateList(options)}
@@ -216,4 +260,4 @@ class CompanyList extends Component {
 
 }
 
-export default new CompanyList();
+export default CompanyList;

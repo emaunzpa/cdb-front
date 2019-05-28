@@ -28,12 +28,17 @@ const translations = {
     chooseCompany: 'Choose a company',
     snackbarSuccessMessage: 'New computer added',
     //SignUp / Login
+    loginform: "Login form",
+    name: 'Name',
+    password: 'Password',
+    login: 'Log in',
     successAddUser : 'New user created',
     signup : "Sign Up",
     cancel : 'cancel',
     completeAllFields : "Please complete all fields.",
     passwordTooShort : "Password must be at least 6 characters.",
-    passDontMatch : "Passwords don't match."
+    passDontMatch : "Passwords don't match.",
+    snackbarSuccessMessageDelete: 'Computer deleted'
   },
   fr: {
     // Header
@@ -57,13 +62,17 @@ const translations = {
     chooseCompany: 'Choisissez une entreprise',
     snackbarSuccessMessage: 'Nouvel ordinateur ajouté',
     //SignUp / Login
+    loginform: "Authentification",
+    name: 'Nom',
+    password: 'Mot de passe',
+    login: 'Connexion',
     successAddUser : 'Nouveau utilisateur crée',
     signup : "S'inscrire",
     cancel: 'Annuler',
     completeAllFields : "Veuillez remplir tous les champs.",
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
-    passDontMatch : "Les mots de passe ne sont pas les mêmes."
-
+    passDontMatch : "Les mots de passe ne sont pas les mêmes.",
+    snackbarSuccessMessageDelete: 'Ordianteur supprimé'
   }
 }
  

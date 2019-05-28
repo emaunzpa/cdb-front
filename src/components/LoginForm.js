@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import userService from '../services/UserService';
 import Grid from '@material-ui/core/Grid';
 import SignUpForm from '../components/SignUpForm'
+import I18n from "../config/i18n";
 
 const styles = theme => ({
     container: {
@@ -66,11 +67,11 @@ class LoginForm extends React.Component {
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Login Form
+                            <I18n t="loginform"/>
                         </Typography>
                         <TextField
                             id="loginInput"
-                            label="Name"
+                            label={<I18n t="name"/>}
                             className={classes.textField}
                             onChange={this.handleChange("loginInput")}
                             margin="normal"
@@ -78,7 +79,7 @@ class LoginForm extends React.Component {
 
                         <TextField
                             id="passwordInput"
-                            label="Password"
+                            label={<I18n t="password"/>}
                             className={classes.textField}
                             type="password"
                             onChange={this.handleChange("passwordInput")}
@@ -86,8 +87,8 @@ class LoginForm extends React.Component {
                         />
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={(event) => this.validateLoginForm(event)}>Login</Button>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSignUp}>Sign Up</Button>
+                        <Button size="small" onClick={(event) => this.validateLoginForm(event)}><I18n t="login"/></Button>
+                        <Button variant="contained" color="primary" size="small" onClick={this.handleSignUp}><I18n t="signup"/></Button>
                     </CardActions>
                 </Card>
                 </Grid>
