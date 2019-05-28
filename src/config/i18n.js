@@ -16,6 +16,7 @@ const translations = {
     logout: 'Log out',
     companies: 'Companies',
     computers: 'Computers',
+    users : 'Users',
     // Add Computer
     required: 'This field is required',
     invalidDates: 'Invalid or incoherences between dates',
@@ -71,6 +72,7 @@ const translations = {
     logout: 'Déconnexion',
     companies: 'Liste entreprises',
     computers: 'Liste ordinateurs',
+    users : 'Utilisateurs',
     // Add Computer
     required: 'Veuillez remplir ce champ',
     invalidDates: 'Dates invalides ou incohérentes',
