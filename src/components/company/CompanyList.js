@@ -76,6 +76,7 @@ class CompanyList extends Component {
 
 
     delete = async () => {
+        console.log(this.state.deleteId)
         await companyService.delete(this.state.deleteId)
             .catch(err => console.log(err));
         let options = {
@@ -215,7 +216,7 @@ class CompanyList extends Component {
                             </span>
                         }
                         action={[
-                            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
+                            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.closeSnack}>
                                 <CloseIcon />
                             </IconButton>,
                         ]}
@@ -248,7 +249,7 @@ class CompanyList extends Component {
                         }
                     </TableBody>
                 </Table>
-                <Pagination otherOptions={{ search: this.state.search }}
+                <Pagination otherOptions={{ search: this.state.search,orderBy:this.state.orderBy }}
                     options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
                     size={this.state.size}
                     update={(options) => this.updateList(options)}
