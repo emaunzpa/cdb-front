@@ -99,8 +99,8 @@ class LoginForm extends React.Component {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={(event) => this.validateLoginForm(event)}><I18n t="login" /></Button>
-                            <Button variant="contained" color="primary" size="small" onClick={this.handleSignUp}><I18n t="signup" /></Button>
+                            <Button size="small" variant="contained" color="primary" onClick={(event) => this.validateLoginForm(event)}><I18n t="login" /></Button>
+                            <Button  size="small" onClick={this.handleSignUp}><I18n t="signup" /></Button>
                         </CardActions>
                     </Card>
                 </Grid>
