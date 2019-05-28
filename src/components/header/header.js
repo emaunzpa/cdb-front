@@ -126,7 +126,7 @@ class Header extends Component {
                                 <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
                                 <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
                                 {this.state.auth &&
-                                    <a className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></a>}
+                                    <a className="dropdownItem" href="#" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></a>}
                             </div>
                         </div>
 
