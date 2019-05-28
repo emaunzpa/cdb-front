@@ -47,6 +47,10 @@
     background-color: green !important;
   }
 
+  .snackbar-fail {
+    background-color: red !important;
+  }
+
   .snackbarMessage {
     display: flex;
     align-items: center;
