@@ -333,7 +333,6 @@ class ComputerList extends Component {
           />
         </Snackbar>
         <Snackbar
-          bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           key={`${'bottom'},${'right'}`}
           open={this.state.snackbardelete}

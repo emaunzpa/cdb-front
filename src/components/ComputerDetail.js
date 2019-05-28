@@ -38,8 +38,7 @@ class ComputerDetail extends Component {
     if (name.trim() !== "") {
       let computer = this.state.computer;
       computer.name = name.trim();
-      this.state.computer.name = name;
-      this.setState({ newName: name, computer: computer });
+      this.setState({newName: name, computer : computer});
 
     } else {
       this.setState({ snackbar: true, errEdit: "nameEmpty" });
