@@ -107,7 +107,7 @@ class ComputerDetail extends Component {
                     onKeyPress={this.keyHandler}
                     margin="dense"
                     fullWidth
-                />: this.state.computer.introduced }
+                /> : this.state.computer.introduced }
         </TableCell>
         <TableCell>
           { this.state.editMode ? <TextField

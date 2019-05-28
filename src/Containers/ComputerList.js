@@ -29,6 +29,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import MySnackbar from "../components/MySnackbar";
 
 class ComputerList extends Component {
 
@@ -209,9 +210,17 @@ class ComputerList extends Component {
     this.addComputer.addNewComputer();
   }
 
+  snackbar = () => {
+    return this.state.snackbar;
+  }
+
   handleSnack = () => {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
   };
+
+  snackbarDelete = () => {
+    return this.state.snackbarDelete;
+  }
 
   handleSnackDelete = () => {
     this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
@@ -307,60 +316,8 @@ class ComputerList extends Component {
               </button>
             </DialogActions>
           </Dialog>
-          <Snackbar
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            open={this.state.snackbar}
-            onClose={this.handleSnack}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            autoHideDuration={2000}
-            message={<span id="message-id">I love snacks</span>}
-          >
-            <SnackbarContent
-              className="snackbar-success"
-              aria-describedby="client-snackbar"
-              message={
-                <span id="client-snackbar" className="snackbarMessage">
-                  <CheckCircleIcon className="snackbarIcon" />
-                  <I18n t="snackbarSuccessMessage" />
-                </span>
-              }
-              action={[
-                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
-                  <CloseIcon />
-                </IconButton>,
-              ]}
-            />
-          </Snackbar>
-            <Snackbar
-            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            key={`${'bottom'},${'right'}`}
-            open={this.state.snackbardelete}
-            onClose={this.handleSnackDelete}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            autoHideDuration={2000}
-            message={<span id="message-id">I love snacks</span>}
-          >
-            <SnackbarContent
-              className="snackbar-success-delete"
-              aria-describedby="client-snackbar"
-              message={
-                <span id="client-snackbar" className="snackbarMessage">
-                  <CheckCircleIcon className="snackbarIcon"/>
-                  <I18n t="snackbarSuccessMessageDelete" />
-                </span>
-              }
-              action={[
-                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
-                  <CloseIcon/>
-                </IconButton>,
-              ]}
-            />
-          </Snackbar>
+          <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
+          <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
         <Table>
           <TableHead>
             <TableRow>

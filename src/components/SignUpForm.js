@@ -9,15 +9,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogContentText } from "@material-ui/core";
 
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import I18n from '../config/i18n';
-import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbar from "./MySnackbar";
 
 class SignUpForm extends React.Component {
-    state = { }
+    state = { snackbar : false }
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value,
@@ -49,7 +45,7 @@ class SignUpForm extends React.Component {
       let isSuccess = await userService.create({ login: this.state.loginInput, 
         password: this.state.passwordInput, confirmation: this.state.confirmationInput})
       .catch(err => console.log(err));
-
+      
       if (isSuccess) {
         if(!isSuccess._success){
           this.setState({ signUpErr : isSuccess.message });
@@ -57,46 +53,23 @@ class SignUpForm extends React.Component {
         }
         else {
           this.props.handleSignUp();
-          this.setState({ snackbar : true });
+          this.setState({...this.state, snackbar : true });
         }
       }
     }
 
-    handleSnack = () => {
-      this.setState({ ...this.state, snackbar: !this.state.snackbar })
-    };
+    openSnack = () => {
+      return this.state.snackbar;
+    }
+
+    closeSnack = () => {
+      this.setState({snackbar: !this.state.snackbar});
+    }
 
     render() {
         return (
           <div> 
-            <Snackbar
-            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            key={`${'bottom'},${'center'}`}
-            open={this.state.snackbar}
-            onClose={this.handleSnack}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            autoHideDuration={2000}
-          >
-            
-            <SnackbarContent
-              className="snackbar-success"
-              aria-describedby="client-snackbar"
-              message={
-                <span id="client-snackbar" className="snackbarMessage">
-                  <CheckCircleIcon className="snackbarIcon"/>
-                  <I18n t="successAddUser" />
-                </span>
-              }
-              action={[
-                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
-                  <CloseIcon/>
-                </IconButton>,
-              ]}
-            />
-          </Snackbar>
+            <MySnackbar open={this.openSnack} close={this.closeSnack} variant="success" message={<I18n t="successAddUser" />} />
           
             <Dialog open={this.props.open} onClose={this.props.handleSignUp} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title"><I18n t="signup" /></DialogTitle>
