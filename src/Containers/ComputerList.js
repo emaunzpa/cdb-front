@@ -350,33 +350,33 @@ class ComputerList extends Component {
           </Snackbar>
           <TextField
             id="standard-search"
-            label="Search"
+            label={<I18n t="search" />}
             type="search"
             margin="normal"
             onKeyPress={this.keyHandler}
             onChange={this.handleChange}
           />
-          <Button onClick={() => this.searchByName(this.state.search)}>Search</Button>
+          <Button onClick={() => this.searchByName(this.state.search)}>{<I18n t="search" />}</Button>
         </div>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("name")}>Name</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("name")}>{<I18n t="computerName" />}</TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell >
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("introduced")}>{<I18n t="introducedDate" />}</TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>{<I18n t="discontinuedDate" />}</TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Company</TableCell>
+              <TableCell>{<I18n t="company" />}</TableCell>
               <TableCell>Edit</TableCell>
             </TableRow>
           </TableHead>

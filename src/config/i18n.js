@@ -34,7 +34,9 @@ const translations = {
     completeAllFields : "Please complete all fields.",
     passwordTooShort : "Password must be at least 6 characters.",
     passDontMatch : "Passwords don't match.",
-    snackbarSuccessMessageDelete: 'Computer deleted'
+    snackbarSuccessMessageDelete: 'Computer deleted',
+    search: 'Search'
+
   },
   fr: {
     // Header
@@ -64,7 +66,8 @@ const translations = {
     completeAllFields : "Veuillez remplir tous les champs.",
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
-    snackbarSuccessMessageDelete: 'Ordianteur supprimé'
+    snackbarSuccessMessageDelete: 'Ordianteur supprimé',
+    search: 'Recherche'
   }
 }
  
