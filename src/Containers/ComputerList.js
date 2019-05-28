@@ -221,11 +221,20 @@ class ComputerList extends Component {
     return (
       <div>
         <div>
-          <Button onClick={this.handleOpen}>
+          <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
-
-          <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
+          <TextField
+            id="standard-search"
+            label="Search"
+            type="search"
+            margin="normal"
+            onKeyPress={this.keyHandler}
+            onChange={this.handleChange}
+          />
+          <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align">Search</Button>
+        </div>
+        <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
             <DialogContent>
               <div className="container">
@@ -352,16 +361,6 @@ class ComputerList extends Component {
               ]}
             />
           </Snackbar>
-          <TextField
-            id="standard-search"
-            label="Search"
-            type="search"
-            margin="normal"
-            onKeyPress={this.keyHandler}
-            onChange={this.handleChange}
-          />
-          <Button onClick={() => this.searchByName(this.state.search)}>Search</Button>
-        </div>
         <Table>
           <TableHead>
             <TableRow>
