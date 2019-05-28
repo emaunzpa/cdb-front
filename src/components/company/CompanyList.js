@@ -20,7 +20,8 @@ class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack: false
+        openSnack: false,
+        reverse: false
     }
 
 
@@ -141,11 +142,12 @@ class CompanyList extends Component {
         })
     }
     orderBy = async (column) => {
-        this.setState({ orderBy: column });
+        this.setState({ orderBy: column, reverse: !this.state.reverse });
         let options = {
             page: 1,
             itemPerPage: 10,
-            orderBy: column
+            orderBy: column,
+            reverse: this.state.reverse
         }
         this.updateList(options)
     }
