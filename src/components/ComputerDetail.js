@@ -9,7 +9,6 @@ import Button from "@material-ui/core/Button";
 import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
-import I18n from '../config/i18n';
 
 class ComputerDetail extends Component {
   state = {
@@ -33,38 +32,42 @@ class ComputerDetail extends Component {
 
   updateName = (event) => {
     let name = event.target.value;
-    this.setState({newName: name});
-
     if(name.trim() !== "") {
+      let computer = this.state.computer;
+      computer.name = name.trim();
       this.state.computer.name = name;
+      this.setState({newName: name, computer : computer});
+
     }else {
       this.setState({snackbar: true, errEdit : "nameEmpty"});
     }
   };
 
   updateIntroduced = (event) => {
+    let computer  = this.state.computer;
     try {
-      this.state.computer.introduced = event.target.value
+      computer.introduced = event.target.value;
     } catch (error) {
       
-    }
-    
-    this.setState({computer: this.state.computer})
+    } 
+    this.setState({computer: computer})
   };
 
   updateDiscontinued = (event) => {
+    let computer = this.state.computer;
     try {
-      this.state.computer.discontinued = event.target.value
+      computer.discontinued = event.target.value;
     } catch (error) {
         
     }
-    this.setState({computer: this.state.computer})
+    this.setState({computer: computer})
   };
 
   updateCompany = (event) => {
     let newId = event.target.value;
-    this.state.computer.company = newId === 0 ? new Company({id:"", name:""}) :this.state.companies.find(obj => obj.id === newId);
-    this.setState({computer: this.state.computer})
+    let computer = this.state.computer;
+    computer.company = newId === 0 ? new Company({id:"", name:""}) : this.state.companies.find(obj => obj.id === newId);
+    this.setState({computer: computer})
   };
 
   update = async () => {
