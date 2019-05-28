@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
-import {Button, ButtonBase} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 
 
 class Index extends Component{
 
     render(){
         return(
-            <ButtonBase>
+            <div>
             {
                 this.props.page - 2 >0 &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 2)}>{this.props.page - 2}</Button>
@@ -24,7 +24,7 @@ class Index extends Component{
                 this.props.page + 2 < this.props.max &&
                 <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 2)}>{this.props.page + 2}</Button>
             }
-            </ButtonBase>
+            </div>
         )
     }
 
@@ -83,9 +83,10 @@ class Pagination extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
-        if(nextProps.options.page != prevState.page){
+        if(nextProps.options.page !== prevState.page){
             return{page:nextProps.options.page }
         }
+        return prevState;
     }
 
     render(){

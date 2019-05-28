@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import computerService from '../services/ComputerService';
 import ComputerDetail from '../components/ComputerDetail';
-import userService from '../services/UserService';
 import Pagination from '../components/pagination';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,7 +15,6 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Company from "../models/Company";
 import Computer from "../models/Computer";
@@ -53,7 +50,7 @@ class ComputerList extends Component {
     var fields = Object.values(this.state.validField);
     var result = true;
     fields.forEach(function (field) {
-      if (field == false) {
+      if (field === false) {
         result = false;
       }
     });
@@ -61,7 +58,7 @@ class ComputerList extends Component {
   };
 
   checkDates = (introduced, discontinued) => {
-    if (introduced != "" & discontinued != "" & introduced > discontinued) {
+    if (introduced !== "" & discontinued !== "" & introduced > discontinued) {
       return false;
     }
     else {
@@ -79,53 +76,58 @@ class ComputerList extends Component {
     if (event.target.value === "") {
       fieldName = false;
     }
-    this.setState({ ...this.state, computer: { ...this.state.computer, _name: event.target.value }, validField: { ...this.state.validField, computerName: fieldName } }, this.finishUpdate)
+    let computer = this.state.computer;
+    computer.name = event.target.value;
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, computerName: fieldName } }, this.finishUpdate)
   };
 
   handleChangeIntroduced = (event) => {
     var fieldDate = true;
-    this.checkDates(event.target.value, this.state.computer._discontinued)
-    if (!this.checkDates(event.target.value, this.state.computer._discontinued)) {
+    this.checkDates(event.target.value, this.state.computer.discontinued)
+    if (!this.checkDates(event.target.value, this.state.computer.discontinued)) {
       fieldDate = false;
     }
-    this.setState({ ...this.state, computer: { ...this.state.computer, _introduced: event.target.value }, validField: { ...this.state.validField, introduced: fieldDate } }, this.finishUpdate)
+    let computer = this.state.computer;
+    computer.introduced = new Date(event.target.value);
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, introduced: fieldDate } }, this.finishUpdate)
   };
 
   handleChangeDiscontinued = (event) => {
     var fieldDate = true;
-    this.checkDates(event.target.value, this.state.computer._discontinued)
-    if (!this.checkDates(this.state.computer._introduced, event.target.value)) {
+    this.checkDates(event.target.value, this.state.computer.discontinued)
+    if (!this.checkDates(this.state.computer.introduced, event.target.value)) {
       fieldDate = false;
     }
-    this.setState({ ...this.state, computer: { ...this.state.computer, _discontinued: event.target.value }, validField: { ...this.state.validField, discontinued: fieldDate } }, this.finishUpdate)
+    let computer = this.state.computer;
+    computer.discontinued = new Date(event.target.value);
+    this.setState({ ...this.state, computer: computer, validField: { ...this.state.validField, discontinued: fieldDate } }, this.finishUpdate)
   };
 
   handleChangeCompany = (event) => {
     this.setState({ ...this.state, company: this.state.companies.find(obj => obj.id === event.target.value), defaultCompanyID: this.state.companies.find(obj => obj.id === event.target.value).id, validField: { ...this.state.validField, companyId: true } });
   }
 
-  addNewComputer = () => {
+  addNewComputer = async () => {
     if (this.checkValidField) {
 
-      var computer = new Computer({
+      let computer = new Computer({
         name: this.state.computer.name,
         introduced: this.state.computer.introduced,
         discontinued: this.state.computer.discontinued,
         companyId: this.state.company.id,
         companyName: this.state.company.name
-      })
-
-      computerService.create(computer)
-        .then(this.state.computer = new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }))
-        .then(this.state.validField = { computerName: false, introduced: true, discontinued: true, companyId: true })
-        .then(this.handleOpen)
-        .then(this.handleSnack({ vertical: 'bottom', horizontal: 'right' }))
-        .catch(err => console.log(err))
+      });
+      await computerService.create(computer)
+        .catch(err => console.log(err));
+      
+      this.setState({...this.state, computer : new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField : { computerName: false, introduced: true, discontinued: true, companyId: true }});
+      this.handleOpen();
+      this.handleSnack({ vertical: 'bottom', horizontal: 'right' });
     }
   }
 
   async componentWillMount() {
-    var companyList = await companyService.getAll();
+    let companyList = await companyService.getAll();
     companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }));
     this.setState({ companies: companyList });
   }
@@ -184,7 +186,7 @@ class ComputerList extends Component {
   }
 
   deleteById = async (idToDelete) => {
-    let isSuccess = await computerService.delete(idToDelete)
+    await computerService.delete(idToDelete)
     .then(this.handleSnackDelete())
       .catch(err => console.log(err));
       let options = {
@@ -219,7 +221,7 @@ class ComputerList extends Component {
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
 
-          <Dialog fullWidth={"sm"} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
+          <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
             <DialogContent>
               <div className="container">
@@ -293,9 +295,7 @@ class ComputerList extends Component {
             </DialogActions>
           </Dialog>
           <Snackbar
-            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            
             open={this.state.snackbar}
             onClose={this.handleSnack}
             ContentProps={{

@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import ComputerService from '../services/ComputerService';
 import CompanyService from '../services/CompanyService';
 import Company from '../models/Company';
+import I18n from '../config/i18n';
 
 class ComputerDetail extends Component {
   state = {
@@ -30,23 +31,27 @@ class ComputerDetail extends Component {
   }
 
   updateName = (event) => {
-    this.state.computer.name = event.target.value
-    this.setState({computer: this.state.computer})
+    let computer = this.state.computer;
+    computer.name = event.target.value
+    this.setState({computer: computer})
   };
 
   updateIntroduced = (event) => {
-    this.state.computer.introduced = event.target.value
-    this.setState({computer: this.state.computer})
+    let computer = this.state.computer;
+    computer.introduced = event.target.value ? new Date(event.target.value) : "";
+    this.setState({computer: computer})
   };
 
   updateDiscontinued = (event) => {
-    this.state.computer.discontinued = event.target.value
-    this.setState({computer: this.state.computer})
+    let computer = this.state.computer;
+    computer.discontinued = event.target.value ? new Date(event.target.value) : "";
+    this.setState({computer: computer})
   };
 
   updateCompany = (event) => {
-    this.state.computer.company = this.state.companies.find(obj => obj.id === event.target.value);
-    this.setState({computer: this.state.computer})
+    let computer = this.state.computer;
+    computer.company = this.state.companies.find(obj => obj.id === event.target.value);
+    this.setState({computer: computer})
   };
 
   update = async () => {
@@ -63,21 +68,64 @@ class ComputerDetail extends Component {
 
 	render() {
 
-    const open = false;
 		return (
       <TableRow key={this.state.computer.id}>
-        <TableCell>{ this.state.editMode ? <input onChange={this.updateName} onKeyPress={this.keyHandler} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
-        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
-        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
-        <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
-                            value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
-                            helperText="Please select the company"  margin="normal" variant="outlined" >
-                            {this.state.companies.map(option => (
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
-                                </MenuItem> ))
-                            }
-                        </TextField> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
+        <TableCell>
+          { this.state.editMode ? 
+             <TextField
+             id="name"
+             label={<I18n t="name" />}
+             type="text"
+             onChange={this.updateName}
+             className="textField"
+             value={this.state.computer.name ? this.state.computer.name :  ""}
+             InputLabelProps={{
+               shrink: true,
+             }} />
+             : this.state.computer.name ? this.state.computer.name :  ""}
+        </TableCell>
+        <TableCell>
+          { this.state.editMode ? 
+            <TextField
+                  id="introducedDate"
+                  label={<I18n t="introducedDate" />}
+                  type="date"
+                  onChange={this.updateIntroduced}
+                  className="textField"
+                  value={this.state.computer.introduced ? (typeof this.state.computer.introduced === "string" ? this.state.computer.introduced : this.state.computer.introduced.toISOString().split("T")[0]) : ""}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                /> 
+            : this.state.computer.introduced ? (typeof this.state.computer.introduced === "string" ? this.state.computer.introduced : this.state.computer.introduced.toISOString().split("T")[0]) : "" }
+      </TableCell>
+       <TableCell>
+          { this.state.editMode ? 
+            <TextField
+                  id="discontinuedDate"
+                  label={<I18n t="discontinuedDate" />}
+                  type="date"
+                  onChange={this.updateDiscontinued}
+                  className="textField"
+                  value={this.state.computer.discontinued ? (typeof this.state.computer.discontinued === "string" ? this.state.computer.discontinued : this.state.computer.discontinued.toISOString().split("T")[0]) : ""}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                /> 
+            : this.state.computer.discontinued ? (typeof this.state.computer.discontinued === "string" ? this.state.computer.discontinued : this.state.computer.discontinued.toISOString().split("T")[0]) : "" }
+        </TableCell>
+        <TableCell>
+          { this.state.editMode ? 
+            <TextField 
+              id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
+              value={this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
+              helperText="Please select the company"  margin="normal" variant="outlined" >
+                    {this.state.companies.map(option => (
+                          <MenuItem key={option.id} value={option.id}>
+                              {option.name}
+                          </MenuItem> ))
+                    }
+              </TextField> : this.state.computer.company ? this.state.computer.company.name : "" }</TableCell>
         <TableCell>
           <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
           <Button onClick={this.toggleEditMode}><EditIcon/></Button>
