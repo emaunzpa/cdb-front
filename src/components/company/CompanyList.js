@@ -212,7 +212,6 @@ class CompanyList extends Component {
                     </Dialog>
                 }
                 <Snackbar
-                    bodyStyle={{ backgroundColor: this.state.snackColor, color: 'coral' }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}

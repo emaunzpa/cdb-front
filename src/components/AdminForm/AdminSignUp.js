@@ -71,7 +71,6 @@ class AdminSignUpForm extends React.Component {
         return (
             <div>
                 <Snackbar
-                    bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                     key={`${'bottom'},${'center'}`}
                     open={this.state.snackbar}
