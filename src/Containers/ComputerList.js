@@ -377,7 +377,7 @@ class ComputerList extends Component {
                 </Tooltip>
               </TableCell>
               <TableCell>{<I18n t="company" />}</TableCell>
-              <TableCell>Edit</TableCell>
+              <TableCell>{<I18n t="edit" />}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
