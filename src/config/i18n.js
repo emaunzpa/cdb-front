@@ -52,6 +52,10 @@ const translations = {
     searchName:"Search name",
     errorNoCompanies:"ERROR NO COMPANIES FOUND",
     newName:"New name",
+    //Pagination
+    next:"Next",
+    previous:"Previous",
+
   },
   fr: {
     // Header
@@ -100,6 +104,10 @@ const translations = {
     searchName:"Rechercher nom",
     errorNoCompanies:"Erreur, aucune entreprise trouvée",
     newName:"Nouveau nom",
+
+     //Pagination
+     next:"Suivant",
+     previous:"Précédent",
   }
 }
  

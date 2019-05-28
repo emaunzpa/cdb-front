@@ -5,6 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import I18n from "../../config/i18n";
 
 
 class Company {
@@ -47,7 +48,7 @@ class CompanyHeader extends Component {
                 <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropUp /></TableSortLabel>
                 <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropDown /></TableSortLabel>
                 </TableCell>
-                <TableCell align="left">Name
+                <TableCell align="left"><I18n t="name"/>
                 <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropUp /></TableSortLabel>
                 <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropDown /></TableSortLabel>
                 </TableCell>

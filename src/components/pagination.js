@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Button, ButtonBase} from '@material-ui/core';
-
+import I18n from '../config/i18n';
 
 class Index extends Component{
 
@@ -96,7 +96,7 @@ class Pagination extends Component{
                     {
                         this.state.page > 1 &&
                         <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
-                            Previous
+                            <I18n t="next"/>
                         </Button>
                     }
                     <Index changePage={this.changePage} page={this.state.page} max={this.numberPages()}/>
@@ -105,7 +105,7 @@ class Pagination extends Component{
                         
                         this.state.page < Math.trunc(this.numberPages()) &&
                         <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
-                            Next
+                            <I18n t="previous"/>
                         </Button>
                     }
                 </div>
