@@ -59,7 +59,8 @@ const translations = {
     //Pagination
     next:"Next",
     previous:"Previous",
-    search: "Search"
+    search: "Search",
+     errorNoComputers: "Error, no computer found"
 
   },
   fr: {
@@ -116,7 +117,8 @@ const translations = {
      //Pagination
      next:"Suivant",
      previous:"Précedent",
-     search: "Rechercher"
+     search: "Rechercher",
+     errorNoComputers: "Erreur, aucun ordinateur trouvée"
   }
 }
  

@@ -43,7 +43,7 @@ class CompanyHeader extends Component {
 
     render() {
         return (
-            <TableRow >
+            <TableRow key = "head">
                 <TableCell align="left">ID
                 <TableSortLabel onClick={() => this.props.orderBy("id")}><UnfoldMore className="az-icon"/></TableSortLabel>
                 </TableCell>
