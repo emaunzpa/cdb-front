@@ -24,6 +24,10 @@
   .invalid {
     color: red;
   }
+
+  .az-icon {
+    margin-left: 0.5em;
+  }
   
   #submitBtn {
     background-color: #3f51b5;
