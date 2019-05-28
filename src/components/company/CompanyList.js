@@ -101,6 +101,8 @@ class CompanyList extends Component {
         this.setState({
             page: options.page,
             itemPerPage: options.itemPerPage,
+            search:options.search,
+            orderBy:options.orderBy,
             companies: await companyService.list(options)
                 .catch(err => console.log(err)),
             size: await companyService.count(options.search)
@@ -146,7 +148,8 @@ class CompanyList extends Component {
             page: 1,
             itemPerPage: 10,
             orderBy: column,
-            reverse: this.state.reverse
+            reverse: this.state.reverse,
+            search: this.state.search
         }
         this.updateList(options)
     }
