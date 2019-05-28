@@ -29,6 +29,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import userService from '../services/UserService'
 
 class ComputerList extends Component {
 
@@ -333,7 +334,6 @@ class ComputerList extends Component {
           />
         </Snackbar>
         <Snackbar
-          bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           key={`${'bottom'},${'right'}`}
           open={this.state.snackbardelete}
@@ -382,8 +382,10 @@ class ComputerList extends Component {
                 <Tooltip title="Sort" enterDelay={300}>
                   <TableSortLabel onClick={() => this.orderBy("company")}><I18n t="company" /><SortByAlpha className="az-icon" /></TableSortLabel>
                 </Tooltip>
-              </TableCell>
+              </TableCell>{
+                    userService.isAdmin() &&
               <TableCell><I18n t="edit" /></TableCell>
+            }
             </TableRow>
           </TableHead>
           <TableBody>

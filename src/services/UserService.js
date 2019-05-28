@@ -27,6 +27,17 @@ class UserService {
     }
 
     /**
+     * Create a user.
+     * @param {*} user 
+     */
+    async createAdmin(user) {
+        const feedback = await http.post(`/users/admin`, JSON.stringify(user))
+            .catch(err => Promise.reject(err));
+        return new Feedback(feedback);
+    }
+
+
+    /**
      * Logout.
      */
     logout() {
