@@ -38,7 +38,25 @@ const translations = {
     completeAllFields : "Please complete all fields.",
     passwordTooShort : "Password must be at least 6 characters.",
     passDontMatch : "Passwords don't match.",
-    snackbarSuccessMessageDelete: 'Computer deleted'
+    snackbarSuccessMessageDelete: 'Computer deleted',
+    invalidCredentials : "Invalid credentials.",
+    //CompanyList
+    companyAdded:"Company Added",
+    companyDelete:"Company Deleted",
+    delete: "Delete ",
+    confirmationDelete: "Are you sure to delete this company ?",
+    yes:"yes",
+    no:"no",
+    addCompany: "Add Company",
+    enterNewCompanyName:"Enter the new company's name :",
+    searchName:"Search name",
+    errorNoCompanies:"ERROR NO COMPANIES FOUND",
+    newName:"New name",
+    emptyName:"Name can't be empty",
+    //Pagination
+    next:"Next",
+    previous:"Previous",
+
   },
   fr: {
     // Header
@@ -72,7 +90,26 @@ const translations = {
     completeAllFields : "Veuillez remplir tous les champs.",
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
-    snackbarSuccessMessageDelete: 'Ordianteur supprimé'
+    snackbarSuccessMessageDelete: 'Ordianteur supprimé',
+    invalidCredentials : "Les identifiants sont invalide.",
+
+    //CompanyList
+    companyAdded:"Entreprise ajoutée",
+    companyDelete:"Entreprise Suprimée",
+    delete: "Suprimer ",
+    confirmationDelete: "Êtes vous sure de suprimer cette entreprise ?",
+    yes:"oui",
+    no:"non",
+    addCompany: "Ajouter entreprise",
+    enterNewCompanyName:"Entrez le nom de la nouvelle entreprise",
+    searchName:"Rechercher nom",
+    errorNoCompanies:"Erreur, aucune entreprise trouvée",
+    newName:"Nouveau nom",
+    emptyName:"Le nom ne peut pas être vide",
+
+     //Pagination
+     next:"Suivant",
+     previous:"Précedent",
   }
 }
  

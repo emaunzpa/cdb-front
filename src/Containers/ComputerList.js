@@ -27,6 +27,8 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import SortByAlpha from '@material-ui/icons/SortByAlpha';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 class ComputerList extends Component {
 
@@ -43,7 +45,8 @@ class ComputerList extends Component {
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
-    snackbardelete: false
+    snackbardelete: false,
+    reverse: false
   };
 
   checkValidField = () => {
@@ -155,12 +158,13 @@ class ComputerList extends Component {
   }
 
   orderBy = async (column) => {
-    this.setState({ orderBy: column });
+    this.setState({ orderBy: column, reverse: !this.state.reverse });
     let options = {
       page: 1,
       itemPerPage: 10,
       orderBy: column,
-      search: this.state.search || ""
+      search: this.state.search || "",
+      reverse: this.state.reverse || ""
     }
     this.updateComputer(options)
   }
@@ -363,20 +367,24 @@ class ComputerList extends Component {
             <TableRow>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("name")}>Name</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("name")}>Name<SortByAlpha className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell >
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("introduced")}>Introduced<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
               <TableCell>
                 <Tooltip title="Sort" enterDelay={300}>
-                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued</TableSortLabel>
+                  <TableSortLabel onClick={() => this.orderBy("discontinued")}>Discontinued<UnfoldMore className="az-icon"/></TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Company</TableCell>
+              <TableCell>
+                <Tooltip title="Sort" enterDelay={300}>
+                  <TableSortLabel onClick={() => this.orderBy("company")}>Company<SortByAlpha className="az-icon"/></TableSortLabel>
+                </Tooltip>
+              </TableCell>
               <TableCell>Edit</TableCell>
             </TableRow>
           </TableHead>

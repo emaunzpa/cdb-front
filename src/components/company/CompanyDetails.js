@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { TableCell, TableRow, Button } from '@material-ui/core';
 import userService from '../../services/UserService';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import I18n from "../../config/i18n";
 
 
 class Company {
@@ -44,12 +45,10 @@ class CompanyHeader extends Component {
         return (
             <TableRow >
                 <TableCell align="left">ID
-                <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropUp /></TableSortLabel>
-                <TableSortLabel onClick={() => this.props.orderBy("id")}><ArrowDropDown /></TableSortLabel>
+                <TableSortLabel onClick={() => this.props.orderBy("id")}><UnfoldMore className="az-icon"/></TableSortLabel>
                 </TableCell>
-                <TableCell align="left">Name
-                <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropUp /></TableSortLabel>
-                <TableSortLabel onClick={() => this.props.orderBy("name")}><ArrowDropDown /></TableSortLabel>
+                <TableCell align="left"><I18n t="name"/>
+                <TableSortLabel onClick={() => this.props.orderBy("name")}><SortByAlpha className="az-icon"/></TableSortLabel>
                 </TableCell>
                 <TableCell align="right" />
             </TableRow>

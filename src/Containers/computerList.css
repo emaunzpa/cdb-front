@@ -24,6 +24,10 @@
   .invalid {
     color: red;
   }
+
+  .az-icon {
+    margin-left: 0.5em;
+  }
   
   #submitBtn {
     background-color: #3f51b5;
@@ -45,6 +49,10 @@
   
   .snackbar-success {
     background-color: green !important;
+  }
+
+  .snackbar-fail {
+    background-color: red !important;
   }
 
   .snackbarMessage {

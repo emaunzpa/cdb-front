@@ -12,6 +12,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import I18n from '../../config/i18n';
 
 
 
@@ -34,7 +35,7 @@ class CompanyList extends Component {
             .catch(err => console.log(err));
         this.setState({
             newName: '',
-            snackMessage: "Company Added",
+            snackMessage: <I18n t='companyAdded'/>,
             snackColor: 'green',
             openSnack: true
         })
@@ -86,7 +87,7 @@ class CompanyList extends Component {
         };
         this.updateList(options);
         this.setState({
-            snackMessage: "Company deleted",
+            snackMessage: <I18n t='companyDelete'/>,
             snackColor: 'green',
             openSnack: true,
             deleteId: '',
@@ -149,23 +150,32 @@ class CompanyList extends Component {
         this.updateList(options)
     }
 
+    emptyName = () =>{
+        this.setState({
+            snackMessage:<I18n t="emptyName"/>,
+            snackColor:"red",
+            openSnack:true
+        })
+    }
+
     render() {
+        console.log(this.state.snackColor)
         return (
             <div className="tableContainer">
                 <Dialog
                     open={this.state.openDeleteDialog}
                     onClose={this.closeDeleteDialog}
                 >
-                    <DialogTitle>Delete : {this.state.deleteName} ?</DialogTitle>
+                    <DialogTitle> <I18n t='delete'/> : {this.state.deleteName} ?</DialogTitle>
                     <DialogContent>
-                        Are you sure to delete this company ?
+                        <I18n t='ConfirmationDelete'/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.delete()}>
-                            Yes
+                            <I18n t="yes"/>
                         </Button>
                         <Button onClick={() => this.closeDeleteDialog()}>
-                            No
+                            <I18n t="no"/>
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -175,10 +185,10 @@ class CompanyList extends Component {
                         open={this.state.openAddDialog}
                         onClose={this.closeAddDialog}
                     >
-                        <DialogTitle> Add Company</DialogTitle>
+                        <DialogTitle><I18n t="addCompany"/></DialogTitle>
                         <DialogContent>
-                            <DialogContentText>Enter the new company's name</DialogContentText>
-                            <TextField id="AddField" align-self="left" label="Name new company" onChange={this.updateNewName} />
+                            <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
+                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() } label={<I18n t='newName'/>} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
@@ -195,7 +205,7 @@ class CompanyList extends Component {
                     </Dialog>
                 }
                 <Snackbar
-                    bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+                    bodyStyle={{ backgroundColor: this.state.snackColor, color: 'coral' }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}
@@ -204,14 +214,16 @@ class CompanyList extends Component {
                         'aria-describedby': 'message-id',
                     }}
                     autoHideDuration={2000}
-                    message={<span id="message-id">I love snacks</span>}
                 >
                     <SnackbarContent
                         className="snackbar-success"
                         aria-describedby="client-snackbar"
                         message={
                             <span id="client-snackbar" className="snackbarMessage">
-                                <CheckCircleIcon className="snackbarIcon" />
+                                {
+                                    this.state.snackColor === 'green' &&
+                                    <CheckCircleIcon className="snackbarIcon" />
+                                }
                                 {this.state.snackMessage}
                             </span>
                         }
@@ -225,13 +237,13 @@ class CompanyList extends Component {
                 <div>{
                     userService.isAdmin() &&
                     <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
-                        ADD A COMPANY
+                        <I18n t="addCompany"/>
                     </Button>
                 }
                     <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
                     {
                         this.state.searchMode ?
-                            <TextField id="searchField" align-self="right" label="Search name" type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
+                            <TextField id="searchField" align-self="right" label={<I18n t="searchName"/>} type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
                             : <div />
                     }
                 </div>
@@ -245,7 +257,7 @@ class CompanyList extends Component {
                                 this.state.companies.map(company =>
                                     <CompanyDetails company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
-                                : <div> ERROR NO COMPANIES FOUND</div>
+                                : <div> <I18n t="errorNoCompanies"/></div>
                         }
                     </TableBody>
                 </Table>
