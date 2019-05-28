@@ -220,10 +220,12 @@ class ComputerList extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div>{
+                    userService.isAdmin() &&
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
+        }
           <TextField
             id="standard-search"
             label={<I18n t="search" />}
