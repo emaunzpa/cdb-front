@@ -8,8 +8,8 @@ class CompanyService {
      * Fetch companies according to the page and itemPerPage.
      * @param {*} param0 
      */
-    async list({page, itemPerPage, search, orderBy}){
-        const companies = await http.get(`/companies?page=${page || ""}&itemPerPage=${itemPerPage || ""}&search=${search || ""}&orderby=${orderBy || ""}`)
+    async list({page, itemPerPage, search, orderBy, reverse}){
+        const companies = await http.get(`/companies?page=${page || ""}&itemPerPage=${itemPerPage || ""}&search=${search || ""}&orderby=${orderBy || ""}&reverse=${reverse || ""}`)
             .catch(err => Promise.reject(err));
         return companies.map(company => new Company(company));
     }
