@@ -150,7 +150,16 @@ class CompanyList extends Component {
         this.updateList(options)
     }
 
+    emptyName = () =>{
+        this.setState({
+            snackMessage:<I18n t="emptyName"/>,
+            snackColor:"red",
+            openSnack:true
+        })
+    }
+
     render() {
+        console.log(this.state.snackColor)
         return (
             <div className="tableContainer">
                 <Dialog
@@ -179,7 +188,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany"/></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName"/></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={ ()=> this.state.newName ? this.addCompany(this.state.newName) : 0 } label={<I18n t='newName'/>} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={ () => this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() } label={<I18n t='newName'/>} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
@@ -196,7 +205,7 @@ class CompanyList extends Component {
                     </Dialog>
                 }
                 <Snackbar
-                    bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+                    bodyStyle={{ backgroundColor: this.state.snackColor, color: 'coral' }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     key={`${'bottom'},${'right'}`}
                     open={this.state.openSnack}
@@ -211,7 +220,10 @@ class CompanyList extends Component {
                         aria-describedby="client-snackbar"
                         message={
                             <span id="client-snackbar" className="snackbarMessage">
-                                <CheckCircleIcon className="snackbarIcon" />
+                                {
+                                    this.state.snackColor === 'green' &&
+                                    <CheckCircleIcon className="snackbarIcon" />
+                                }
                                 {this.state.snackMessage}
                             </span>
                         }

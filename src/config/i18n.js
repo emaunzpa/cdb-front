@@ -52,6 +52,7 @@ const translations = {
     searchName:"Search name",
     errorNoCompanies:"ERROR NO COMPANIES FOUND",
     newName:"New name",
+    emptyName:"Name can't be empty",
     //Pagination
     next:"Next",
     previous:"Previous",
@@ -104,6 +105,7 @@ const translations = {
     searchName:"Rechercher nom",
     errorNoCompanies:"Erreur, aucune entreprise trouvée",
     newName:"Nouveau nom",
+    emptyName:"Le nom ne peut pas être vide",
 
      //Pagination
      next:"Suivant",
