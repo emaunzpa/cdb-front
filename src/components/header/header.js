@@ -110,7 +110,6 @@ class Header extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <Link ignoreLocale to={"/" + localStorage.getItem("language") } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="home"/></MenuItem></Link>
                                 <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies"/></MenuItem></Link>
                                 <Link ignoreLocale to={"/" + localStorage.getItem("language") + "/computers" } className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers"/></MenuItem></Link>
                             </Menu>

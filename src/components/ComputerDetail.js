@@ -81,7 +81,7 @@ class ComputerDetail extends Component {
         <TableCell>
           <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
           <Button onClick={this.toggleEditMode}><EditIcon/></Button>
-          </TableCell>
+        </TableCell>
       </TableRow>
         
 		)

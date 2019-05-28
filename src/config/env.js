@@ -7,4 +7,6 @@
         apiUrl : "http://ec2-34-201-46-138.compute-1.amazonaws.com/api"
     };
 
+    console.log(process.env);
+
     export default (process.env.NODE_ENV === "production" ? prod : local);
