@@ -36,8 +36,8 @@ class ComputerList extends Component {
   addComputer = React.createRef();
 
   state = {
+    page: 1,
     computers: [],
-    options: Pagination,
     search: "",
     open: false,
     defaultCompanyID: 0,
@@ -46,6 +46,7 @@ class ComputerList extends Component {
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
+    snackbardelete: false
   };
 
   checkValidField = () => {
@@ -125,15 +126,18 @@ class ComputerList extends Component {
 
   async componentWillMount() {
     var companyList = await companyService.getAll();
-    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }))
-    this.setState({ companies: companyList })
+    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }));
+    this.setState({ companies: companyList });
   }
 
   updateComputer = async (options) => {
     this.setState({
+      page: options.page,
+      itemPerPage:options.itemPerPage,
+      search: options.search,
       computers: await computerService.list(options)
         .catch(err => console.log(err)),
-      size: await computerService.count()
+      size: await computerService.count(options.search)
         .catch(err => console.log(err))
     })
     this.forceUpdate();
@@ -141,8 +145,9 @@ class ComputerList extends Component {
 
   componentDidMount() {
     let options = {
-      page: 1,
-      itemPerPage: 10
+      page: 1,
+      itemPerPage: this.props.itemPerPage || 10,
+      search: this.props.search || ""
     }
     this.updateComputer(options)
   }
@@ -152,7 +157,8 @@ class ComputerList extends Component {
     let options = {
       page: 1,
       itemPerPage: 10,
-      orderBy: column
+      orderBy: column,
+      search: this.state.search || ""
     }
     this.updateComputer(options)
   }
@@ -166,7 +172,7 @@ class ComputerList extends Component {
     let options = {
       page: 1,
       itemPerPage: 10,
-      search: this.state.search
+      search: this.state.search || ""
     }
     this.updateComputer(options)
   }
@@ -178,10 +184,15 @@ class ComputerList extends Component {
   }
 
   deleteById = async (idToDelete) => {
-    console.log(idToDelete)
     let isSuccess = await computerService.delete(idToDelete)
+    .then(this.handleSnackDelete({ vertical: 'bottom', horizontal: 'right' }))
       .catch(err => console.log(err));
-    this.updateComputer(this.state.options);
+      let options = {
+      page: 1,
+      itemPerPage: 10,
+      search: this.state.search || ""
+    }
+    this.updateComputer(options);
   }
 
   handleOpen = () => {
@@ -189,12 +200,15 @@ class ComputerList extends Component {
   }
 
   submitNewComputer = () => {
-    console.log(this.addComputer)
     this.addComputer.addNewComputer();
   }
 
   handleSnack = () => {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
+  };
+
+  handleSnackDelete = () => {
+    this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
   };
 
   render() {
@@ -306,6 +320,34 @@ class ComputerList extends Component {
               ]}
             />
           </Snackbar>
+            <Snackbar
+            bodyStyle={{ backgroundColor: 'green', color: 'coral' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            key={`${'bottom'},${'right'}`}
+            open={this.state.snackbardelete}
+            onClose={this.handleSnackDelete}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            autoHideDuration={2000}
+            message={<span id="message-id">I love snacks</span>}
+          >
+            <SnackbarContent
+              className="snackbar-success-delete"
+              aria-describedby="client-snackbar"
+              message={
+                <span id="client-snackbar" className="snackbarMessage">
+                  <CheckCircleIcon className="snackbarIcon"/>
+                  <I18n t="snackbarSuccessMessageDelete" />
+                </span>
+              }
+              action={[
+                <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
+                  <CloseIcon/>
+                </IconButton>,
+              ]}
+            />
+          </Snackbar>
           <TextField
             id="standard-search"
             label="Search"
@@ -347,12 +389,10 @@ class ComputerList extends Component {
           </TableBody>
         </Table>
 
-        <Pagination options={{ page: this.props.page, itemPerPage: this.props.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}></Pagination>
+        <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)}/>
       </div>
     )
 
   }
 }
-
-
 export default ComputerList;

@@ -26,7 +26,8 @@ const translations = {
     company: 'Company',
     add: 'Add',
     chooseCompany: 'Choose a company',
-    snackbarSuccessMessage: 'New computer added'
+    snackbarSuccessMessage: 'New computer added',
+    snackbarSuccessMessageDelete: 'Computer deleted'
   },
   fr: {
     // Header
@@ -48,7 +49,8 @@ const translations = {
     company: 'Entreprise',
     add: 'Ajouter',
     chooseCompany: 'Choisissez une entreprise',
-    snackbarSuccessMessage: 'Nouvel ordinateur ajouté'
+    snackbarSuccessMessage: 'Nouvel ordinateur ajouté',
+    snackbarSuccessMessageDelete: 'Ordianteur supprimé'
   }
 }
  
