@@ -33,7 +33,19 @@ const translations = {
     cancel : 'cancel',
     completeAllFields : "Please complete all fields.",
     passwordTooShort : "Password must be at least 6 characters.",
-    passDontMatch : "Passwords don't match."
+    passDontMatch : "Passwords don't match.",
+    //CompanyList
+    companyAdded:"Company Added",
+    companyDelete:"Company Deleted",
+    delete: "Delete ",
+    confirmationDelete: "Are you sure to delete this company ?",
+    yes:"yes",
+    no:"no",
+    addCompany: "Add Company",
+    enterNewCompanyName:"Enter the new company's name :",
+    searchName:"Search name",
+    errorNoCompanies:"ERROR NO COMPANIES FOUND",
+    newName:"New name",
   },
   fr: {
     // Header
@@ -62,8 +74,19 @@ const translations = {
     cancel: 'Annuler',
     completeAllFields : "Veuillez remplir tous les champs.",
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
-    passDontMatch : "Les mots de passe ne sont pas les mêmes."
-
+    passDontMatch : "Les mots de passe ne sont pas les mêmes.",
+    //CompanyList
+    companyAdded:"Entreprise ajoutée",
+    companyDelete:"Entreprise Suprimée",
+    delete: "Suprimer ",
+    confirmationDelete: "Êtes vous sure de suprimer cette entreprise ?",
+    yes:"oui",
+    no:"non",
+    addCompany: "Ajouter entreprise",
+    enterNewCompanyName:"Entrez le nom de la nouvelle entreprise",
+    searchName:"Rechercher nom",
+    errorNoCompanies:"Erreur, aucune entreprise trouvée",
+    newName:"Nouveau nom",
   }
 }
  
