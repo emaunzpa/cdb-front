@@ -28,6 +28,10 @@ const translations = {
     chooseCompany: 'Choose a company',
     snackbarSuccessMessage: 'New computer added',
     //SignUp / Login
+    loginform: "Login form",
+    name: 'Name',
+    password: 'Password',
+    login: 'Log in',
     successAddUser : 'New user created',
     signup : "Sign Up",
     cancel : 'cancel',
@@ -36,8 +40,20 @@ const translations = {
     passDontMatch : "Passwords don't match.",
     snackbarSuccessMessageDelete: 'Computer deleted',
     search: 'Search',
-    edit: "Edit"
-
+    edit: "Edit",
+    invalidCredentials : "Invalid credentials.",
+    //CompanyList
+    companyAdded:"Company Added",
+    companyDelete:"Company Deleted",
+    delete: "Delete ",
+    confirmationDelete: "Are you sure to delete this company ?",
+    yes:"yes",
+    no:"no",
+    addCompany: "Add Company",
+    enterNewCompanyName:"Enter the new company's name :",
+    searchName:"Search name",
+    errorNoCompanies:"ERROR NO COMPANIES FOUND",
+    newName:"New name",
   },
   fr: {
     // Header
@@ -61,6 +77,10 @@ const translations = {
     chooseCompany: 'Choisissez une entreprise',
     snackbarSuccessMessage: 'Nouvel ordinateur ajouté',
     //SignUp / Login
+    loginform: "Authentification",
+    name: 'Nom',
+    password: 'Mot de passe',
+    login: 'Connexion',
     successAddUser : 'Nouveau utilisateur crée',
     signup : "S'inscrire",
     cancel: 'Annuler',
@@ -69,7 +89,20 @@ const translations = {
     passDontMatch : "Les mots de passe ne sont pas les mêmes.",
     snackbarSuccessMessageDelete: 'Ordianteur supprimé',
     search: 'Recherche',
-    edit: "Editer"
+    edit: "Editer",
+    invalidCredentials : "Les identifiants sont invalide.",
+    //CompanyList
+    companyAdded:"Entreprise ajoutée",
+    companyDelete:"Entreprise Suprimée",
+    delete: "Suprimer ",
+    confirmationDelete: "Êtes vous sure de suprimer cette entreprise ?",
+    yes:"oui",
+    no:"non",
+    addCompany: "Ajouter entreprise",
+    enterNewCompanyName:"Entrez le nom de la nouvelle entreprise",
+    searchName:"Rechercher nom",
+    errorNoCompanies:"Erreur, aucune entreprise trouvée",
+    newName:"Nouveau nom"
   }
 }
  

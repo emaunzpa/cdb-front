@@ -1,9 +1,5 @@
 #! /bin/sh
-git checkout master
+sudo docker build -t cdb-front .
 
-git pull origin master
-
-docker build -t cdb-front .
-
-docker run -v ${PWD}:/app -v /app/node_modules -p 80:3000 -e API_URL=http://ec2-34-201-46-138.compute-1.amazonaws.com/api cdb-front
+sudo docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 cdb-front
 
