@@ -29,6 +29,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import userService from '../services/UserService';
 
 class ComputerList extends Component {
 
