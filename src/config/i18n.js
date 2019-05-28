@@ -54,9 +54,11 @@ const translations = {
     errorNoCompanies:"ERROR NO COMPANIES FOUND",
     newName:"New name",
     emptyName:"Name can't be empty",
+    edit: "Edit",
     //Pagination
     next:"Next",
     previous:"Previous",
+    search: "Search"
 
   },
   fr: {
@@ -108,10 +110,11 @@ const translations = {
     errorNoCompanies:"Erreur, aucune entreprise trouvée",
     newName:"Nouveau nom",
     emptyName:"Le nom ne peut pas être vide",
-
+    edit: "Editer",
      //Pagination
      next:"Suivant",
      previous:"Précedent",
+     search: "Rechercher"
   }
 }
  
