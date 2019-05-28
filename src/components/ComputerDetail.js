@@ -13,6 +13,7 @@ import Company from '../models/Company';
 class ComputerDetail extends Component {
   state = {
     computer : this.props.computer,
+    newName : this.props.computer.name,
     editMode : false
   };
 
@@ -30,32 +31,44 @@ class ComputerDetail extends Component {
   }
 
   updateName = (event) => {
-    this.state.computer.name = event.target.value
-    this.setState({computer: this.state.computer})
+    let name = event.target.value;
+    this.setState({newName: name});
+
+    if(name.trim() !== "") {
+      this.state.computer.name = name;
+    }else {
+      this.setState({snackbar: true, errEdit : "nameEmpty"});
+    }
   };
 
   updateIntroduced = (event) => {
-    this.state.computer.introduced = event.target.value
+    try {
+      this.state.computer.introduced = event.target.value
+    } catch (error) {
+      
+    }
+    
     this.setState({computer: this.state.computer})
   };
 
   updateDiscontinued = (event) => {
-    this.state.computer.discontinued = event.target.value
+    try {
+      this.state.computer.discontinued = event.target.value
+    } catch (error) {
+        
+    }
     this.setState({computer: this.state.computer})
   };
 
   updateCompany = (event) => {
     let newId = event.target.value;
     this.state.computer.company = newId === 0 ? new Company({id:"", name:""}) :this.state.companies.find(obj => obj.id === newId);
-    
-    console.log(this.state.computer.company.id)
     this.setState({computer: this.state.computer})
   };
 
   update = async () => {
     let isSuccess = await ComputerService.edit(this.state.computer)
     .catch(err => console.log(err));
-    console.log(this.state.computer);
     console.log(isSuccess ? "Success" : "Fail");
   }
 
@@ -65,14 +78,48 @@ class ComputerDetail extends Component {
     this.setState({ companies: companyList })
   }
 
-	render() {
+  handleSnack = () => {
+    this.setState({ ...this.state, snackbar: !this.state.snackbar })
+  };
 
-    const open = false;
+	render() {
 		return (
       <TableRow key={this.state.computer.id}>
-        <TableCell>{ this.state.editMode ? <input onChange={this.updateName} onKeyPress={this.keyHandler} value={this.state.computer.name ? this.state.computer.name : ""}/> : this.state.computer.name }</TableCell>
-        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateIntroduced} onKeyPress={this.keyHandler} value={this.state.computer.introduced ? this.state.computer.introduced:""}/> : this.state.computer.introduced }</TableCell>
-        <TableCell>{ this.state.editMode ? <input type="date" onChange={this.updateDiscontinued} onKeyPress={this.keyHandler} value={this.state.computer.discontinued ? this.state.computer.discontinued:""}/> : this.state.computer.discontinued }</TableCell>
+        <TableCell>
+          { this.state.editMode ? <TextField
+                    autoFocus
+                    id="nameInput"
+                    value={this.state.newName}
+                    onChange={this.updateName}
+                    onKeyPress={this.keyHandler}
+                    margin="dense"
+                    fullWidth
+                /> : this.state.computer.name }
+        </TableCell>
+        <TableCell>
+          { this.state.editMode ? <TextField
+                    autoFocus
+                    id="introducedInput"
+                    type="date"
+                    value={this.state.computer.introduced ? this.state.computer.introduced : ""}
+                    onChange={this.updateIntroduced}
+                    onKeyPress={this.keyHandler}
+                    margin="dense"
+                    fullWidth
+                />: this.state.computer.introduced }
+        </TableCell>
+        <TableCell>
+          { this.state.editMode ? <TextField
+                    autoFocus
+                    id="discontinuedInput"
+                    type="date"
+                    value={this.state.computer.discontinued ? this.state.computer.discontinued : ""}
+                    onChange={this.updateDiscontinued}
+                    onKeyPress={this.keyHandler}
+                    margin="dense"
+                    fullWidth
+                /> : this.state.computer.discontinued }
+        </TableCell>
         <TableCell>{ this.state.editMode ? <TextField id="companyId" select label="Company" className="textField" onKeyPress={this.keyHandler}
                             value={this.state.computer.company && this.state.computer.company.id ? this.state.computer.company.id : ""} onChange={this.updateCompany}
                             helperText="Please select the company"  margin="normal" variant="outlined" >

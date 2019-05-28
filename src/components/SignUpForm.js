@@ -80,6 +80,7 @@ class SignUpForm extends React.Component {
             }}
             autoHideDuration={2000}
           >
+            
             <SnackbarContent
               className="snackbar-success"
               aria-describedby="client-snackbar"

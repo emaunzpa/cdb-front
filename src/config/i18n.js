@@ -33,7 +33,8 @@ const translations = {
     cancel : 'cancel',
     completeAllFields : "Please complete all fields.",
     passwordTooShort : "Password must be at least 6 characters.",
-    passDontMatch : "Passwords don't match."
+    passDontMatch : "Passwords don't match.",
+    nameEmpty : "Name is empty."
   },
   fr: {
     // Header
@@ -62,7 +63,8 @@ const translations = {
     cancel: 'Annuler',
     completeAllFields : "Veuillez remplir tous les champs.",
     passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
-    passDontMatch : "Les mots de passe ne sont pas les mêmes."
+    passDontMatch : "Les mots de passe ne sont pas les mêmes.",
+    nameEmpty : "Le nom est vide."
 
   }
 }
