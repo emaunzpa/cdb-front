@@ -67,7 +67,6 @@ class Pagination extends Component {
     }
 
     keyHandler = (event) =>{
-        console.log(event.keyCode)
         if(event.keyCode === 37 && this.state.page > 1 ){
             this.changePage(this.state.page -1)
         }
