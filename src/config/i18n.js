@@ -57,6 +57,7 @@ const translations = {
     newName:"New name",
     emptyName:"Name can't be empty",
     edit: "Edit",
+    companyEdited:"Company name edited",
     //Pagination
     next:"Next",
     previous:"Previous",
@@ -123,6 +124,7 @@ const translations = {
     newName:"Nouveau nom",
     emptyName:"Le nom ne peut pas être vide",
     edit: "Editer",
+    companyEdited:"Entreprise modifiée",
      //Pagination
      next:"Suivant",
      previous:"Précedent",

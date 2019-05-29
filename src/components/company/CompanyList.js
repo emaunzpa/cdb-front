@@ -237,11 +237,11 @@ class CompanyList extends Component {
                     </TableHead>
                     <TableBody>
                         {
-                            this.state.companies ?
+                            this.state.companies && this.state.companies !== [] ?
                                 this.state.companies.map(company =>
                                     <CompanyDetails key={company.id} company={company} delete={(id, name) => this.deleteDialog(id, name)} />
                                 )
-                                : <div> <I18n t="errorNoCompanies" /></div>
+                                : <I18n t="errorNoCompanies" />
                         }
                     </TableBody>
                 </Table>
