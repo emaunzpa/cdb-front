@@ -68,7 +68,7 @@ class LoginForm extends React.Component {
             if (isSuccess) {
                 window.location.replace("/");
             } else {
-                this.handleSnack();
+                this.changeSnackbar("fail", <I18n t="SnackFailLogin" />);
                 this.setState({ loginErr: <I18n t="invalidCredentials" /> });
             }
         }
