@@ -134,7 +134,7 @@ class Header extends Component {
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow" >
-                            <NavLink to="#" onClick={this.refresh} class="welcome"><I18n t="welcome"/></NavLink>
+                            <NavLink to="#" onClick={this.refresh} className="welcome"><I18n t="welcome"/></NavLink>
                         </Typography>
                         <div>
 
