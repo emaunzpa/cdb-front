@@ -60,7 +60,8 @@ const translations = {
     next:"Next",
     previous:"Previous",
     search: "Search",
-     errorNoComputers: "Error, no computer found"
+    errorNoComputers: "Error, no computer found",
+    SnackSuccessLogout: "Logout success"
 
   },
   fr: {
@@ -118,7 +119,8 @@ const translations = {
      next:"Suivant",
      previous:"Précedent",
      search: "Rechercher",
-     errorNoComputers: "Erreur, aucun ordinateur trouvée"
+     errorNoComputers: "Erreur, aucun ordinateur trouvée",
+    SnackSuccessLogout: "Deconnexion réussie"
   }
 }
  

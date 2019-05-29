@@ -37,6 +37,7 @@ class LoginForm extends React.Component {
 
     componentDidMount() {
         document.addEventListener("keydown", this.handleEnter, false);
+        console.log("logout : " + JSON.stringify(this.props));
     }
 
     handleEnter = (event) => {
