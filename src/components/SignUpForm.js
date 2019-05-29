@@ -80,7 +80,7 @@ class SignUpForm extends React.Component {
                 <TextField
                     autoFocus
                     id="loginInput"
-                    label="Name"
+                    label={<I18n t="name" />}
                     onChange={this.handleChange("loginInput")}
                     margin="dense"
                     fullWidth
@@ -88,7 +88,7 @@ class SignUpForm extends React.Component {
 
                 <TextField
                     id="passwordInput"
-                    label="Password"
+                    label={<I18n t="password" />}
                     onChange={this.handleChange("passwordInput")}
                     type="password"
                     margin="dense"
