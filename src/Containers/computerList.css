@@ -1,70 +1,92 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    align-items: center;
-  }
-  
-  .textField {
-    width: 100%;
-    margin-bottom: 1em;
-  }
-  
-  .spanValidator {
-    font-size: 13px;
-    text-align: left;
-    margin-bottom: 1em;
-    margin-top: 0.5em;
-  }
-  
-  .valid {
-    color: green;
-  }
-  
-  .invalid {
-    color: red;
-  }
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: center;
+}
 
-  .az-icon {
-    margin-left: 0.5em;
-  }
-  
-  #submitBtn {
-    background-color: #3f51b5;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
+.textField {
+  width: 100%;
+  margin-bottom: 1em;
+}
 
-  #submitBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .snackbar-success {
-    background-color: green !important;
-  }
+.spanValidator {
+  font-size: 13px;
+  text-align: left;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+}
 
-  .snackbar-fail {
-    background-color: red !important;
-  }
+.valid {
+  color: green;
+}
 
-  .snackbarMessage {
-    display: flex;
-    align-items: center;
-  }
+.invalid {
+  color: red;
+}
 
-  .snackbarIcon {
-    font-size: 20;
-    margin-right: 0.5em;
-  }
+.az-icon {
+  margin-left: 0.5em;
+}
 
-  .textfield-align {
-    margin : 16px 0 8px 0 !important;
-  }
+#submitBtn {
+  background-color: #3f51b5;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.snackbar-success {
+  background-color: green !important;
+}
+
+.snackbar-fail {
+  background-color: red !important;
+}
+
+.snackbarMessage {
+  display: flex;
+  align-items: center;
+}
+
+.snackbarIcon {
+  font-size: 20;
+  margin-right: 0.5em;
+}
+
+.textfield-align {
+  margin: 16px 0 8px 0 !important;
+}
+
+.tableContainer {
+  width: 80%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.tableHeader {
+  display: flex;
+  position: relative;
+  min-height: 4em;
+}
+
+.tableSearch {
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
