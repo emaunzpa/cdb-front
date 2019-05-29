@@ -46,7 +46,7 @@ class ComputerList extends Component {
     defaultCompanyID: 0,
     companies: [],
     computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }),
-    validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
+    validField: { computerName: true, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
     reverse: false
