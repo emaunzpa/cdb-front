@@ -31,7 +31,6 @@ const translations = {
     snackbarSuccessMessage: 'New computer added',
     //SignUp / Login
     loginform: "Login form",
-    adminform: "Create a new admin",
     name: 'Name',
     password: 'Password',
     confirmPassword: "Confirm password",
@@ -100,7 +99,6 @@ const translations = {
     snackbarSuccessMessage: 'Nouvel ordinateur ajouté',
     //SignUp / Login
     loginform: "Authentification",
-    adminform: "Création d'un nouvel administrateur",
     name: 'Nom',
     password: 'Mot de passe',
     confirmPassword: "Confirmez le mot de passe",
