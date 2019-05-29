@@ -67,7 +67,7 @@ const translations = {
     successMessageNoEdit: "Computer was not edited",
     page : "Page",
     size : "Size",
-    SnackFailLogin: "Login fail",
+    SnackFailLogin: "Login fail"
   },
   fr: {
     // Header

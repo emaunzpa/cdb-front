@@ -39,7 +39,6 @@ class LoginForm extends React.Component {
 
     componentDidMount() {
         document.addEventListener("keydown", this.handleEnter, false);
-        console.log("logout : " + JSON.stringify(this.props));
     }
 
     handleEnter = (event) => {
@@ -61,7 +60,7 @@ class LoginForm extends React.Component {
             this.setState({ loginErr: <I18n t="completeAllFields" /> });
         } else {
             let isSuccess = await userService.login({ login: this.state.loginInput, password: this.state.passwordInput })
-                .catch(err => console.log(err));
+                .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
             if (isSuccess) {
                 window.location.replace("/");
             } else {

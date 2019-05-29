@@ -123,7 +123,7 @@ class ComputerList extends Component {
         companyName: this.state.company.name
       });
       await computerService.create(computer)
-        .catch(err => console.log(err));
+        .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
 
       this.setState({ ...this.state, computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField: { computerName: false, introduced: true, discontinued: true, companyId: true } });
       this.handleOpen();
@@ -144,9 +144,9 @@ class ComputerList extends Component {
       itemPerPage: options.itemPerPage,
       search: options.search,
       computers: await computerService.list(options)
-        .catch(err => console.log(err)),
+        .catch(this.changeSnackbar("fail", "Something wrong happened, try later")),
       size: await computerService.count(options.search)
-        .catch(err => console.log(err))
+        .catch(this.changeSnackbar("fail", "Something wrong happened, try later"))
     })
     this.forceUpdate();
   }
@@ -195,7 +195,7 @@ class ComputerList extends Component {
   deleteById = async (idToDelete) => {
     await computerService.delete(idToDelete)
       .then(this.changeSnackbar("success", <I18n t="snackbarSuccessMessageDelete" />))
-      .catch(err => console.log(err));
+      .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
     let options = {
       page: 1,
       itemPerPage: 10,

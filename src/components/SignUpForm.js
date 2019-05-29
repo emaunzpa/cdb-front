@@ -44,12 +44,11 @@ class SignUpForm extends React.Component {
 
       let isSuccess = await userService.create({ login: this.state.loginInput, 
         password: this.state.passwordInput, confirmation: this.state.confirmationInput})
-      .catch(err => console.log(err));
+      .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
       
       if (isSuccess) {
         if(!isSuccess._success){
           this.setState({ signUpErr : isSuccess.message });
-          console.log("fail");
         }
         else {
           this.props.handleSignUp();

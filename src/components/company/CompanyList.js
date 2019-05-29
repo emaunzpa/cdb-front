@@ -35,7 +35,7 @@ class CompanyList extends Component {
     addCompany = async () => {
         let company = new Company({ id: undefined, name: this.state.newName });
         await companyService.create(company)
-            .catch(err => console.log(err));
+            .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
         this.setState({
             newName: '',
             snackMessage: <I18n t='companyAdded' />,
@@ -74,9 +74,8 @@ class CompanyList extends Component {
     }
 
     delete = async () => {
-        console.log(this.state.deleteId)
         await companyService.delete(this.state.deleteId)
-            .catch(err => console.log(err));
+            .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
         let options = {
             page: this.state.page || 1,
             itemPerPage: this.state.itemPerPage || 10,
@@ -100,9 +99,9 @@ class CompanyList extends Component {
             search: options.search,
             orderBy: options.orderBy,
             companies: await companyService.list(options)
-                .catch(err => console.log(err)),
+                .catch(this.changeSnackbar("fail", "Something wrong happened, try later")),
             size: await companyService.count(options.search)
-                .catch(err => console.log(err))
+                .catch(this.changeSnackbar("fail", "Something wrong happened, try later"))
         })
         this.forceUpdate();
     }
@@ -163,7 +162,6 @@ class CompanyList extends Component {
     };
 
     searchByName = () => {
-        console.log("search " + this.state.search)
         let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: this.state.search };
         this.updateList(options);
     }
