@@ -19,7 +19,6 @@ class CompanyList extends Component {
 
     state = {
         companies: [],
-        openSnack: false,
         reverse: false,
         openDeleteDialog: false,
         openAddDialog: false,
@@ -242,12 +241,12 @@ class CompanyList extends Component {
                         ]}
                     />
                 </Snackbar>
-                <div class="tableHeader">
+                <div className="tableHeader">
                     {userService.isAdmin() &&
                         <Button onClick={() => this.addDialog()} className="textfield-align">
                             <AddCircle fontSize="large" /><I18n t="addCompany" />
                         </Button>}
-                    <div class="tableSearch">
+                    <div className="tableSearch">
                         <TextField
                             label={<I18n t="search" />}
                             type="search"
