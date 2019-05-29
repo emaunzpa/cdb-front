@@ -8,10 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
 import AddCircle from '@material-ui/icons/AddCircle';
-import Snackbar from '@material-ui/core/Snackbar';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
 import I18n from '../../config/i18n';
 import Footer from '../Footer'
 import MySnackbar from '../MySnackbar';

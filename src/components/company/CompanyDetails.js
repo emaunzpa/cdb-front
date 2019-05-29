@@ -7,6 +7,8 @@ import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import I18n from "../../config/i18n";
 import MySnackbar from '../MySnackbar';
+import companyService from '../../services/CompanyService'
+import Company from "../../models/Company";
 
 
 
@@ -18,8 +20,9 @@ class CompanyDetails extends Component {
     }
 
     toggleEditMode = () => {
-        this.state.editMode ?
-            this.state.newName && this.state.newName.trim() !== "" ?
+        if (this.state.editMode) {
+            if (this.state.newName && this.state.newName.trim() !== "") {
+                companyService.update(new Company({ id: this.props.company.id, name: this.state.newName }))
                 this.setState({
                     editMode: false,
                     name: this.state.newName,
@@ -27,12 +30,16 @@ class CompanyDetails extends Component {
                     snackMessage: <I18n t="companyEdited" />,
                     snackMode: "success",
                 })
-                :
+            } else {
                 this.setState({ openSnack: true, snackMessage: <I18n t="emptyName" />, snackMode: 'fail' })
-            : this.setState({
+            }
+        } else {
+
+            this.setState({
                 editMode: true,
                 newName: this.state.name,
             })
+        }
     }
 
     updateName = (event) => {
