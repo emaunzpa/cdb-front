@@ -194,7 +194,7 @@ class ComputerList extends Component {
 
   deleteById = async (idToDelete) => {
     await computerService.delete(idToDelete)
-      .then(this.handleSnackDelete())
+      .then(this.changeSnackbar("success", <I18n t="snackbarSuccessMessageDelete" />))
       .catch(err => console.log(err));
     let options = {
       page: 1,
@@ -212,29 +212,13 @@ class ComputerList extends Component {
     this.addComputer.addNewComputer();
   }
 
-  snackbar = () => {
-    return this.state.snackbar;
-  }
-
   handleSnack = () => {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
-  };
-
-  snackbarDelete = () => {
-    return this.state.snackbardelete;
-  }
-
-  handleSnackDelete = () => {
-    this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
   };
 
   handleSnackEdit = () => {
     this.setState({ ...this.state, snackbarEdit: !this.state.snackbarEdit })
   };
-
-  snackbarEdit = () => {
-    return this.state.snackbarEdit;
-  }
 
   changeSnackbar = (variant, message) => {
     this.setState({ snackbarEdit : true, snackMessage : message, snackVariant : variant })
@@ -334,9 +318,8 @@ class ComputerList extends Component {
               </button>
             </DialogActions>
           </Dialog>
-          <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
-          <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
-          <MySnackbar open={this.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
+          <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
+          <MySnackbar open={() => this.state.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
         <Table>
           <TableHead>
             <TableRow>
