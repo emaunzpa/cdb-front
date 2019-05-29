@@ -45,6 +45,7 @@ const translations = {
     nameEmpty : "Name is empty.",
     snackbarSuccessMessageDelete: 'Computer deleted',
     invalidCredentials : "Invalid credentials.",
+    addNewAdmin: "Add new admin",
     //CompanyList
     companyAdded:"Company Added",
     companyDelete:"Company Deleted",
@@ -112,7 +113,7 @@ const translations = {
     invalidCredentials : "Les identifiants sont invalide.",
     successMessageEdit: 'Ordinateur edité',
     successMessageNoEdit: "Ordinateur n'a pas été edité",
-
+    addNewAdmin: "Ajouter l'administrateur",
     //CompanyList
     companyAdded:"Entreprise ajoutée",
     companyDelete:"Entreprise Suprimée",
