@@ -227,6 +227,18 @@ class ComputerList extends Component {
     this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
   };
 
+  handleSnackEdit = () => {
+    this.setState({ ...this.state, snackbarEdit: !this.state.snackbar })
+  };
+
+  snackbarEdit = () => {
+    return this.state.snackbarEdit;
+  }
+
+  changeSnackbar = (variant, message) => {
+    this.setState({ snackbarEdit : true, snackMessage : message, snackVariant : variant })
+  }
+
   render() {
     return (
       <div>
@@ -321,6 +333,7 @@ class ComputerList extends Component {
           </Dialog>
           <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
           <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
+          <MySnackbar open={this.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
         <Table>
           <TableHead>
             <TableRow>
@@ -353,7 +366,7 @@ class ComputerList extends Component {
             {
               this.state.computers ?
               this.state.computers.map(computer =>
-                <ComputerDetail key={computer.id} deleteById={this.deleteById} computer={computer} />
+                <ComputerDetail snackbar={this.changeSnackbar} key={computer.id} deleteById={this.deleteById} computer={computer} />
               )
               : <div> <I18n t="errorNoComputers"/></div>
             }

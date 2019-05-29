@@ -60,8 +60,9 @@ const translations = {
     next:"Next",
     previous:"Previous",
     search: "Search",
-     errorNoComputers: "Error, no computer found"
-
+    errorNoComputers: "Error, no computer found",
+    successMessageEdit: 'Computer edited',
+    successMessageNoEdit: "Computer was not edited"
   },
   fr: {
     // Header
@@ -99,6 +100,8 @@ const translations = {
     nameEmpty : "Le nom est vide.",
     snackbarSuccessMessageDelete: 'Ordinateur supprimé',
     invalidCredentials : "Les identifiants sont invalide.",
+    successMessageEdit: 'Ordinateur edité',
+    successMessageNoEdit: "Ordinateur n'a pas été edité",
 
     //CompanyList
     companyAdded:"Entreprise ajoutée",

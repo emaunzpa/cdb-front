@@ -78,7 +78,6 @@ class CompanyList extends Component {
         })
     }
 
-
     delete = async () => {
         console.log(this.state.deleteId)
         await companyService.delete(this.state.deleteId)
