@@ -87,6 +87,10 @@ class Header extends Component {
         this.setState({ snackbar: !this.state.snackbar })
     };
 
+    refresh = () => {
+        window.location.replace(this.handleUrl(localStorage.getItem("language")));
+    }
+
     render() {
 
         const { anchorEl } = this.state;
@@ -129,8 +133,8 @@ class Header extends Component {
                                 }
                                 </Menu>
                             </div>}
-                        <Typography variant="h6" color="inherit" className="grow">
-                            <I18n t="welcome" />
+                        <Typography variant="h6" color="inherit" className="grow" >
+                            <NavLink to="#" onClick={this.refresh} class="welcome"><I18n t="welcome"/></NavLink>
                         </Typography>
                         <div>
 
