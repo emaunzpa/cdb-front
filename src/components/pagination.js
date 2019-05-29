@@ -66,12 +66,29 @@ class Pagination extends Component {
         return prevState;
     }
 
+    keyHandler = (event) =>{
+        console.log(event.keyCode)
+        if(event.keyCode === 37 && this.state.page > 1 ){
+            this.changePage(this.state.page -1)
+        }
 
+        if(event.keyCode === 39 && this.state.page < Math.trunc(this.numberPages()) ){
+            this.changePage(this.state.page +1)
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener("keydown", this.keyHandler);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("keydown", this.keyHandler);
+    }
 
     render() {
         return (
-            <div className="pagination" display="inline">
-                <div className="pageNavigate">
+            <div className="pagination" display="inline" >
+                <div className="pageNavigate" >
                     <div className="size">
                         <div className="sizeNavigate" display="inline-block">
                             <I18n t="size"/> : &nbsp;
@@ -86,7 +103,7 @@ class Pagination extends Component {
                         </div>
                     </div>
                     {
-                        this.state.page - 3 > 0 ?
+                        this.state.page  > 1 ?
                             <Button variant="outlined" onClick={() => this.changePage(1)}><First /></Button>
                             :
                             <Button variant="outlined" disabled={true}><First /></Button>
@@ -103,7 +120,7 @@ class Pagination extends Component {
                     }
                     {
                         this.state.page &&
-                        <Button variant="contained">{this.state.page}</Button>
+                        <Button variant="contained" onBlur={this.keyHandler} >{this.state.page}</Button>
                     }
                     {
 
@@ -117,12 +134,12 @@ class Pagination extends Component {
                             </Button>
                     }
                     {
-                        this.state.page + 3 < this.numberPages() ?
+                        this.state.page < Math.trunc(this.numberPages()) ?
                             <Button variant="outlined" onClick={() => this.changePage(Math.trunc(this.numberPages()))}><Last /></Button>
                             :
                             <Button variant="outlined" disabled={true}><Last /></Button>
                     }
-                    <div className="max-page"><I18n t="page" />: {this.state.page}/{Math.trunc(this.numberPages())}</div>
+                    <div className="max-page"><I18n t="page" />: {this.state.page ||1}/{Math.trunc(this.numberPages())||1}</div>
                 </div>
 
             </div>
