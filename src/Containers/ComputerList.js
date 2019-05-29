@@ -218,13 +218,13 @@ class ComputerList extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div class="tableContainer">
+        <div class="tableHeader">
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
+          <div class="tableSearch">
           <TextField
-            id="standard-search"
             label={<I18n t="search" />}
             type="search"
             margin="normal"
@@ -232,6 +232,7 @@ class ComputerList extends Component {
             onChange={this.handleChange}
           />
           <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
+          </div>
         </div>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
@@ -360,6 +361,8 @@ class ComputerList extends Component {
             ]}
           />
         </Snackbar>
+
+            
         <Table>
           <TableHead>
             <TableRow>
@@ -394,9 +397,10 @@ class ComputerList extends Component {
             }
           </TableBody>
         </Table>
+        
 
         <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)} />
-      </div>
+        </div>
     )
 
   }
