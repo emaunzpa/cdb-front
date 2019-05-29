@@ -59,7 +59,6 @@ class CompanyService {
      * @param {*} company 
      */
     async update(company) {
-        console.log(company);
         const feedback = await http.put(`/companies/${company.id}`, JSON.stringify(company.toDto()))
             .catch(err => Promise.reject(err));
         return new Feedback(feedback)
