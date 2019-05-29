@@ -72,13 +72,9 @@ class LoginForm extends React.Component {
     }
 
     handleSnack = () => {
-        this.setState({ ...this.state, snackbar: !this.state.snackbar })
+        this.setState({ snackbar: !this.state.snackbar })
     };
-
-    snackbar = () => {
-        return this.state.snackbar;
-    }
-
+    
     render() {
         const { classes } = this.props;
 
@@ -117,7 +113,7 @@ class LoginForm extends React.Component {
                     </Card>
                 </Grid>
                 <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp}></SignUpForm>
-                 <MySnackbar open={this.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
+                 <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
             </div>
         );
     }
