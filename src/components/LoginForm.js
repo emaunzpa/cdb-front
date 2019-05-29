@@ -41,6 +41,10 @@ class LoginForm extends React.Component {
         document.addEventListener("keydown", this.handleEnter, false);
     }
 
+    changeSnackbar = (variant, message) => {
+        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+    }
+
     handleEnter = (event) => {
         if (event.keyCode === 13) {
             this.validateLoginForm();

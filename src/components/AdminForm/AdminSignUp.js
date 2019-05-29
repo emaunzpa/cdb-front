@@ -14,7 +14,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Typography from "@material-ui/core/Typography";
 
 class AdminSignUpForm extends React.Component {
-    state = {}
+    state = {snackbar: false}
 
     handleChange = name => event => {
         this.setState({
@@ -65,6 +65,10 @@ class AdminSignUpForm extends React.Component {
     handleSnack = () => {
         this.setState({ ...this.state, snackbar: !this.state.snackbar })
     };
+
+    changeSnackbar = (variant, message) => {
+        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+    }
 
     render() {
         return (
