@@ -1,74 +1,40 @@
-import React,{Component} from 'react';
-import {Button} from '@material-ui/core';
-import I18n from '../config/i18n';
+import React, { Component } from 'react';
+import { Button,Select,MenuItem} from '@material-ui/core';
+import './pagination.css'
+import First from '@material-ui/icons/FirstPage'
+import Last from '@material-ui/icons/LastPage'
+import Previous from '@material-ui/icons/ChevronLeft'
+import Next from '@material-ui/icons/ChevronRight'
+import I18n from '../config/i18n'
 
-class Index extends Component{
 
-    render(){
-        return(
-            <div>
-            {
-                this.props.page - 3 >0 &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(1)}>{1}</Button>
-            
-            }  
-            {
-                this.props.page - 2 >0 &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 2)}>{this.props.page - 2}</Button>
-            }
-            {
-                this.props.page - 1 >0 &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page - 1)}>{this.props.page - 1}</Button>
-            }
-            {
-                this.props.page &&
-                <Button variant="contained">{this.props.page}</Button>
-            }
-            {
-                this.props.page + 1 < this.props.max &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 1)} >{this.props.page + 1}</Button>
-            }
-            {
-                this.props.page + 2 < this.props.max &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(this.props.page + 2)}>{this.props.page + 2}</Button>
-            }
-            {
-                this.props.page + 3 < this.props.max &&
-                <Button variant="outlined" onClick={()=>this.props.changePage(Math.trunc(this.props.max))}>{Math.trunc(this.props.max)}</Button>
-            }
-            </div>
-        )
-    }
-
-}
-
-class Pagination extends Component{
+class Pagination extends Component {
 
     state = {
-        page : this.props.options.page || 1,
-        itemPerPage:this.props.options.itemPerPage || 10
+        page: this.props.options.page || 1,
+        itemPerPage: this.props.options.itemPerPage || 10
     }
-    
+
 
     changePage = (update) => {
-        if(update >= 1 && update <= (this.props.size / this.state.itemPerPage) +1) {
+        if (update >= 1 && update <= (this.props.size / this.state.itemPerPage) + 1) {
             this.setState({
-                page:update
+                page: update
             })
             this.props.update(this.newOptionsPage(update))
         }
     }
-     
-    changeSize (size){
+
+    changeSize = (event) => {
         this.setState({
-            itemPerPage:size
+            itemPerPage: event.target.value
         });
-        this.props.update(this.newOptionsSize(size));
+        this.props.update(this.newOptionsSize(event.target.value));
     }
 
-    newOptionsPage(update){
-        let newOptions = {page: update, itemPerPage:this.state.itemPerPage};
-        if(this.props.otherOptions){
+    newOptionsPage(update) {
+        let newOptions = { page: update, itemPerPage: this.state.itemPerPage };
+        if (this.props.otherOptions) {
             Object.keys(this.props.otherOptions).forEach(element => {
                 newOptions[element] = this.props.otherOptions[element];
             });
@@ -77,9 +43,9 @@ class Pagination extends Component{
     }
 
 
-    newOptionsSize(update){
-        let newOptions = {page: 1, itemPerPage:update};
-        if(this.props.otherOptions){
+    newOptionsSize(update) {
+        let newOptions = { page: 1, itemPerPage: update };
+        if (this.props.otherOptions) {
             Object.keys(this.props.otherOptions).forEach(element => {
                 newOptions[element] = this.props.otherOptions[element]
             });
@@ -87,53 +53,79 @@ class Pagination extends Component{
         return newOptions;
     }
 
-    numberPages(){
-
-        return this.props.size %this.state.itemPerPage === 0 ? 
-            (this.props.size / this.state.itemPerPage) 
-           :(this.props.size / this.state.itemPerPage) +1
+    numberPages() {
+        return this.props.size % this.state.itemPerPage === 0 ?
+            (this.props.size / this.state.itemPerPage)
+            : (this.props.size / this.state.itemPerPage) + 1
     }
 
-    static getDerivedStateFromProps(nextProps, prevState){
-        if(nextProps.options.page !== prevState.page){
-            return{page:nextProps.options.page }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.options.page !== prevState.page) {
+            return { page: nextProps.options.page }
         }
         return prevState;
     }
 
-    render(){
+
+
+    render() {
         return (
-            
-            <div className="pagination" display ="inline">
-                <div className = "pageNavigate" display ="inline-block">
+            <div className="pagination" display="inline">
+                <div className="pageNavigate">
+                    <div className="size">
+                        <div className="sizeNavigate" display="inline-block">
+                            <I18n t="size"/> : &nbsp;
+                        <Select
+                                value={this.state.itemPerPage}
+                                onChange={this.changeSize}
+                            >
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={50}>50</MenuItem>
+                                <MenuItem value={100}>100</MenuItem>
+                            </Select>
+                        </div>
+                    </div>
                     {
-                        this.state.page > 1 &&
-                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page -1)} variant="outlined">
-                            <I18n t="previous"/>
-                        </Button>
+                        this.state.page - 3 > 0 ?
+                            <Button variant="outlined" onClick={() => this.changePage(1)}><First /></Button>
+                            :
+                            <Button variant="outlined" disabled={true}><First /></Button>
                     }
-                    <Index changePage={this.changePage} page={this.state.page} max={this.numberPages()}/>
-                    
                     {
-                        
-                        this.state.page < Math.trunc(this.numberPages()) &&
-                        <Button className = "pageButton" onClick={()=> this.changePage(this.state.page +1)}  variant="outlined">
-                            <I18n t="next"/>
-                        </Button>
+                        this.state.page > 1 ?
+                            <Button className="pageButton" onClick={() => this.changePage(this.state.page - 1)} variant="outlined">
+                                <Previous />
+                            </Button>
+                            :
+                            <Button className="pageButton" disabled={true} variant="outlined">
+                                <Previous />
+                            </Button>
                     }
+                    {
+                        this.state.page &&
+                        <Button variant="contained">{this.state.page}</Button>
+                    }
+                    {
+
+                        this.state.page < Math.trunc(this.numberPages()) ?
+                            <Button className="pageButton" onClick={() => this.changePage(this.state.page + 1)} variant="outlined">
+                                <Next />
+                            </Button>
+                            :
+                            <Button className="pageButton" disabled={true} variant="outlined">
+                                <Next />
+                            </Button>
+                    }
+                    {
+                        this.state.page + 3 < this.numberPages() ?
+                            <Button variant="outlined" onClick={() => this.changePage(Math.trunc(this.numberPages()))}><Last /></Button>
+                            :
+                            <Button variant="outlined" disabled={true}><Last /></Button>
+                    }
+                    <div className="max-page"><I18n t="page" />: {this.state.page}/{Math.trunc(this.numberPages())}</div>
                 </div>
-                <div className = "sizeNavigate" display="inline-block">
-                    <Button className = "pageButton" onClick={() => this.changeSize(10)}  variant="outlined">
-                        10
-                    </Button>
-                    <Button className = "pageButton" onClick={() => this.changeSize(50)}  variant="outlined">
-                        50
-                    </Button>
-                    <Button className = "pageButton" onClick={() => this.changeSize(100)}  variant="outlined">
-                        100
-                    </Button>
-                </div>
-            </div> 
+
+            </div>
         )
     }
 }

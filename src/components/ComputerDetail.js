@@ -27,7 +27,9 @@ class ComputerDetail extends Component {
   }
 
   toggleEditMode = () => {
-    this.setState({ editMode: !this.state.editMode });
+    if (this.state.newName.trim() !== "") {
+      this.setState({ editMode: !this.state.editMode });
+    }
     if (this.state.editMode) {
       this.update();
     }
@@ -35,13 +37,12 @@ class ComputerDetail extends Component {
 
   updateName = (event) => {
     let name = event.target.value;
-    if (name.trim() !== "") {
-      let computer = this.state.computer;
+    let computer = this.state.computer;
+    try {
       computer.name = name.trim();
       this.setState({newName: name, computer : computer});
-
-    } else {
-      this.setState({ snackbar: true, errEdit: "nameEmpty" });
+    } catch (error) {
+      this.setState({newName: name});
     }
   };
 
@@ -49,8 +50,9 @@ class ComputerDetail extends Component {
     let computer = this.state.computer;
     try {
       computer.introduced = event.target.value;
-    } catch (error) {
-
+    } catch (err) {
+      console.log(err)
+      this.props.snackbar("fail", err.message);
     }
     this.setState({ computer: computer })
   };
@@ -59,8 +61,9 @@ class ComputerDetail extends Component {
     let computer = this.state.computer;
     try {
       computer.discontinued = event.target.value;
-    } catch (error) {
-
+    } catch (err) {
+      console.log(err)
+      this.props.snackbar("fail", err.message);
     }
     this.setState({ computer: computer })
   };
@@ -73,9 +76,13 @@ class ComputerDetail extends Component {
   };
 
   update = async () => {
+    if (this.state.newName.trim() === "") {
+      this.props.snackbar("fail", <I18n t="nameEmpty" />);
+      return;
+    }
     let isSuccess = await ComputerService.edit(this.state.computer)
       .catch(err => console.log(err));
-    console.log(isSuccess ? "Success" : "Fail");
+    isSuccess ? this.props.snackbar("success", <I18n t="successMessageEdit" />) : this.props.snackbar("fail", <I18n t="successMessageNoEdit" />);
   }
 
   async componentWillMount() {
@@ -83,10 +90,6 @@ class ComputerDetail extends Component {
     companyList.splice(0, 0, new Company({ id: 0, name: "Choose a company" }))
     this.setState({ companies: companyList })
   }
-
-  handleSnack = () => {
-    this.setState({ ...this.state, snackbar: !this.state.snackbar })
-  };
 
   render() {
     return (
@@ -100,7 +103,7 @@ class ComputerDetail extends Component {
             onKeyPress={this.keyHandler}
             margin="dense"
             fullWidth
-          /> : this.state.computer.name}
+          /> : this.state.newName}
         </TableCell>
         <TableCell>
           { this.state.editMode ? <TextField

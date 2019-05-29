@@ -32,6 +32,7 @@ const translations = {
     loginform: "Login form",
     name: 'Name',
     password: 'Password',
+    confirmPassword: "Confirm password",
     login: 'Log in',
     successAddUser : 'New user created',
     signup : "Sign Up",
@@ -61,8 +62,11 @@ const translations = {
     previous:"Previous",
     search: "Search",
     errorNoComputers: "Error, no computer found",
-    SnackSuccessLogout: "Logout success"
-
+    SnackSuccessLogout: "Logout success",
+    successMessageEdit: 'Computer edited',
+    successMessageNoEdit: "Computer was not edited",
+    page : "Page",
+    size : "Size"
   },
   fr: {
     // Header
@@ -90,6 +94,7 @@ const translations = {
     loginform: "Authentification",
     name: 'Nom',
     password: 'Mot de passe',
+    confirmPassword: "Confirmez le mot de passe",
     login: 'Connexion',
     successAddUser : 'Nouveau utilisateur crée',
     signup : "S'inscrire",
@@ -100,6 +105,8 @@ const translations = {
     nameEmpty : "Le nom est vide.",
     snackbarSuccessMessageDelete: 'Ordinateur supprimé',
     invalidCredentials : "Les identifiants sont invalide.",
+    successMessageEdit: 'Ordinateur edité',
+    successMessageNoEdit: "Ordinateur n'a pas été edité",
 
     //CompanyList
     companyAdded:"Entreprise ajoutée",
@@ -120,7 +127,14 @@ const translations = {
      previous:"Précedent",
      search: "Rechercher",
      errorNoComputers: "Erreur, aucun ordinateur trouvée",
-    SnackSuccessLogout: "Deconnexion réussie"
+     SnackSuccessLogout: "Deconnexion réussie",
+     //Pagination
+    next:"Suivant",
+    previous:"Précedent",
+    search: "Rechercher",
+    page:"Page",
+    size:"Taille"
+    
   }
 }
  

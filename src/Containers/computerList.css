@@ -80,6 +80,7 @@
 .tableHeader {
   display: flex;
   position: relative;
+  min-height: 4em;
 }
 
 .tableSearch {

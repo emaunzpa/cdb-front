@@ -95,7 +95,7 @@ class LoginForm extends React.Component {
                                 onChange={this.handleChange("passwordInput")}
                                 margin="normal"
                             />
-                            <Typography className={classes.title} color="error" gutterBottom>
+                            <Typography color="error" gutterBottom>
                                 {this.state.loginErr}
                             </Typography>
                         </CardContent>
