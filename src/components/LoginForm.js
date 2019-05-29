@@ -74,6 +74,10 @@ class LoginForm extends React.Component {
     handleSnack = () => {
         this.setState({ snackbar: !this.state.snackbar })
     };
+
+    autoConnect = (login, password) => {
+        this.setState({loginInput : login, passwordInput : password});
+    }
     
     render() {
         const { classes } = this.props;
@@ -89,6 +93,7 @@ class LoginForm extends React.Component {
                             <TextField
                                 id="loginInput"
                                 label={<I18n t="name" />}
+                                value={this.state.loginInput ? this.state.loginInput : ""}
                                 className={classes.textField}
                                 onChange={this.handleChange("loginInput")}
                                 margin="normal"
@@ -97,6 +102,7 @@ class LoginForm extends React.Component {
                             <TextField
                                 id="passwordInput"
                                 label={<I18n t="password" />}
+                                value={this.state.passwordInput ? this.state.passwordInput : ""}
                                 className={classes.textField}
                                 type="password"
                                 onChange={this.handleChange("passwordInput")}
@@ -112,8 +118,8 @@ class LoginForm extends React.Component {
                         </CardActions>
                     </Card>
                 </Grid>
-                <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp}></SignUpForm>
-                 <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
+                <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp} autoConnect={this.autoConnect}></SignUpForm>
+                <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
             </div>
         );
     }
