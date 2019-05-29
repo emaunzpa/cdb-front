@@ -372,12 +372,6 @@ class ComputerList extends Component {
             }
           </TableBody>
         </Table>
-<<<<<<< HEAD
-        
-
-        <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)} />
-        </div>
-=======
         <Footer content={<Pagination 
                           options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
                           otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} 
@@ -387,7 +381,6 @@ class ComputerList extends Component {
         />
         
               </div>
->>>>>>> correctif_pagination
     )
 
   }
