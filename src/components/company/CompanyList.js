@@ -3,7 +3,7 @@ import companyService from '../../services/CompanyService';
 import userService from '../../services/UserService';
 import Pagination from '../pagination';
 import { CompanyDetails, CompanyHeader } from './CompanyDetails'
-import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, SnackbarContent } from '@material-ui/core';
+import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
