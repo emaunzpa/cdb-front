@@ -1,9 +1,9 @@
 import { createI18n } from 'react-router-i18n';
- 
+
 // Array of supported locales
 // The first in the array is treated as the default locale
 const locales = ['en', 'fr'];
- 
+
 // Dictionary of translations
 const translations = {
   en: {
@@ -16,7 +16,7 @@ const translations = {
     logout: 'Log out',
     companies: 'Companies',
     computers: 'Computers',
-    users : 'Users',
+    users: 'Users',
     // Add Computer
     required: 'This field is required',
     invalidDates: 'Invalid or incoherences between dates',
@@ -36,41 +36,44 @@ const translations = {
     password: 'Password',
     confirmPassword: "Confirm password",
     login: 'Log in',
-    successAddUser : 'New user created',
-    signup : "Sign Up",
-    cancel : 'cancel',
-    completeAllFields : "Please complete all fields.",
-    passwordTooShort : "Password must be at least 6 characters.",
-    passDontMatch : "Passwords don't match.",
-    nameEmpty : "Name is empty.",
+    successAddUser: 'New user created',
+    signup: "Sign Up",
+    cancel: 'cancel',
+    completeAllFields: "Please complete all fields.",
+    passwordTooShort: "Password must be at least 6 characters.",
+    passDontMatch: "Passwords don't match.",
+    nameEmpty: "Name is empty.",
     snackbarSuccessMessageDelete: 'Computer deleted',
-    invalidCredentials : "Invalid credentials.",
+    invalidCredentials: "Invalid credentials.",
     addNewAdmin: "Add new admin",
     //CompanyList
-    companyAdded:"Company Added",
-    companyDelete:"Company Deleted",
+    companyAdded: "Company Added",
+    companyDelete: "Company Deleted",
     delete: "Delete ",
     confirmationDelete: "Are you sure to delete this company ?",
-    yes:"yes",
-    no:"no",
+    yes: "yes",
+    no: "no",
     addCompany: "Add Company",
-    enterNewCompanyName:"Enter the new company's name :",
-    searchName:"Search name",
-    errorNoCompanies:"ERROR NO COMPANIES FOUND",
-    newName:"New name",
-    emptyName:"Name can't be empty",
+    enterNewCompanyName: "Enter the new company's name :",
+    searchName: "Search name",
+    errorNoCompanies: "ERROR NO COMPANIES FOUND",
+    newName: "New name",
+    emptyName: "Name can't be empty",
     edit: "Edit",
     //Pagination
-    next:"Next",
-    previous:"Previous",
+    next: "Next",
+    previous: "Previous",
     search: "Search",
     errorNoComputers: "Error, no computer found",
     SnackSuccessLogout: "Logout success",
     successMessageEdit: 'Computer edited',
     successMessageNoEdit: "Computer was not edited",
-    page : "Page",
-    size : "Size",
+    page: "Page",
+    size: "Size",
     SnackFailLogin: "Login fail",
+    // computer error message
+    EMPTY_NAME_ERROR: "Cannot set an empty name.",
+    UNCONSISTENT_DATES_ERROR: "Cannot have introduced date after discontinued date."
   },
   fr: {
     // Header
@@ -82,7 +85,7 @@ const translations = {
     logout: 'Déconnexion',
     companies: 'Liste entreprises',
     computers: 'Liste ordinateurs',
-    users : 'Utilisateurs',
+    users: 'Utilisateurs',
     // Add Computer
     required: 'Veuillez remplir ce champ',
     invalidDates: 'Dates invalides ou incohérentes',
@@ -102,52 +105,54 @@ const translations = {
     password: 'Mot de passe',
     confirmPassword: "Confirmez le mot de passe",
     login: 'Connexion',
-    successAddUser : 'Nouveau utilisateur crée',
-    signup : "S'inscrire",
+    successAddUser: 'Nouveau utilisateur crée',
+    signup: "S'inscrire",
     cancel: 'Annuler',
-    completeAllFields : "Veuillez remplir tous les champs.",
-    passwordTooShort : "Votre mot de passe doit être d'au moins 6 caractere.",
-    passDontMatch : "Les mots de passe ne sont pas les mêmes.",
-    nameEmpty : "Le nom est vide.",
+    completeAllFields: "Veuillez remplir tous les champs.",
+    passwordTooShort: "Votre mot de passe doit être d'au moins 6 caractere.",
+    passDontMatch: "Les mots de passe ne sont pas les mêmes.",
+    nameEmpty: "Le nom est vide.",
     snackbarSuccessMessageDelete: 'Ordinateur supprimé',
-    invalidCredentials : "Les identifiants sont invalide.",
+    invalidCredentials: "Les identifiants sont invalide.",
     successMessageEdit: 'Ordinateur edité',
     successMessageNoEdit: "Ordinateur n'a pas été edité",
     addNewAdmin: "Ajouter l'administrateur",
     //CompanyList
-    companyAdded:"Entreprise ajoutée",
-    companyDelete:"Entreprise Suprimée",
+    companyAdded: "Entreprise ajoutée",
+    companyDelete: "Entreprise Suprimée",
     delete: "Suprimer ",
     confirmationDelete: "Êtes vous sure de suprimer cette entreprise ?",
-    yes:"oui",
-    no:"non",
+    yes: "oui",
+    no: "non",
     addCompany: "Ajouter entreprise",
-    enterNewCompanyName:"Entrez le nom de la nouvelle entreprise",
-    searchName:"Rechercher nom",
-    errorNoCompanies:"Erreur, aucune entreprise trouvée",
-    newName:"Nouveau nom",
-    emptyName:"Le nom ne peut pas être vide",
+    enterNewCompanyName: "Entrez le nom de la nouvelle entreprise",
+    searchName: "Rechercher nom",
+    errorNoCompanies: "Erreur, aucune entreprise trouvée",
+    newName: "Nouveau nom",
+    emptyName: "Le nom ne peut pas être vide",
     edit: "Editer",
-     //Pagination
-     next:"Suivant",
-     previous:"Précedent",
-     search: "Rechercher",
-     errorNoComputers: "Erreur, aucun ordinateur trouvée",
-     SnackSuccessLogout: "Deconnexion réussie",
-     SnackFailLogin: "Echec connexion",
-     //Pagination
-    next:"Suivant",
-    previous:"Précedent",
+    //Pagination
+    next: "Suivant",
+    previous: "Précedent",
     search: "Rechercher",
-    page:"Page",
-    size:"Taille"
-    
+    errorNoComputers: "Erreur, aucun ordinateur trouvée",
+    SnackSuccessLogout: "Deconnexion réussie",
+    SnackFailLogin: "Echec connexion",
+    //Pagination
+    next: "Suivant",
+    previous: "Précedent",
+    search: "Rechercher",
+    page: "Page",
+    size: "Taille",
+    // computer error message
+    EMPTY_NAME_ERROR: "Le nom d'ordinateur ne peut être vide.",
+    UNCONSISTENT_DATES_ERROR: "La date d'introduction ne peut être après la date d'abandon."
   }
 }
- 
+
 const i18n = createI18n(
   locales,
   translations,
 );
- 
+
 export default i18n;
