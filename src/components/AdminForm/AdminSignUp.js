@@ -103,7 +103,7 @@ class AdminSignUpForm extends React.Component {
                             <TextField
                                 autoFocus
                                 id="loginInput"
-                                label="Name"
+                                label={<I18n t="name" />}
                                 onChange={this.handleChange("loginInput")}
                                 margin="dense"
                                 fullWidth
@@ -111,7 +111,7 @@ class AdminSignUpForm extends React.Component {
 
                             <TextField
                                 id="passwordInput"
-                                label="Password"
+                                label={<I18n t="password" />}
                                 onChange={this.handleChange("passwordInput")}
                                 type="password"
                                 margin="dense"
@@ -120,7 +120,7 @@ class AdminSignUpForm extends React.Component {
 
                             <TextField
                                 id="confirmationInput"
-                                label="Confirmation"
+                                label={<I18n t="confirmPassword" />}
                                 onChange={this.handleChange("confirmationInput")}
                                 type="password"
                                 margin="dense"

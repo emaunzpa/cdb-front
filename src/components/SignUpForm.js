@@ -97,7 +97,7 @@ class SignUpForm extends React.Component {
 
                 <TextField
                     id="confirmationInput"
-                    label="Confirmation"
+                    label={<I18n t="confirmPassword" />}
                     onChange={this.handleChange("confirmationInput")}
                     type="password"
                     margin="dense"
