@@ -57,6 +57,7 @@ const translations = {
     newName:"New name",
     emptyName:"Name can't be empty",
     edit: "Edit",
+    companyEdited:"Company name edited",
     //Pagination
     next:"Next",
     previous:"Previous",
@@ -67,7 +68,10 @@ const translations = {
     successMessageNoEdit: "Computer was not edited",
     page : "Page",
     size : "Size",
-    SnackFailLogin: "Login fail"
+    SnackFailLogin: "Login fail",
+    create : "Create",
+    addAdminTitle : "Create a new Administrator",
+    admin : "Administrators"
   },
   fr: {
     // Header
@@ -123,6 +127,7 @@ const translations = {
     newName:"Nouveau nom",
     emptyName:"Le nom ne peut pas être vide",
     edit: "Editer",
+    companyEdited:"Entreprise modifiée",
      //Pagination
      next:"Suivant",
      previous:"Précedent",
@@ -131,11 +136,12 @@ const translations = {
      SnackSuccessLogout: "Deconnexion réussie",
      SnackFailLogin: "Echec connexion",
      //Pagination
-    next:"Suivant",
-    previous:"Précedent",
-    search: "Rechercher",
     page:"Page",
-    size:"Taille"
+    size:"Taille",
+    // Admin
+    create : "Créer",
+    addAdminTitle : "Créer un nouvel Administrateur",
+    admin : "Administrateurs"
     
   }
 }

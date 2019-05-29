@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import userService from '../../services/UserService';
 import './AdminSignUp.css';
-import { Grid, Card, CardContent, CardActions} from '@material-ui/core';
+import { Grid, Card, CardContent, CardActions } from '@material-ui/core';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
@@ -47,17 +47,16 @@ class AdminSignUpForm extends React.Component {
 
         let isSuccess = await userService.createAdmin({
             login: this.state.loginInput,
-            password: this.state.passwordInput, 
+            password: this.state.passwordInput,
             confirmation: this.state.confirmationInput
         })
-            .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
+            .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
 
         if (isSuccess) {
             if (!isSuccess._success) {
                 this.setState({ signUpErr: isSuccess.message });
             }
             else {
-                this.props.handleSignUp();
                 this.setState({ snackbar: true });
             }
         }
@@ -100,6 +99,7 @@ class AdminSignUpForm extends React.Component {
                 <Grid container justify="center">
                     <Card className="card">
                         <CardContent>
+                            <h2><I18n t="addAdminTitle" /></h2>
                             <TextField
                                 autoFocus
                                 id="loginInput"
@@ -132,14 +132,14 @@ class AdminSignUpForm extends React.Component {
                         </CardContent>
                         <CardActions>
                             <Button variant="contained" onClick={this.signUp} color="primary">
-                                <I18n t="signup" />
+                                <I18n t="create" />
                             </Button>
                         </CardActions>
                     </Card>
                 </Grid>
             </div>
-                );
-            }
-        }
-        
+        );
+    }
+}
+
 export default AdminSignUpForm;
