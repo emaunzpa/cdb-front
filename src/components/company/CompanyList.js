@@ -7,7 +7,7 @@ import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, Di
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
 import Company from '../../models/Company'
-import SearchIcon from '@material-ui/icons/Search'
+import AddCircle from '@material-ui/icons/AddCircle';
 import Snackbar from '@material-ui/core/Snackbar';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
@@ -61,13 +61,8 @@ class CompanyList extends Component {
 
     keyHandler = (event) => {
         if (event.key === 'Enter') {
-            this.search(this.state.search || "");
+            this.searchByName();
         }
-    }
-
-    search = (value) => {
-        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: value };
-        this.updateList(options);
     }
 
     deleteDialog = (id, name) => {
@@ -77,7 +72,6 @@ class CompanyList extends Component {
             deleteId: id
         })
     }
-
 
     delete = async () => {
         console.log(this.state.deleteId)
@@ -164,8 +158,17 @@ class CompanyList extends Component {
         })
     }
 
+    handleChange = (event) => {
+        this.setState({ search: event.target.value });
+    };
+
+    searchByName = () => {
+        console.log("search " + this.state.search)
+        let options = { page: 1, itemPerPage: this.state.itemPerPage || 10, search: this.state.search };
+        this.updateList(options);
+    }
+
     render() {
-        console.log("open : " + this.state.openDeleteDialog)
         return (
             <div className="tableContainer">
                 <Dialog
@@ -239,24 +242,28 @@ class CompanyList extends Component {
                         ]}
                     />
                 </Snackbar>
-                <div>{
-                    userService.isAdmin() &&
-                    <Button variant="outlined" align-self="left" onClick={() => this.addDialog()}>
-                        <I18n t="addCompany" />
-                    </Button>
-                }
-                    <Button id="searchButton" align-self="right" onClick={() => this.buttonSearch()} variant="outlined"  ><SearchIcon /></Button>
-                    {
-                        this.state.searchMode ?
-                            <TextField id="searchField" align-self="right" label={<I18n t="searchName" />} type="search" onChange={this.updateSearch} onKeyPress={this.keyHandler}></TextField>
-                            : <div />
-                    }
+                <div class="tableHeader">
+                    {userService.isAdmin() &&
+                        <Button onClick={() => this.addDialog()} className="textfield-align">
+                            <AddCircle fontSize="large" /><I18n t="addCompany" />
+                        </Button>}
+                    <div class="tableSearch">
+                        <TextField
+                            label={<I18n t="search" />}
+                            type="search"
+                            margin="normal"
+                            onKeyPress={this.keyHandler}
+                            onChange={this.handleChange}
+                        />
+                        <Button onClick={() => this.searchByName()} className="textfield-align"><I18n t="search" /></Button>
+                    </div>
                 </div>
+
                 <Table className="companyTable">
-                    <TableHead className="tableHeader">
+                    <TableHead>
                         <CompanyHeader search={(value) => this.search(value)} orderBy={(value) => this.orderBy(value)} />
                     </TableHead>
-                    <TableBody className="tableBody">
+                    <TableBody>
                         {
                             this.state.companies ?
                                 this.state.companies.map(company =>

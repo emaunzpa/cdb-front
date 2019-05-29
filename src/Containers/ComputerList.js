@@ -229,15 +229,13 @@ class ComputerList extends Component {
 
   render() {
     return (
-      <div>
-        <div>{
-                    userService.isAdmin() &&
+      <div class="tableContainer">
+        <div class="tableHeader">
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" /><I18n t="addNewComputer" />
           </Button>
-        }
+          <div class="tableSearch">
           <TextField
-            id="standard-search"
             label={<I18n t="search" />}
             type="search"
             margin="normal"
@@ -245,82 +243,85 @@ class ComputerList extends Component {
             onChange={this.handleChange}
           />
           <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
+          </div>
         </div>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
-            <DialogContent>
-              <div className="container">
 
-                <TextField
-                  id="computerName"
-                  label={<I18n t="computerName" />}
-                  className="textField"
-                  onChange={this.handleChangeComputerName}
-                  margin="normal"
-                />
-                {
-                  this.state.validField.computerName ?
-                    <span id="computerNameValidator" className="spanValidator valid"></span> :
-                    <span id="computerNameValidator" className="spanValidator invalid">{<I18n t="required" />}</span>
-                }
-                <TextField
-                  id="introducedDate"
-                  label={<I18n t="introducedDate" />}
-                  type="date"
-                  onChange={this.handleChangeIntroduced}
-                  className="textField"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                {
-                  this.state.validField.introduced ?
-                    <span id="introducedDateValidator" className="spanValidator valid"></span> :
-                    <span id="introducedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
-                }
+          <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
+          <DialogContent>
+            <div className="container">
 
-                <TextField
-                  id="discontinuedDate"
-                  label={<I18n t="discontinuedDate" />}
-                  type="date"
-                  onChange={this.handleChangeDiscontinued}
-                  className="textField"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                {
-                  this.state.validField.discontinued ?
-                    <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
-                    <span id="discontinuedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
-                }
+              <TextField
+                id="computerName"
+                label={<I18n t="computerName" />}
+                className="textField"
+                onChange={this.handleChangeComputerName}
+                margin="normal"
+              />
+              {
+                this.state.validField.computerName ?
+                  <span id="computerNameValidator" className="spanValidator valid"></span> :
+                  <span id="computerNameValidator" className="spanValidator invalid">{<I18n t="required" />}</span>
+              }
+              <TextField
+                id="introducedDate"
+                label={<I18n t="introducedDate" />}
+                type="date"
+                onChange={this.handleChangeIntroduced}
+                className="textField"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              {
+                this.state.validField.introduced ?
+                  <span id="introducedDateValidator" className="spanValidator valid"></span> :
+                  <span id="introducedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
+              }
 
-                <TextField
-                  id="companyId"
-                  select
-                  label={<I18n t="company" />}
-                  className="textField"
-                  value={this.state.defaultCompanyID}
-                  onChange={this.handleChangeCompany}
-                  margin="normal"
-                  variant="outlined"
-                >
-                  {this.state.companies.map(option => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <button id="submitBtn" onClick={this.addNewComputer} disabled>
-                {<I18n t="add" />}
-              </button>
-            </DialogActions>
-          </Dialog>
-          <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
-          <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
+              <TextField
+                id="discontinuedDate"
+                label={<I18n t="discontinuedDate" />}
+                type="date"
+                onChange={this.handleChangeDiscontinued}
+                className="textField"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              {
+                this.state.validField.discontinued ?
+                  <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
+                  <span id="discontinuedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
+              }
+
+              <TextField
+                id="companyId"
+                select
+                label={<I18n t="company" />}
+                className="textField"
+                value={this.state.defaultCompanyID}
+                onChange={this.handleChangeCompany}
+                margin="normal"
+                variant="outlined"
+              >
+                {this.state.companies.map(option => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <button id="submitBtn" onClick={this.addNewComputer} disabled>
+              {<I18n t="add" />}
+            </button>
+          </DialogActions>
+        </Dialog>
+        <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
+        <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
+        
         <Table>
           <TableHead>
             <TableRow>
@@ -359,9 +360,10 @@ class ComputerList extends Component {
             }
           </TableBody>
         </Table>
+        
 
         <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)} />
-      </div>
+        </div>
     )
 
   }
