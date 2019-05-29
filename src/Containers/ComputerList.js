@@ -49,7 +49,6 @@ class ComputerList extends Component {
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
-    snackbardelete: false,
     reverse: false
   };
 
@@ -129,6 +128,7 @@ class ComputerList extends Component {
       this.setState({ ...this.state, computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField: { computerName: false, introduced: true, discontinued: true, companyId: true } });
       this.handleOpen();
       this.handleSnack({ vertical: 'bottom', horizontal: 'right' });
+      this.changeSnackbar("success", <I18n t="snackbarSuccessMessage" />);
     }
   }
 
@@ -213,15 +213,11 @@ class ComputerList extends Component {
   }
 
   handleSnack = () => {
-    this.setState({ ...this.state, snackbar: !this.state.snackbar })
-  };
-
-  handleSnackEdit = () => {
-    this.setState({ ...this.state, snackbarEdit: !this.state.snackbarEdit })
+    this.setState({ snackbar: !this.state.snackbar })
   };
 
   changeSnackbar = (variant, message) => {
-    this.setState({ snackbarEdit : true, snackMessage : message, snackVariant : variant })
+    this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
   }
 
   render() {
@@ -318,8 +314,7 @@ class ComputerList extends Component {
               </button>
             </DialogActions>
           </Dialog>
-          <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
-          <MySnackbar open={() => this.state.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
+          <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant={this.state.snackVariant} message={this.state.snackMessage} />
         <Table>
           <TableHead>
             <TableRow>
