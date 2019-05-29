@@ -47,3 +47,8 @@
     border-radius: 1em;
     z-index: 100;
 }
+
+.welcome {
+    text-decoration: none;
+    color: white;
+}
