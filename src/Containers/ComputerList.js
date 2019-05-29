@@ -244,9 +244,12 @@ class ComputerList extends Component {
     return (
       <div className="tableContainer">
         <div className="tableHeader">
+          {
+                    userService.isAdmin() &&
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" id="addCircleBtn"/><I18n t="addNewComputer" />
           </Button>
+          }
           <div className="tableSearch">
           <TextField
             label={<I18n t="search" />}
