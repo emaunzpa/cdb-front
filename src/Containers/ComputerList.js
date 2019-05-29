@@ -232,7 +232,7 @@ class ComputerList extends Component {
       <div class="tableContainer">
         <div class="tableHeader">
           <Button onClick={this.handleOpen} className="textfield-align">
-            <AddCircle fontSize="large" /><I18n t="addNewComputer" />
+            <AddCircle fontSize="large" id="addCircleBtn"/><I18n t="addNewComputer" />
           </Button>
           <div class="tableSearch">
           <TextField
