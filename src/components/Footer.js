@@ -8,7 +8,7 @@ class Footer extends Component {
                 <div style={{
                     display: "block",
                     padding: "20px",
-                    width: "100%"
+                    width: "90%"
                 }} />
                 <div style={{
                     backgroundColor:'white',
@@ -18,8 +18,8 @@ class Footer extends Component {
                     position: "fixed",
                     left: "0",
                     bottom: "0",
-                    width: "100%"
-                }}>{this.props.content}</div>
+                    width: "90%"
+                }} >{this.props.content}</div>
             </div>
         )
     }

@@ -31,6 +31,7 @@ import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import MySnackbar from "../components/MySnackbar";
 import userService from '../services/UserService';
+import Footer from '../components/Footer';
 
 
 class ComputerList extends Component {
@@ -359,9 +360,15 @@ class ComputerList extends Component {
             }
           </TableBody>
         </Table>
-
-        <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)} />
-      </div>
+        <Footer content={<Pagination 
+                          options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
+                          otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} 
+                          size={this.state.size} update={(options) => this.updateComputer(options)} 
+                          />}
+               
+        />
+        
+              </div>
     )
 
   }

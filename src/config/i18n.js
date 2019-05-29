@@ -60,8 +60,10 @@ const translations = {
     next:"Next",
     previous:"Previous",
     search: "Search",
-     errorNoComputers: "Error, no computer found"
-
+    page : "Page",
+    size : "Size",
+    
+    errorNoComputers: "Error, no computer found",
   },
   fr: {
     // Header
@@ -114,12 +116,15 @@ const translations = {
     newName:"Nouveau nom",
     emptyName:"Le nom ne peut pas être vide",
     edit: "Editer",
-     //Pagination
-     next:"Suivant",
-     previous:"Précedent",
-     search: "Rechercher",
+    //Pagination
+    next:"Suivant",
+    previous:"Précedent",
+    search: "Rechercher",
+    page:"Page",
+    size:"Taille",
+     
      errorNoComputers: "Erreur, aucun ordinateur trouvée"
-  }
+    }
 }
  
 const i18n = createI18n(
