@@ -40,9 +40,9 @@ class ComputerDetail extends Component {
     let computer = this.state.computer;
     try {
       computer.name = name.trim();
-      this.setState({newName: name, computer : computer});
+      this.setState({ newName: name, computer: computer });
     } catch (error) {
-      this.setState({newName: name});
+      this.setState({ newName: name });
     }
   };
 
@@ -87,7 +87,7 @@ class ComputerDetail extends Component {
 
   async componentWillMount() {
     var companyList = await CompanyService.getAll();
-    companyList.splice(0, 0, new Company({ id: 0, name: "Choose a company" }))
+    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="noCompany" /> }))
     this.setState({ companies: companyList })
   }
 
@@ -106,16 +106,16 @@ class ComputerDetail extends Component {
           /> : this.state.newName}
         </TableCell>
         <TableCell>
-          { this.state.editMode ? <TextField
-                    autoFocus
-                    id="introducedInput"
-                    type="date"
-                    value={this.state.computer.introduced ? this.state.computer.introduced : ""}
-                    onChange={this.updateIntroduced}
-                    onKeyPress={this.keyHandler}
-                    margin="dense"
-                    fullWidth
-                /> : this.state.computer.introduced }
+          {this.state.editMode ? <TextField
+            autoFocus
+            id="introducedInput"
+            type="date"
+            value={this.state.computer.introduced ? this.state.computer.introduced : ""}
+            onChange={this.updateIntroduced}
+            onKeyPress={this.keyHandler}
+            margin="dense"
+            fullWidth
+          /> : this.state.computer.introduced}
         </TableCell>
         <TableCell>
           {this.state.editMode ? <TextField
@@ -129,27 +129,35 @@ class ComputerDetail extends Component {
             fullWidth
           /> : this.state.computer.discontinued}
         </TableCell>
-        <TableCell>{this.state.editMode ? <TextField id="companyId" select label={<I18n t="company" />} className="textField" onKeyPress={this.keyHandler}
-          value={this.state.computer.company && this.state.computer.company.id ? this.state.computer.company.id : this.state.defaultCompanyID} onChange={this.updateCompany}
-          margin="normal" variant="outlined" >
-          {this.state.companies.map(option => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.name}
-            </MenuItem>))
-          }
-        </TextField> : this.state.computer.company ? this.state.computer.company.name : ""}</TableCell>
+        <TableCell>
+          {this.state.editMode ? <TextField
+            id="companyId"
+            select
+            label={<I18n t="company" />}
+            className="textField"
+            onKeyPress={this.keyHandler}
+            value={this.state.computer.company && this.state.computer.company.id ? this.state.computer.company.id : this.state.defaultCompanyID}
+            onChange={this.updateCompany}
+            margin="normal" variant="outlined"
+          >
+            {this.state.companies.map(option => (
+              <MenuItem key={option.id} value={option.id}>
+                {option.name}
+              </MenuItem>))
+            }
+          </TextField> : this.state.computer.company ? this.state.computer.company.name : ""}</TableCell>
         {
-                    userService.isAdmin() &&
-        <TableCell>{
-                    userService.isAdmin() &&
-          <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
+          userService.isAdmin() &&
+          <TableCell>{
+            userService.isAdmin() &&
+            <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
           }
-          {
-                    userService.isAdmin() &&
-          <Button onClick={this.toggleEditMode}><EditIcon /></Button>
+            {
+              userService.isAdmin() &&
+              <Button onClick={this.toggleEditMode}><EditIcon /></Button>
+            }
+          </TableCell>
         }
-        </TableCell>
-      }
       </TableRow>
 
     )

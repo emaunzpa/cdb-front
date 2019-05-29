@@ -27,6 +27,7 @@ const translations = {
     company: 'Company',
     add: 'Add',
     chooseCompany: 'Choose a company',
+    noCompany: "---",
     snackbarSuccessMessage: 'New computer added',
     //SignUp / Login
     loginform: "Login form",
@@ -91,6 +92,7 @@ const translations = {
     company: 'Entreprise',
     add: 'Ajouter',
     chooseCompany: 'Choisissez une entreprise',
+    noCompany: "---",
     snackbarSuccessMessage: 'Nouvel ordinateur ajouté',
     //SignUp / Login
     loginform: "Authentification",
