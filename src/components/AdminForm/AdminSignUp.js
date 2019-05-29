@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import I18n from '../../config/i18n';
 import Snackbar from '@material-ui/core/Snackbar';
+import Typography from "@material-ui/core/Typography";
 
 class AdminSignUpForm extends React.Component {
     state = {}
@@ -126,6 +127,9 @@ class AdminSignUpForm extends React.Component {
                                 margin="dense"
                                 fullWidth
                             />
+                            <Typography color="error" gutterBottom>
+                                {this.state.signUpErr}
+                            </Typography>
                         </CardContent>
                         <CardActions>
                             <Button variant="contained" onClick={this.signUp} color="primary">

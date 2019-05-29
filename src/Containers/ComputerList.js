@@ -229,12 +229,12 @@ class ComputerList extends Component {
 
   render() {
     return (
-      <div class="tableContainer">
-        <div class="tableHeader">
+      <div className="tableContainer">
+        <div className="tableHeader">
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" id="addCircleBtn"/><I18n t="addNewComputer" />
           </Button>
-          <div class="tableSearch">
+          <div className="tableSearch">
           <TextField
             label={<I18n t="search" />}
             type="search"
