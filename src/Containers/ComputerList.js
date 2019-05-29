@@ -175,7 +175,7 @@ class ComputerList extends Component {
     this.setState({ search: this.state.search });
     let options = {
       page: 1,
-      itemPerPage: 10,
+      itemPerPage: this.state.itemPerPage,
       search: this.state.search || ""
     }
     this.updateComputer(options)
