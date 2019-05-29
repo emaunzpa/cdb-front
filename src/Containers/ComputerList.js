@@ -46,7 +46,7 @@ class ComputerList extends Component {
     defaultCompanyID: 0,
     companies: [],
     computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }),
-    validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
+    validField: { computerName: true, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
     reverse: false
@@ -239,7 +239,7 @@ class ComputerList extends Component {
             onKeyPress={this.keyHandler}
             onChange={this.handleChange}
           />
-          <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
+          <Button variant="outlined" color="primary" onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
           </div>
         </div>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">

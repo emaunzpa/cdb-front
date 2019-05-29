@@ -79,14 +79,13 @@
 
 .tableHeader {
   display: flex;
-  position: relative;
+  flex-wrap: wrap;
   min-height: 4em;
 }
 
 .tableSearch {
-  position: absolute;
-  right: 0;
   display: flex;
+  margin-left: auto;
   justify-content: space-between;
   align-items: center;
 }
