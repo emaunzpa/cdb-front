@@ -120,7 +120,7 @@ class ComputerList extends Component {
       await computerService.create(computer)
         .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
 
-      this.setState({ ...this.state, computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField: { computerName: false, introduced: true, discontinued: true, companyId: true } });
+      this.setState({ ...this.state, computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }) });
       this.handleOpen();
       this.handleSnack({ vertical: 'bottom', horizontal: 'right' });
       this.changeSnackbar("success", <I18n t="snackbarSuccessMessage" />);
@@ -200,7 +200,7 @@ class ComputerList extends Component {
   }
 
   handleOpen = () => {
-    this.setState({ ...this.state, open: !this.state.open })
+    this.setState({ ...this.state, open: !this.state.open, validField: { computerName: true, introduced: true, discontinued: true, companyId: true } })
   }
 
   submitNewComputer = () => {
