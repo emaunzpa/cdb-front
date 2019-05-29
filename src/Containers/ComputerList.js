@@ -29,7 +29,10 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
-import userService from '../services/UserService'
+import MySnackbar from "../components/MySnackbar";
+import userService from '../services/UserService';
+import Footer from '../components/Footer';
+
 
 class ComputerList extends Component {
 
@@ -209,23 +212,43 @@ class ComputerList extends Component {
     this.addComputer.addNewComputer();
   }
 
+  snackbar = () => {
+    return this.state.snackbar;
+  }
+
   handleSnack = () => {
     this.setState({ ...this.state, snackbar: !this.state.snackbar })
   };
+
+  snackbarDelete = () => {
+    return this.state.snackbardelete;
+  }
 
   handleSnackDelete = () => {
     this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
   };
 
+  handleSnackEdit = () => {
+    this.setState({ ...this.state, snackbarEdit: !this.state.snackbarEdit })
+  };
+
+  snackbarEdit = () => {
+    return this.state.snackbarEdit;
+  }
+
+  changeSnackbar = (variant, message) => {
+    this.setState({ snackbarEdit : true, snackMessage : message, snackVariant : variant })
+  }
+
   render() {
     return (
-      <div>
-        <div>
+      <div className="tableContainer">
+        <div className="tableHeader">
           <Button onClick={this.handleOpen} className="textfield-align">
-            <AddCircle fontSize="large" /><I18n t="addNewComputer" />
+            <AddCircle fontSize="large" id="addCircleBtn"/><I18n t="addNewComputer" />
           </Button>
+          <div className="tableSearch">
           <TextField
-            id="standard-search"
             label={<I18n t="search" />}
             type="search"
             margin="normal"
@@ -233,133 +256,84 @@ class ComputerList extends Component {
             onChange={this.handleChange}
           />
           <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
+          </div>
         </div>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
-          <DialogContent>
-            <div className="container">
+            <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
+            <DialogContent>
+              <div className="container">
 
-              <TextField
-                id="computerName"
-                label={<I18n t="computerName" />}
-                className="textField"
-                onChange={this.handleChangeComputerName}
-                margin="normal"
-              />
-              {
-                this.state.validField.computerName ?
-                  <span id="computerNameValidator" className="spanValidator valid"></span> :
-                  <span id="computerNameValidator" className="spanValidator invalid">{<I18n t="required" />}</span>
-              }
-              <TextField
-                id="introducedDate"
-                label={<I18n t="introducedDate" />}
-                type="date"
-                onChange={this.handleChangeIntroduced}
-                className="textField"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              {
-                this.state.validField.introduced ?
-                  <span id="introducedDateValidator" className="spanValidator valid"></span> :
-                  <span id="introducedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
-              }
+                <TextField
+                  id="computerName"
+                  label={<I18n t="computerName" />}
+                  className="textField"
+                  onChange={this.handleChangeComputerName}
+                  margin="normal"
+                />
+                {
+                  this.state.validField.computerName ?
+                    <span id="computerNameValidator" className="spanValidator valid"></span> :
+                    <span id="computerNameValidator" className="spanValidator invalid">{<I18n t="required" />}</span>
+                }
+                <TextField
+                  id="introducedDate"
+                  label={<I18n t="introducedDate" />}
+                  type="date"
+                  onChange={this.handleChangeIntroduced}
+                  className="textField"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                {
+                  this.state.validField.introduced ?
+                    <span id="introducedDateValidator" className="spanValidator valid"></span> :
+                    <span id="introducedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
+                }
 
-              <TextField
-                id="discontinuedDate"
-                label={<I18n t="discontinuedDate" />}
-                type="date"
-                onChange={this.handleChangeDiscontinued}
-                className="textField"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              {
-                this.state.validField.discontinued ?
-                  <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
-                  <span id="discontinuedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
-              }
+                <TextField
+                  id="discontinuedDate"
+                  label={<I18n t="discontinuedDate" />}
+                  type="date"
+                  onChange={this.handleChangeDiscontinued}
+                  className="textField"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                {
+                  this.state.validField.discontinued ?
+                    <span id="discontinuedDateValidator" className="spanValidator valid"></span> :
+                    <span id="discontinuedDateValidator" className="spanValidator invalid">{<I18n t="invalidDates" />}</span>
+                }
 
-              <TextField
-                id="companyId"
-                select
-                label={<I18n t="company" />}
-                className="textField"
-                value={this.state.defaultCompanyID}
-                onChange={this.handleChangeCompany}
-                margin="normal"
-                variant="outlined"
-              >
-                {this.state.companies.map(option => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <button id="submitBtn" onClick={this.addNewComputer} disabled>
-              {<I18n t="add" />}
-            </button>
-          </DialogActions>
-        </Dialog>
-        <Snackbar
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          open={this.state.snackbar}
-          onClose={this.handleSnack}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          autoHideDuration={2000}
-          message={<span id="message-id">I love snacks</span>}
-        >
-          <SnackbarContent
-            className="snackbar-success"
-            aria-describedby="client-snackbar"
-            message={
-              <span id="client-snackbar" className="snackbarMessage">
-                <CheckCircleIcon className="snackbarIcon" />
-                <I18n t="snackbarSuccessMessage" />
-              </span>
-            }
-            action={[
-              <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
-                <CloseIcon />
-              </IconButton>,
-            ]}
-          />
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          key={`${'bottom'},${'right'}`}
-          open={this.state.snackbardelete}
-          onClose={this.handleSnackDelete}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          autoHideDuration={2000}
-          message={<span id="message-id">I love snacks</span>}
-        >
-          <SnackbarContent
-            className="snackbar-success-delete"
-            aria-describedby="client-snackbar"
-            message={
-              <span id="client-snackbar" className="snackbarMessage">
-                <CheckCircleIcon className="snackbarIcon" />
-                <I18n t="snackbarSuccessMessageDelete" />
-              </span>
-            }
-            action={[
-              <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleSnack}>
-                <CloseIcon />
-              </IconButton>,
-            ]}
-          />
-        </Snackbar>
+                <TextField
+                  id="companyId"
+                  select
+                  label={<I18n t="company" />}
+                  className="textField"
+                  value={this.state.defaultCompanyID}
+                  onChange={this.handleChangeCompany}
+                  margin="normal"
+                  variant="outlined"
+                >
+                  {this.state.companies.map(option => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <button id="submitBtn" onClick={this.addNewComputer} disabled>
+                {<I18n t="add" />}
+              </button>
+            </DialogActions>
+          </Dialog>
+          <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
+          <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
+          <MySnackbar open={this.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
         <Table>
           <TableHead>
             <TableRow>
@@ -392,15 +366,21 @@ class ComputerList extends Component {
             {
               this.state.computers ?
               this.state.computers.map(computer =>
-                <ComputerDetail key={computer.id} deleteById={this.deleteById} computer={computer} />
+                <ComputerDetail snackbar={this.changeSnackbar} key={computer.id} deleteById={this.deleteById} computer={computer} />
               )
               : <div> <I18n t="errorNoComputers"/></div>
             }
           </TableBody>
         </Table>
-
-        <Pagination options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }} otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} size={this.state.size} update={(options) => this.updateComputer(options)} />
-      </div>
+        <Footer content={<Pagination 
+                          options={{ page: this.state.page, itemPerPage: this.state.itemPerPage }}
+                          otherOptions={{ orderBy: this.state.orderBy, search: this.state.search }} 
+                          size={this.state.size} update={(options) => this.updateComputer(options)} 
+                          />}
+               
+        />
+        
+              </div>
     )
 
   }

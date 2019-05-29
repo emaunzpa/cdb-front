@@ -14,13 +14,15 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 
 import './header.css';
 import UserService from '../../services/UserService';
+import MySnackbar from "../MySnackbar";
 
 class Header extends Component {
 
     state = {
         anchorEl: null,
         auth: UserService.isAuthenticated(),
-        menuDisplayed: false
+        menuDisplayed: false,
+        snackbar: false,
     };
 
     componentDidMount() {
@@ -48,6 +50,7 @@ class Header extends Component {
         if (!UserService.isAuthenticated()) {
             this.setState({ ...this.state, auth: false })
             this.props.history.push("/login");
+            this.handleSnack()
         }
     };
 
@@ -75,6 +78,14 @@ class Header extends Component {
         localStorage.setItem("language", localStorage.getItem("language") === "fr" ? "en" : "fr");
         this.toggleMenu();
     }
+
+    snackbar = () => {
+        return this.state.snackbar;
+    }
+
+    handleSnack = () => {
+        this.setState({ ...this.state, snackbar: !this.state.snackbar })
+    };
 
     render() {
 
@@ -112,7 +123,10 @@ class Header extends Component {
                                 >
                                     <Link to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
                                     <Link to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    {
+                                        UserService.isAdmin() &&
                                     <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="users" /></MenuItem></Link>
+                                }
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow">
@@ -136,6 +150,7 @@ class Header extends Component {
 
                     </Toolbar>
                 </AppBar>
+                <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="SnackSuccessLogout" />} />
             </div>
         );
     }

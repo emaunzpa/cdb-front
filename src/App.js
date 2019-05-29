@@ -38,9 +38,9 @@ export default class App extends React.Component {
             )} />
 
           <Route path={`${langUri}/users`}
-            render={() => (UserService.isAuthenticated() ? (
+            render={() => (UserService.isAdmin() ? (
               <AdminSignUpForm></AdminSignUpForm>
-            ) : <Redirect to={`/login`}></Redirect>
+            ) : <Redirect to={`/computers`}></Redirect>
 
             )} />
         </Router>
