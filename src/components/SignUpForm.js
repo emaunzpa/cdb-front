@@ -49,10 +49,10 @@ class SignUpForm extends React.Component {
       if (isSuccess) {
         if(!isSuccess._success){
           this.setState({ signUpErr : isSuccess.message });
-          console.log("fail");
         }
         else {
           this.props.handleSignUp();
+          this.props.autoConnect(this.state.loginInput, this.state.passwordInput);
           this.setState({snackbar : true });
         }
       }
