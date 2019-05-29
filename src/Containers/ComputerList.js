@@ -228,7 +228,7 @@ class ComputerList extends Component {
   };
 
   handleSnackEdit = () => {
-    this.setState({ ...this.state, snackbarEdit: !this.state.snackbar })
+    this.setState({ ...this.state, snackbarEdit: !this.state.snackbarEdit })
   };
 
   snackbarEdit = () => {
