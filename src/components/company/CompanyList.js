@@ -117,6 +117,10 @@ class CompanyList extends Component {
         })
     }
 
+    changeSnackbar = (variant, message) => {
+        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+    }
+
     closeDeleteDialog = () => {
         this.setState({
             openDeleteDialog: false
