@@ -49,7 +49,6 @@ class ComputerList extends Component {
     validField: { computerName: false, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
-    snackbardelete: false,
     reverse: false
   };
 
@@ -129,6 +128,7 @@ class ComputerList extends Component {
       this.setState({ ...this.state, computer: new Computer({ name: "", introduced: "", discontinued: "", companyId: "", companyName: "" }), validField: { computerName: false, introduced: true, discontinued: true, companyId: true } });
       this.handleOpen();
       this.handleSnack({ vertical: 'bottom', horizontal: 'right' });
+      this.changeSnackbar("success", <I18n t="snackbarSuccessMessage" />);
     }
   }
 
@@ -194,7 +194,7 @@ class ComputerList extends Component {
 
   deleteById = async (idToDelete) => {
     await computerService.delete(idToDelete)
-      .then(this.handleSnackDelete())
+      .then(this.changeSnackbar("success", <I18n t="snackbarSuccessMessageDelete" />))
       .catch(err => console.log(err));
     let options = {
       page: 1,
@@ -212,41 +212,24 @@ class ComputerList extends Component {
     this.addComputer.addNewComputer();
   }
 
-  snackbar = () => {
-    return this.state.snackbar;
-  }
-
   handleSnack = () => {
-    this.setState({ ...this.state, snackbar: !this.state.snackbar })
+    this.setState({ snackbar: !this.state.snackbar })
   };
-
-  snackbarDelete = () => {
-    return this.state.snackbardelete;
-  }
-
-  handleSnackDelete = () => {
-    this.setState({ ...this.state, snackbardelete: !this.state.snackbardelete })
-  };
-
-  handleSnackEdit = () => {
-    this.setState({ ...this.state, snackbarEdit: !this.state.snackbarEdit })
-  };
-
-  snackbarEdit = () => {
-    return this.state.snackbarEdit;
-  }
 
   changeSnackbar = (variant, message) => {
-    this.setState({ snackbarEdit : true, snackMessage : message, snackVariant : variant })
+    this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
   }
 
   render() {
     return (
       <div className="tableContainer">
         <div className="tableHeader">
+          {
+                    userService.isAdmin() &&
           <Button onClick={this.handleOpen} className="textfield-align">
             <AddCircle fontSize="large" id="addCircleBtn"/><I18n t="addNewComputer" />
           </Button>
+          }
           <div className="tableSearch">
           <TextField
             label={<I18n t="search" />}
@@ -331,9 +314,7 @@ class ComputerList extends Component {
               </button>
             </DialogActions>
           </Dialog>
-          <MySnackbar open={this.snackbar} close={this.handleSnack} variant="success" message={<I18n t="snackbarSuccessMessage" />} />
-          <MySnackbar open={this.snackbarDelete} close={this.handleSnackDelete} variant="success" message={<I18n t="snackbarSuccessMessageDelete" />} />
-          <MySnackbar open={this.snackbarEdit} close={this.handleSnackEdit} variant={this.state.snackVariant} message={this.state.snackMessage} />
+          <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant={this.state.snackVariant} message={this.state.snackMessage} />
         <Table>
           <TableHead>
             <TableRow>

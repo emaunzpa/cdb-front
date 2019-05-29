@@ -11,6 +11,7 @@ import userService from '../services/UserService';
 import Grid from '@material-ui/core/Grid';
 import SignUpForm from '../components/SignUpForm'
 import I18n from "../config/i18n";
+import MySnackbar from './MySnackbar'
 
 const styles = theme => ({
     container: {
@@ -32,7 +33,8 @@ class LoginForm extends React.Component {
         signUp: false,
         loginInput: "",
         passwordInput: "",
-        loginErr: ""
+        loginErr: "",
+        snackbar: false
     }
 
     componentDidMount() {
@@ -63,11 +65,16 @@ class LoginForm extends React.Component {
             if (isSuccess) {
                 window.location.replace("/");
             } else {
+                this.handleSnack();
                 this.setState({ loginErr: <I18n t="invalidCredentials" /> });
             }
         }
     }
 
+    handleSnack = () => {
+        this.setState({ snackbar: !this.state.snackbar })
+    };
+    
     render() {
         const { classes } = this.props;
 
@@ -106,6 +113,7 @@ class LoginForm extends React.Component {
                     </Card>
                 </Grid>
                 <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp}></SignUpForm>
+                 <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
             </div>
         );
     }

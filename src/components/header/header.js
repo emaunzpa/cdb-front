@@ -50,7 +50,7 @@ class Header extends Component {
         if (!UserService.isAuthenticated()) {
             this.setState({ ...this.state, auth: false })
             this.props.history.push("/login");
-            this.handleSnack()
+            this.handleSnack();
         }
     };
 
@@ -84,7 +84,7 @@ class Header extends Component {
     }
 
     handleSnack = () => {
-        this.setState({ ...this.state, snackbar: !this.state.snackbar })
+        this.setState({ snackbar: !this.state.snackbar })
     };
 
     render() {

@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import I18n from '../../config/i18n';
 import Footer from '../Footer'
+import MySnackbar from '../MySnackbar';
 
 class CompanyList extends Component {
 
@@ -38,7 +39,7 @@ class CompanyList extends Component {
         this.setState({
             newName: '',
             snackMessage: <I18n t='companyAdded' />,
-            snackColor: 'green',
+            snackColor: 'success',
             openSnack: true
         })
         this.closeAddDialog();
@@ -84,7 +85,7 @@ class CompanyList extends Component {
         this.updateList(options);
         this.setState({
             snackMessage: <I18n t='companyDelete' />,
-            snackColor: 'green',
+            snackColor: 'success',
             openSnack: true,
             deleteId: '',
             deleteName: '',
@@ -152,7 +153,7 @@ class CompanyList extends Component {
     emptyName = () => {
         this.setState({
             snackMessage: <I18n t="emptyName" />,
-            snackColor: "red",
+            snackColor: "fail",
             openSnack: true
         })
     }
@@ -196,11 +197,11 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany" /></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName" /></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={(event) => event.key === 'Enter' ? this.state.newName ? this.addCompany(this.state.newName) : this.emptyName() : ({})} label={<I18n t='newName' />} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={(event) => event.key === 'Enter' ? this.state.newName && (this.state.newName.trim() !=="")  ? this.addCompany(this.state.newName) : this.emptyName() : ({})} label={<I18n t='newName' />} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
-                                this.state.newName ?
+                                this.state.newName && (this.state.newName.trim() !=="") ?
                                     <Button onClick={() => this.addCompany(this.state.newName)}>
                                         <Plus />
                                     </Button>
@@ -212,35 +213,7 @@ class CompanyList extends Component {
                         </DialogActions>
                     </Dialog>
                 }
-                <Snackbar
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    key={`${'bottom'},${'right'}`}
-                    open={this.state.openSnack}
-                    onClose={this.closeSnack}
-                    ContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    autoHideDuration={2000}
-                >
-                    <SnackbarContent
-                        className="snackbar-success"
-                        aria-describedby="client-snackbar"
-                        message={
-                            <span id="client-snackbar" className="snackbarMessage">
-                                {
-                                    this.state.snackColor === 'green' &&
-                                    <CheckCircleIcon className="snackbarIcon" />
-                                }
-                                {this.state.snackMessage}
-                            </span>
-                        }
-                        action={[
-                            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.closeSnack}>
-                                <CloseIcon />
-                            </IconButton>,
-                        ]}
-                    />
-                </Snackbar>
+                <MySnackbar open={() => this.state.openSnack} close={this.closeSnack} variant={this.state.snackColor} message = {this.state.snackMessage}/>
                 <div className="tableHeader">
                     {userService.isAdmin() &&
                         <Button onClick={() => this.addDialog()} className="textfield-align">

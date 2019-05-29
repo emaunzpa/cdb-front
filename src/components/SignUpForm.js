@@ -53,23 +53,19 @@ class SignUpForm extends React.Component {
         }
         else {
           this.props.handleSignUp();
-          this.setState({...this.state, snackbar : true });
+          this.setState({snackbar : true });
         }
       }
     }
 
-    openSnack = () => {
-      return this.state.snackbar;
-    }
-
-    closeSnack = () => {
+    handleSnack = () => {
       this.setState({snackbar: !this.state.snackbar});
     }
 
     render() {
         return (
           <div> 
-            <MySnackbar open={this.openSnack} close={this.closeSnack} variant="success" message={<I18n t="successAddUser" />} />
+            <MySnackbar open={()=> this.state.snackbar} close={this.handleSnack} variant="success" message={<I18n t="successAddUser" />} />
           
             <Dialog open={this.props.open} onClose={this.props.handleSignUp} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title"><I18n t="signup" /></DialogTitle>

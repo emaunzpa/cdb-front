@@ -66,7 +66,8 @@ const translations = {
     successMessageEdit: 'Computer edited',
     successMessageNoEdit: "Computer was not edited",
     page : "Page",
-    size : "Size"
+    size : "Size",
+    SnackFailLogin: "Login fail",
   },
   fr: {
     // Header
@@ -128,6 +129,7 @@ const translations = {
      search: "Rechercher",
      errorNoComputers: "Erreur, aucun ordinateur trouvée",
      SnackSuccessLogout: "Deconnexion réussie",
+     SnackFailLogin: "Echec connexion",
      //Pagination
     next:"Suivant",
     previous:"Précedent",
