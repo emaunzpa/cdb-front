@@ -223,7 +223,7 @@ class CompanyList extends Component {
                             onKeyPress={this.keyHandler}
                             onChange={this.handleChange}
                         />
-                        <Button onClick={() => this.searchByName()} className="textfield-align"><I18n t="search" /></Button>
+                        <Button variant="outlined" color="primary" onClick={() => this.searchByName()} className="textfield-align"><I18n t="search" /></Button>
                     </div>
                 </div>
 

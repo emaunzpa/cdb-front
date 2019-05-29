@@ -239,7 +239,7 @@ class ComputerList extends Component {
             onKeyPress={this.keyHandler}
             onChange={this.handleChange}
           />
-          <Button onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
+          <Button variant="outlined" color="primary" onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
           </div>
         </div>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
