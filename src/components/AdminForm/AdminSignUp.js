@@ -128,7 +128,7 @@ class AdminSignUpForm extends React.Component {
                             />
                         </CardContent>
                         <CardActions>
-                            <Button onClick={this.signUp} color="primary">
+                            <Button variant="contained" onClick={this.signUp} color="primary">
                                 <I18n t="signup" />
                             </Button>
                         </CardActions>

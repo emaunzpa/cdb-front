@@ -105,10 +105,10 @@ class SignUpForm extends React.Component {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.props.handleSignUp} color="primary">
+                <Button onClick={this.props.handleSignUp}>
                 <I18n t="cancel" />
                 </Button>
-                <Button onClick={this.signUp} color="primary">
+                <Button onClick={this.signUp} variant="contained" color="primary">
                   <I18n t="signup" />
                 </Button>
               </DialogActions>
