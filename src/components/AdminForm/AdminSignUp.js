@@ -101,6 +101,9 @@ class AdminSignUpForm extends React.Component {
                 <Grid container justify="center">
                     <Card className="card">
                         <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                                <I18n t="adminform" />
+                            </Typography>
                             <TextField
                                 autoFocus
                                 id="loginInput"
