@@ -72,7 +72,7 @@ class LoginForm extends React.Component {
     }
 
     handleSnack = () => {
-        this.setState({ ...this.state, snackbar: !this.state.snackbar })
+        this.setState({snackbar: !this.state.snackbar })
     };
 
     snackbar = () => {
