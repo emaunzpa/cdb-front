@@ -12,7 +12,7 @@ class UserService {
             .catch(err => Promise.reject(err));
         localStorage.setItem("token", response.token);
         localStorage.setItem("role", response.role);
-        localStorage.setItem("language", "fr");
+        localStorage.setItem("language", "en");
         return true;
     }
 
