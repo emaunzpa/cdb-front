@@ -221,6 +221,7 @@ class ComputerList extends Component {
   }
 
   render() {
+    console.log(this.state.orderBy)
     return (
       <div className="tableContainer">
         <div className="tableHeader">
