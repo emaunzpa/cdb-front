@@ -28,7 +28,7 @@ export default class Computer {
     }
     set name(value) {
         if(!value || value.trim() === ""){
-            throw new Error(this.EMPTY_NAME_ERROR);
+            throw new Error("EMPTY_NAME_ERROR");
         }
         this._name = value.trim();
     }
@@ -39,7 +39,7 @@ export default class Computer {
         let dateDiscontinued = new Date(this.discontinued)
         let dateValue = new Date(value)
         if(this.discontinued && value && dateDiscontinued.getTime() < dateValue.getTime()){
-            throw new Error(this.UNCONSISTENT_DATES_ERROR);
+            throw new Error("UNCONSISTENT_DATES_ERROR");
         }
         this._introduced = value;
     }
@@ -50,7 +50,7 @@ export default class Computer {
         let dateIntroduced = new Date(this.introduced)
         let dateValue = new Date(value)
         if(this.introduced && value && dateIntroduced.getTime() > dateValue.getTime()){
-            throw new Error(this.UNCONSISTENT_DATES_ERROR);
+            throw new Error("UNCONSISTENT_DATES_ERROR");
         }
         this._discontinued = value;
     }
