@@ -68,6 +68,9 @@ const translations = {
     page : "Page",
     size : "Size",
     SnackFailLogin: "Login fail",
+    create : "Create",
+    addAdminTitle : "Create a new Administrator",
+    admin : "Administrators"
   },
   fr: {
     // Header
@@ -131,11 +134,12 @@ const translations = {
      SnackSuccessLogout: "Deconnexion réussie",
      SnackFailLogin: "Echec connexion",
      //Pagination
-    next:"Suivant",
-    previous:"Précedent",
-    search: "Rechercher",
     page:"Page",
-    size:"Taille"
+    size:"Taille",
+    // Admin
+    create : "Créer",
+    addAdminTitle : "Créer un nouvel Administrateur",
+    admin : "Administrateurs"
     
   }
 }

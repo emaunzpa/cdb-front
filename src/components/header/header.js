@@ -125,7 +125,7 @@ class Header extends Component {
                                     <Link to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
                                     {
                                         UserService.isAdmin() &&
-                                    <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="users" /></MenuItem></Link>
+                                    <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="admin" /></MenuItem></Link>
                                 }
                                 </Menu>
                             </div>}

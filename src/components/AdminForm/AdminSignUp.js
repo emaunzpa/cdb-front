@@ -101,6 +101,7 @@ class AdminSignUpForm extends React.Component {
                 <Grid container justify="center">
                     <Card className="card">
                         <CardContent>
+                            <h2><I18n t="addAdminTitle" /></h2>
                             <TextField
                                 autoFocus
                                 id="loginInput"
@@ -133,7 +134,7 @@ class AdminSignUpForm extends React.Component {
                         </CardContent>
                         <CardActions>
                             <Button variant="contained" onClick={this.signUp} color="primary">
-                                <I18n t="signup" />
+                                <I18n t="create" />
                             </Button>
                         </CardActions>
                     </Card>
