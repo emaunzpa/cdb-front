@@ -51,6 +51,7 @@ class ComputerDetail extends Component {
     try {
       computer.introduced = event.target.value;
     } catch (err) {
+      console.log(err)
       this.props.snackbar("fail", err.message);
     }
     this.setState({ computer: computer })
@@ -61,6 +62,7 @@ class ComputerDetail extends Component {
     try {
       computer.discontinued = event.target.value;
     } catch (err) {
+      console.log(err)
       this.props.snackbar("fail", err.message);
     }
     this.setState({ computer: computer })

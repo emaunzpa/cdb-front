@@ -9,8 +9,8 @@ export default class Computer {
     _discontinued;
     _company;
 
-    static EMPTY_NAME_ERROR = "Cannot set an empty name.";
-    static UNCONSISTENT_DATES_ERROR = "Cannot have introduced date after discontinued date.";
+    EMPTY_NAME_ERROR = "Cannot set an empty name.";
+    UNCONSISTENT_DATES_ERROR = "Cannot have introduced date after discontinued date.";
 
     constructor({ id, name, introduced, discontinued, companyId, companyName }) {
         this._id = id;
