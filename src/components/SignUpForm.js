@@ -62,6 +62,10 @@ class SignUpForm extends React.Component {
       this.setState({snackbar: !this.state.snackbar});
     }
 
+      changeSnackbar = (variant, message) => {
+        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+      }
+
     render() {
         return (
           <div> 
