@@ -116,13 +116,14 @@ class Header extends Component {
                                 <Menu
                                     id="menu-appbar"
                                     anchorEl={this.state.anchorMenu}
+                                    getContentAnchorEl={null}
                                     anchorOrigin={{
-                                        vertical: 'bot',
-                                        horizontal: 'right',
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
                                     }}
                                     transformOrigin={{
-                                        vertical: 'bot',
-                                        horizontal: 'right',
+                                        vertical: 'top',
+                                        horizontal: 'center',
                                     }}
                                     open={this.state.menuDisplayed}
                                     onClose={this.closeMenu}
@@ -151,6 +152,7 @@ class Header extends Component {
                             <Menu
                               id="settings-appbar"
                               anchorEl={this.state.anchorSettings}
+                              getContentAnchorEl={null}
                               anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'center',
