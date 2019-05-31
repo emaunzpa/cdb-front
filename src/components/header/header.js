@@ -19,33 +19,15 @@ import MySnackbar from "../utils/MySnackbar";
 class Header extends Component {
 
     state = {
-        anchorEl: null,
+        anchorSettings: null,
+        anchorMenu: null,
         auth: UserService.isAuthenticated(),
         menuDisplayed: false,
         snackbar: false,
-    };
-
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleClick);
-    }
-
-    handleClick = (event) => {
-        if (this.state.menuDisplayed === true & event.target.tagName !== 'A') {
-            this.setState({ ...this.state, menuDisplayed: !this.state.menuDisplayed });
-            document.getElementById('dropdownMenu').setAttribute("style", "display: none;");
-        }
-    }
-
-    handleMenu = event => {
-        this.setState({ ...this.state, anchorEl: event.currentTarget });
-    };
-
-    handleClose = () => {
-        this.setState({ ...this.state, anchorEl: null });
+        settingsDisplayed:false
     };
 
     handleLogout = () => {
-        this.toggleMenu();
         UserService.logout();
         if (!UserService.isAuthenticated()) {
             this.setState({ ...this.state, auth: false })
@@ -54,15 +36,6 @@ class Header extends Component {
         }
     };
 
-    toggleMenu = () => {
-        this.setState({ ...this.state, menuDisplayed: !this.state.menuDisplayed });
-        if (this.state.menuDisplayed) {
-            document.getElementById('dropdownMenu').setAttribute("style", "display: none;");
-        }
-        else {
-            document.getElementById('dropdownMenu').setAttribute("style", "display: flex;");
-        }
-    }
 
     handleUrl = (lang) => {
         var urlTab = window.location.pathname.split("/");
@@ -74,9 +47,36 @@ class Header extends Component {
         return urlTab;
     }
 
+    handleMenu = (event) => {
+        this.setState({
+            menuDisplayed:!this.state.menuDisplayed,
+            anchorMenu: event.currentTarget
+        })
+    }
+
+    closeMenu = ()=> {
+        this.setState({
+            menuDisplayed:false
+        })
+    }
+
+
+
+    handleSettings = (event) => {
+        this.setState({
+            settingsDisplayed:!this.state.settingsDisplayed,
+            anchorSettings: event.currentTarget 
+        })
+    }
+
+    closeSettings = ()=> {
+        this.setState({
+            settingsDisplayed:false
+        })
+    }
+
     changeLang = () => {
         localStorage.setItem("language", localStorage.getItem("language") === "fr" ? "en" : "fr");
-        this.toggleMenu();
     }
 
     snackbar = () => {
@@ -115,47 +115,62 @@ class Header extends Component {
 
                                 <Menu
                                     id="menu-appbar"
-                                    anchorEl={anchorEl}
+                                    anchorEl={this.state.anchorMenu}
                                     anchorOrigin={{
-                                        vertical: 'top',
+                                        vertical: 'bot',
                                         horizontal: 'right',
                                     }}
                                     transformOrigin={{
-                                        vertical: 'top',
+                                        vertical: 'bot',
                                         horizontal: 'right',
                                     }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                    PaperProps={{style:{background:'#3f51b5'}}}
+                                    open={this.state.menuDisplayed}
+                                    onClose={this.closeMenu}
+                                    PaperProps={{ style: { background: '#3f51b5' } }}
                                 >
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="companies" /></NavLink>
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="computers" /></NavLink>
+                                    <NavLink onClick={this.closeMenu} to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="companies" /></NavLink>
+                                    <NavLink onClick={this.closeMenu} to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="computers" /></NavLink>
                                     {
                                         UserService.isAdmin() &&
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="admin" /></NavLink>
+                                        <NavLink onClick={this.closeMenu} to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="admin" /></NavLink>
                                     }
 
-                                    
+
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow" >
                             <NavLink to="#" onClick={this.refresh} className="welcome"><I18n t="welcome" /></NavLink>
                         </Typography>
-                        <div>
 
-                            <IconButton color="inherit" onClick={this.toggleMenu}>
+                            <IconButton color="inherit" 
+                                    onClick={this.handleSettings}
+                                    aria-owns={open ? 'settings-appbar' : undefined}
+                                    aria-haspopup="true">
                                 <AccountCircle className="account-icon" /><I18n t="settings" />
                             </IconButton>
-                            <div id="dropdownMenu">
-                                <NavLink to={this.handleUrl('en')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
-                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
+                            <Menu
+                              id="settings-appbar"
+                              anchorEl={this.state.anchorSettings}
+                              anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                              }}
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                              }}
+                                open={this.state.settingsDisplayed}
+                                onClose={this.closeSettings}
+                                PaperProps={{ style: { background: '#3f51b5' } }}
+                            >
+                                <NavLink  to={this.handleUrl('en')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={(lang) => {this.handleUrl(lang);this.closeSettings()}}><LanguageIcon /><I18n t="english" /></NavLink>
+                                <NavLink  to={this.handleUrl('fr')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={(lang) => {this.changeLang(lang);this.closeSettings()}}><LanguageIcon /><I18n t="french" /></NavLink>
                                 {this.state.auth &&
                                     <div>
-                                        <NavLink to="#" className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></NavLink>
+                                        <NavLink  to="#" className="dropdownItem" onClick={() => {this.handleLogout();this.closeSettings()}}><InputIcon /><I18n t="logout" /></NavLink>
                                     </div>
                                 }
-                            </div>
-                        </div>
+                            </Menu>
 
                     </Toolbar>
                 </AppBar>
