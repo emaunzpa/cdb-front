@@ -5,17 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import LanguageIcon from '@material-ui/icons/Language';
 import InputIcon from '@material-ui/icons/Input';
 import I18n from '../../config/i18n';
-import { Link, withRouter, NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import './header.css';
 import UserService from '../../services/UserService';
 import MySnackbar from "../utils/MySnackbar";
-import { Button } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
+
 
 
 class Header extends Component {
@@ -128,14 +126,16 @@ class Header extends Component {
                                     }}
                                     open={open}
                                     onClose={this.handleClose}
+                                    PaperProps={{style:{background:'#3f51b5'}}}
                                 >
                                     <NavLink  to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="companies" /></NavLink>
-                                    
                                     <NavLink  to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="computers" /></NavLink>
                                     {
                                         UserService.isAdmin() &&
                                     <NavLink  to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="admin" /></NavLink>
-                                }
+                                    }
+
+                                    
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow" >
