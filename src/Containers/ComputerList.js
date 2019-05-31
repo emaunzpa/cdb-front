@@ -242,6 +242,7 @@ class ComputerList extends Component {
               <div className="container">
 
                 <TextField
+                  autoFocus
                   id="computerName"
                   label={<I18n t="computerName" />}
                   className="textField"

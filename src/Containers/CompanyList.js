@@ -53,19 +53,24 @@ class CompanyList extends Component {
         this.setState({ search: event.target.value || "" })
     }
 
-    searchKeyHandler = (event) => {
+    keyHandler = (event) => {
+        console.log(event.target.id)
         if (event.key === 'Enter') {
-            this.searchByName();
+            
+            switch (""+event.target.id){
+                case 'searchField':
+                        console.log("event.target.id")
+                    this.searchByName();
+                    break;
+                case 'addField':
+                        this.state.newName && (this.state.newName.trim() !=="") ? 
+                        this.addCompany(this.state.newName) 
+                        : this.changeSnackbar("fail", <I18n t="emptyName" />);
+                    break;
+            }
         }
     }
 
-    editKeyHandler = (event) => {
-        if (event.key === 'Enter'){
-            this.state.newName && (this.state.newName.trim() !=="") ? 
-                this.addCompany(this.state.newName) 
-                : this.changeSnackbar("fail", <I18n t="emptyName" />);
-        } 
-    }
 
     deleteDialog = (id, name) => {
         this.setState({
@@ -191,7 +196,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany" /></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName" /></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={this.editKeyHandler} label={<I18n t='newName' />} onChange={this.updateNewName} />
+                            <TextField id="addField" autoFocus align-self="left" onKeyPress={this.keyHandler} label={<I18n t='newName' />} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
@@ -215,10 +220,11 @@ class CompanyList extends Component {
                         </Button>}
                     <div className="tableSearch">
                         <TextField
+                            id="searchField"
                             label={<I18n t="search" />}
                             type="search"
                             margin="normal"
-                            onKeyPress={this.searchKeyHandler}
+                            onKeyPress={this.keyHandler}
                             onChange={this.handleChange}
                         />
                         <Button variant="outlined" color="primary" onClick={() => this.searchByName()} className="textfield-align"><I18n t="search" /></Button>
