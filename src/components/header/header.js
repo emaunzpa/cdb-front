@@ -126,23 +126,16 @@ class Header extends Component {
                                         vertical: 'top',
                                         horizontal: 'right',
                                     }}
-                                    open={open}                                
-                                    classes={{ paper: {backGroundColor: '#3f51b5'} }}
+                                    open={open}
+                                    onClose={this.handleClose}
                                 >
-                                    <NavLink to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected">
-                                        <I18n t="companies" />
-                                    </NavLink>
-
-                                    <NavLink to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected">
-                                        <I18n t="computers" />
-                                    </NavLink>
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="companies" /></NavLink>
+                                    
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="computers" /></NavLink>
                                     {
                                         UserService.isAdmin() &&
-                                        <NavLink to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected">
-
-                                            <I18n t="admin" />
-                                        </NavLink>
-                                    }
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><I18n t="admin" /></NavLink>
+                                }
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow" >
