@@ -19,19 +19,18 @@ class CompanyDetails extends Component {
         name: this.props.company.name
     }
 
-    toggleEditMode = () => {
+    toggleEditMode = async () => {
         if (this.state.editMode) {
             if (this.state.newName && this.state.newName.trim() !== "") {
-                companyService.update(new Company({ id: this.props.company.id, name: this.state.newName }))
+                await companyService.update(new Company({ id: this.props.company.id, name: this.state.newName }))
+                .catch(err => this.changeSnackbar("fail", ""+err.message));
                 this.setState({
                     editMode: false,
-                    name: this.state.newName,
-                    openSnack: true,
-                    snackMessage: <I18n t="companyEdited" />,
-                    snackMode: "success",
+                    name: this.state.newName
                 })
+                this.changeSnackbar("success", <I18n t="companyEdited" />);
             } else {
-                this.setState({ openSnack: true, snackMessage: <I18n t="emptyName" />, snackMode: 'fail' })
+                this.changeSnackbar("fail", <I18n t="emptyName" />);
             }
         } else {
 
@@ -58,6 +57,10 @@ class CompanyDetails extends Component {
         this.setState({
             openSnack: false
         })
+    }
+
+    changeSnackbar = (variant, message) => {
+        this.setState({ openSnack : true, snackMessage : message, snackMode : variant })
     }
 
     render() {

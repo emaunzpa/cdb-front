@@ -64,7 +64,8 @@ class LoginForm extends React.Component {
             this.setState({ loginErr: <I18n t="completeAllFields" /> });
         } else {
             let isSuccess = await userService.login({ login: this.state.loginInput, password: this.state.passwordInput })
-                .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
+        .catch(err => this.changeSnackbar("fail", ""+err.message))
+
             if (isSuccess) {
                 window.location.replace("/");
             } else {
@@ -122,7 +123,7 @@ class LoginForm extends React.Component {
                     </Card>
                 </Grid>
                 <SignUpForm open={this.state.signUp} handleSignUp={this.handleSignUp} autoConnect={this.autoConnect}></SignUpForm>
-                <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant="fail" message={<I18n t="SnackFailLogin" />} />
+                <MySnackbar open={() => this.state.snackbar} close={this.handleSnack} variant={this.state.snackVariant} message={this.state.snackMessage} />
             </div>
         );
     }

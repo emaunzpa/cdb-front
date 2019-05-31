@@ -22,8 +22,6 @@ class CompanyList extends Component {
         openSnack: false,
     }
 
-
-
     updateNewName = (event) => {
         this.setState({ newName: event.target.value });
     }
@@ -35,7 +33,7 @@ class CompanyList extends Component {
         this.setState({
             newName: '',
             snackMessage: <I18n t='companyAdded' />,
-            snackColor: 'success',
+            snackVariant: 'success',
             openSnack: true
         })
         this.closeAddDialog();
@@ -55,10 +53,18 @@ class CompanyList extends Component {
         this.setState({ search: event.target.value || "" })
     }
 
-    keyHandler = (event) => {
+    searchKeyHandler = (event) => {
         if (event.key === 'Enter') {
             this.searchByName();
         }
+    }
+
+    editKeyHandler = (event) => {
+        if (event.key === 'Enter'){
+            this.state.newName && (this.state.newName.trim() !=="") ? 
+                this.addCompany(this.state.newName) 
+                : this.changeSnackbar("fail", <I18n t="emptyName" />);
+        } 
     }
 
     deleteDialog = (id, name) => {
@@ -71,7 +77,7 @@ class CompanyList extends Component {
 
     delete = async () => {
         await companyService.delete(this.state.deleteId)
-            .catch(this.changeSnackbar("fail", "Something wrong happened, try later"));
+            .catch(err => this.changeSnackbar("fail", ""+err.message));
         let options = {
             page: this.state.page || 1,
             itemPerPage: this.state.itemPerPage || 10,
@@ -79,12 +85,10 @@ class CompanyList extends Component {
         };
         this.updateList(options);
         this.setState({
-            snackMessage: <I18n t='companyDelete' />,
-            snackColor: 'success',
-            openSnack: true,
             deleteId: '',
             deleteName: '',
         })
+        this.changeSnackbar("success", <I18n t='companyDelete' />);
         this.closeDeleteDialog()
     }
 
@@ -95,9 +99,9 @@ class CompanyList extends Component {
             search: options.search,
             orderBy: options.orderBy,
             companies: await companyService.list(options)
-                .catch(this.changeSnackbar("fail", "Something wrong happened, try later")),
+                .catch(err => this.changeSnackbar("fail", ""+err.message)),
             size: await companyService.count(options.search)
-                .catch(this.changeSnackbar("fail", "Something wrong happened, try later"))
+                .catch(err => this.changeSnackbar("fail", ""+err.message))
         })
         this.forceUpdate();
     }
@@ -118,7 +122,7 @@ class CompanyList extends Component {
     }
 
     changeSnackbar = (variant, message) => {
-        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+        this.setState({ openSnack : true, snackMessage : message, snackVariant : variant })
     }
 
     closeDeleteDialog = () => {
@@ -147,14 +151,6 @@ class CompanyList extends Component {
             search: this.state.search
         }
         this.updateList(options)
-    }
-
-    emptyName = () => {
-        this.setState({
-            snackMessage: <I18n t="emptyName" />,
-            snackColor: "fail",
-            openSnack: true
-        })
     }
 
     handleChange = (event) => {
@@ -195,7 +191,7 @@ class CompanyList extends Component {
                         <DialogTitle><I18n t="addCompany" /></DialogTitle>
                         <DialogContent>
                             <DialogContentText><I18n t="enterNewCompanyName" /></DialogContentText>
-                            <TextField id="AddField" align-self="left" onKeyPress={(event) => event.key === 'Enter' ? this.state.newName && (this.state.newName.trim() !=="")  ? this.addCompany(this.state.newName) : this.emptyName() : ({})} label={<I18n t='newName' />} onChange={this.updateNewName} />
+                            <TextField id="AddField" align-self="left" onKeyPress={this.editKeyHandler} label={<I18n t='newName' />} onChange={this.updateNewName} />
                         </DialogContent>
                         <DialogActions>
                             {
@@ -211,7 +207,7 @@ class CompanyList extends Component {
                         </DialogActions>
                     </Dialog>
                 }
-                <MySnackbar open={() => this.state.openSnack} close={this.closeSnack} variant={this.state.snackColor} message = {this.state.snackMessage}/>
+                <MySnackbar open={() => this.state.openSnack} close={this.closeSnack} variant={this.state.snackVariant} message = {this.state.snackMessage}/>
                 <div className="tableHeader">
                     {userService.isAdmin() &&
                         <Button onClick={() => this.addDialog()} className="textfield-align">
@@ -222,7 +218,7 @@ class CompanyList extends Component {
                             label={<I18n t="search" />}
                             type="search"
                             margin="normal"
-                            onKeyPress={this.keyHandler}
+                            onKeyPress={this.searchKeyHandler}
                             onChange={this.handleChange}
                         />
                         <Button variant="outlined" color="primary" onClick={() => this.searchByName()} className="textfield-align"><I18n t="search" /></Button>

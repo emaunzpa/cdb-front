@@ -139,9 +139,9 @@ class ComputerList extends Component {
       itemPerPage: options.itemPerPage,
       search: options.search,
       computers: await computerService.list(options)
-        .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later")),
+      .catch(err => this.changeSnackbar("fail", ""+err.message)),
       size: await computerService.count(options.search)
-        .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"))
+      .catch(err => this.changeSnackbar("fail", ""+err.message))
     })
     this.forceUpdate();
   }
@@ -190,7 +190,7 @@ class ComputerList extends Component {
   deleteById = async (idToDelete) => {
     await computerService.delete(idToDelete)
       .then(this.changeSnackbar("success", <I18n t="snackbarSuccessMessageDelete" />))
-      .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
+      .catch(err => this.changeSnackbar("fail", ""+err.message));
     let options = {
       page: 1,
       itemPerPage: 10,

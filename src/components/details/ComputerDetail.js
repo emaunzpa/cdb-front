@@ -51,7 +51,6 @@ class ComputerDetail extends Component {
     try {
       computer.introduced = event.target.value;
     } catch (err) {
-      console.log(err)
       this.props.snackbar("fail", <I18n t={err.message} />);
     }
     this.setState({ computer: computer })
@@ -62,7 +61,6 @@ class ComputerDetail extends Component {
     try {
       computer.discontinued = event.target.value;
     } catch (err) {
-      console.log(err)
       this.props.snackbar("fail", <I18n t={err.message} />);
     }
     this.setState({ computer: computer })
@@ -81,7 +79,7 @@ class ComputerDetail extends Component {
       return;
     }
     let isSuccess = await ComputerService.edit(this.state.computer)
-      .catch(err => console.log(err));
+    .catch(err => this.props.snackbar("fail", ""+err.message))
     isSuccess ? this.props.snackbar("success", <I18n t="successMessageEdit" />) : this.props.snackbar("fail", <I18n t="successMessageNoEdit" />);
   }
 

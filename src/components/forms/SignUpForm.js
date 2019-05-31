@@ -44,7 +44,7 @@ class SignUpForm extends React.Component {
 
       let isSuccess = await userService.create({ login: this.state.loginInput, 
         password: this.state.passwordInput, confirmation: this.state.confirmationInput})
-      .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
+      .catch(err => this.changeSnackbar("fail", ""+err.message));
       
       if (isSuccess) {
         if(!isSuccess._success){
@@ -62,9 +62,9 @@ class SignUpForm extends React.Component {
       this.setState({snackbar: !this.state.snackbar});
     }
 
-      changeSnackbar = (variant, message) => {
-        this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
-      }
+    changeSnackbar = (variant, message) => {
+      this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+    }
 
     render() {
         return (

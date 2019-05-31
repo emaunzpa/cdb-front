@@ -5,9 +5,14 @@ import userService from '../../services/UserService';
 import './AdminSignUp.css';
 import { Grid, Card, CardContent, CardActions } from '@material-ui/core';
 
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 import I18n from '../../config/i18n';
+import Snackbar from '@material-ui/core/Snackbar';
 import Typography from "@material-ui/core/Typography";
-import MySnackbar from '../utils/MySnackbar';
+import MySnackbar from "../utils/MySnackbar";
 
 class AdminSignUpForm extends React.Component {
     state = {snackbar: false}
