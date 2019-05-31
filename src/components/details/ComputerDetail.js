@@ -148,7 +148,7 @@ class ComputerDetail extends Component {
           userService.isAdmin() &&
           <TableCell>{
             userService.isAdmin() &&
-            <Button><DeleteIcon onClick={() => this.props.deleteById(this.state.computer.id)}></DeleteIcon></Button>
+            <Button><DeleteIcon onClick={() => this.props.delete(this.state.computer.id,this.state.computer.name)}></DeleteIcon></Button>
           }
             {
               userService.isAdmin() &&

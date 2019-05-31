@@ -44,7 +44,8 @@ class ComputerList extends Component {
     validField: { computerName: true, introduced: true, discontinued: true, companyId: true },
     company: new Company({ id: "", name: "" }),
     snackbar: false,
-    reverse: false
+    reverse: false,
+    openDeleteDialog:false
   };
 
   checkValidField = () => {
@@ -197,6 +198,7 @@ class ComputerList extends Component {
       search: this.state.search || ""
     }
     this.updateComputer(options);
+    this.closeDeleteDialog();
   }
 
   handleOpen = () => {
@@ -213,6 +215,20 @@ class ComputerList extends Component {
 
   changeSnackbar = (variant, message) => {
     this.setState({ snackbar : true, snackMessage : message, snackVariant : variant })
+  }
+
+  closeDeleteDialog = () => {
+    this.setState({
+        openDeleteDialog: false
+    })
+  }
+
+  deleteDialog = (id,name) => {
+    this.setState({
+      openDeleteDialog:true,
+      deleteId:id,
+      deleteName:name
+    })
   }
 
   render() {
@@ -236,6 +252,23 @@ class ComputerList extends Component {
           <Button variant="outlined" color="primary" onClick={() => this.searchByName(this.state.search)} className="textfield-align"><I18n t="search" /></Button>
           </div>
         </div>
+        <Dialog
+                    open={this.state.openDeleteDialog}
+                    onClose={this.closeDeleteDialog}
+                >
+                    <DialogTitle> <I18n t='delete' /> : {this.state.deleteName} ?</DialogTitle>
+                    <DialogContent>
+                        <I18n t='ConfirmationDelete' />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.deleteById(this.state.deleteId)}>
+                            <I18n t="yes" />
+                        </Button>
+                        <Button onClick={() => this.closeDeleteDialog()}>
+                            <I18n t="no" />
+                        </Button>
+                    </DialogActions>
+                </Dialog>
         <Dialog fullWidth={true} open={this.state.open} onClose={this.handleOpen} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title"><I18n t="addNewComputer" /></DialogTitle>
             <DialogContent>
@@ -343,7 +376,7 @@ class ComputerList extends Component {
             {
               this.state.computers ?
               this.state.computers.map(computer =>
-                <ComputerDetail snackbar={this.changeSnackbar} key={computer.id} deleteById={this.deleteById} computer={computer} />
+                <ComputerDetail snackbar={this.changeSnackbar} key={computer.id} delete={this.deleteDialog} computer={computer} />
               )
               : <div> <I18n t="errorNoComputers"/></div>
             }
