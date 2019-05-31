@@ -19,12 +19,29 @@
     text-decoration: none;
 }
 
+.selectedMenuLink {
+
+}
+
 .dropdownItem {
     display: flex;
     align-items: center;
     align-content: space-between;
     text-align: center;
     color: white;
+    text-decoration: none;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.dropdownItemSelected {
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    text-align: center;
+    color: cyan;
     text-decoration: none;
     margin-bottom: 0.5em;
     border-radius: 1em;

@@ -14,6 +14,7 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import './header.css';
 import UserService from '../../services/UserService';
 import MySnackbar from "../utils/MySnackbar";
+import { Button } from '@material-ui/core';
 
 class Header extends Component {
 
@@ -124,11 +125,12 @@ class Header extends Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <Link to={"/" + localStorage.getItem("language") + "/companies"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></Link>
-                                    <Link to={"/" + localStorage.getItem("language") + "/computers"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></Link>
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></NavLink>
+                                    
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></NavLink>
                                     {
                                         UserService.isAdmin() &&
-                                    <Link to={"/" + localStorage.getItem("language") + "/users"} className="menuLink"><MenuItem onClick={this.handleClose}><I18n t="admin" /></MenuItem></Link>
+                                    <NavLink  to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="admin" /></MenuItem></NavLink>
                                 }
                                 </Menu>
                             </div>}
@@ -141,8 +143,8 @@ class Header extends Component {
                                 <AccountCircle className="account-icon" /><I18n t="settings" />
                             </IconButton>
                             <div id="dropdownMenu">
-                                <NavLink to={this.handleUrl('en')} className="dropdownItem" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
-                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
+                                <NavLink to={this.handleUrl('en')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={this.handleUrl}><LanguageIcon /><I18n t="english" /></NavLink>
+                                <NavLink to={this.handleUrl('fr')} className="dropdownItem" activeClassName="dropdownItemSelected" onClick={this.changeLang}><LanguageIcon /><I18n t="french" /></NavLink>
                                 {this.state.auth &&
                                     <div>
                                         <NavLink to="#" className="dropdownItem" onClick={this.handleLogout}><InputIcon /><I18n t="logout" /></NavLink>
