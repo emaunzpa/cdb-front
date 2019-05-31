@@ -6,11 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from "@material-ui/core/Button";
-import ComputerService from '../services/ComputerService';
-import CompanyService from '../services/CompanyService';
-import Company from '../models/Company';
-import userService from '../services/UserService'
-import I18n from '../config/i18n';
+import ComputerService from '../../services/ComputerService';
+import CompanyService from '../../services/CompanyService';
+import Company from '../../models/Company';
+import userService from '../../services/UserService'
+import I18n from '../../config/i18n';
 
 class ComputerDetail extends Component {
   state = {

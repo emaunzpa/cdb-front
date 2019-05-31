@@ -11,10 +11,9 @@ import LanguageIcon from '@material-ui/icons/Language';
 import InputIcon from '@material-ui/icons/Input';
 import I18n from '../../config/i18n';
 import { Link, withRouter, NavLink } from 'react-router-dom';
-
 import './header.css';
 import UserService from '../../services/UserService';
-import MySnackbar from "../MySnackbar";
+import MySnackbar from "../utils/MySnackbar";
 
 class Header extends Component {
 

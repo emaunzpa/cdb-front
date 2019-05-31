@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import companyService from '../../services/CompanyService';
-import userService from '../../services/UserService';
-import Pagination from '../pagination';
-import { CompanyDetails, CompanyHeader } from './CompanyDetails'
+import companyService from '../services/CompanyService';
+import userService from '../services/UserService';
+import Pagination from '../components/pagination/pagination';
+import { CompanyDetails, CompanyHeader } from './../components/details/CompanyDetails'
 import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Plus from '@material-ui/icons/Add'
-import Company from '../../models/Company'
+import Company from '../models/Company'
 import AddCircle from '@material-ui/icons/AddCircle';
-import I18n from '../../config/i18n';
-import Footer from '../Footer'
-import MySnackbar from '../MySnackbar';
+import I18n from '../config/i18n';
+import Footer from '../components/utils/Footer'
+import MySnackbar from '../components/utils/MySnackbar';
 
 class CompanyList extends Component {
 

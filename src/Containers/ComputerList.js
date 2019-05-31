@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import computerService from '../services/ComputerService';
-import ComputerDetail from '../components/ComputerDetail';
-import Pagination from '../components/pagination';
+import ComputerDetail from '../components/details/ComputerDetail';
+import Pagination from '../components/pagination/pagination';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -24,9 +24,9 @@ import I18n from '../config/i18n';
 import './computerList.css';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
-import MySnackbar from "../components/MySnackbar";
+import MySnackbar from "../components/utils/MySnackbar";
 import userService from '../services/UserService';
-import Footer from '../components/Footer';
+import Footer from '../components/utils/Footer';
 
 
 class ComputerList extends Component {

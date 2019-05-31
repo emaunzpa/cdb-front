@@ -6,7 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SortByAlpha from '@material-ui/icons/SortByAlpha';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import I18n from "../../config/i18n";
-import MySnackbar from '../MySnackbar';
+import MySnackbar from '../utils/MySnackbar';
 import companyService from '../../services/CompanyService'
 import Company from "../../models/Company";
 

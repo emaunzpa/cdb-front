@@ -5,7 +5,7 @@ import First from '@material-ui/icons/FirstPage'
 import Last from '@material-ui/icons/LastPage'
 import Previous from '@material-ui/icons/ChevronLeft'
 import Next from '@material-ui/icons/ChevronRight'
-import I18n from '../config/i18n'
+import I18n from '../../config/i18n'
 
 
 class Pagination extends Component {

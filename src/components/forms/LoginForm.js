@@ -7,11 +7,11 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import userService from '../services/UserService';
+import userService from '../../services/UserService';
 import Grid from '@material-ui/core/Grid';
-import SignUpForm from '../components/SignUpForm'
-import I18n from "../config/i18n";
-import MySnackbar from './MySnackbar'
+import SignUpForm from './SignUpForm'
+import I18n from "../../config/i18n";
+import MySnackbar from '../utils/MySnackbar'
 
 const styles = theme => ({
     container: {

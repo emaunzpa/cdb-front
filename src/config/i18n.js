@@ -121,9 +121,9 @@ const translations = {
     addNewAdmin: "Ajouter l'administrateur",
     //CompanyList
     companyAdded: "Entreprise ajoutée",
-    companyDelete: "Entreprise Suprimée",
-    delete: "Suprimer ",
-    confirmationDelete: "Êtes vous sure de suprimer cette entreprise ?",
+    companyDelete: "Entreprise Supprimée",
+    delete: "Supprimer ",
+    confirmationDelete: "Êtes vous sure de supprimer cette entreprise ?",
     yes: "oui",
     no: "non",
     addCompany: "Ajouter entreprise",
