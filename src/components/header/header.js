@@ -15,6 +15,8 @@ import './header.css';
 import UserService from '../../services/UserService';
 import MySnackbar from "../utils/MySnackbar";
 import { Button } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
+
 
 class Header extends Component {
 
@@ -111,6 +113,8 @@ class Header extends Component {
                                 >
                                     <MenuIcon />
                                 </IconButton>
+
+
                                 <Menu
                                     id="menu-appbar"
                                     anchorEl={anchorEl}
@@ -122,20 +126,27 @@ class Header extends Component {
                                         vertical: 'top',
                                         horizontal: 'right',
                                     }}
-                                    open={open}
-                                    onClose={this.handleClose}
+                                    open={open}                                
+                                    classes={{ paper: {backGroundColor: '#3f51b5'} }}
                                 >
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="companies" /></MenuItem></NavLink>
-                                    
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="computers" /></MenuItem></NavLink>
+                                    <NavLink to={"/" + localStorage.getItem("language") + "/companies"} className="dropdownItem" activeClassName="dropdownItemSelected">
+                                        <I18n t="companies" />
+                                    </NavLink>
+
+                                    <NavLink to={"/" + localStorage.getItem("language") + "/computers"} className="dropdownItem" activeClassName="dropdownItemSelected">
+                                        <I18n t="computers" />
+                                    </NavLink>
                                     {
                                         UserService.isAdmin() &&
-                                    <NavLink  to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected"><MenuItem onClick={this.handleClose}><I18n t="admin" /></MenuItem></NavLink>
-                                }
+                                        <NavLink to={"/" + localStorage.getItem("language") + "/users"} className="dropdownItem" activeClassName="dropdownItemSelected">
+
+                                            <I18n t="admin" />
+                                        </NavLink>
+                                    }
                                 </Menu>
                             </div>}
                         <Typography variant="h6" color="inherit" className="grow" >
-                            <NavLink to="#" onClick={this.refresh} className="welcome"><I18n t="welcome"/></NavLink>
+                            <NavLink to="#" onClick={this.refresh} className="welcome"><I18n t="welcome" /></NavLink>
                         </Typography>
                         <div>
 
