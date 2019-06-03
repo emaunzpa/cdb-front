@@ -53,6 +53,7 @@ class AdminSignUpForm extends React.Component {
             }
             else {
                 this.changeSnackbar("success", <I18n t="successAddUser" />);
+                this.setState({loginInput: '', passwordInput: '', confirmationInput:''});
             }
         }
     }
@@ -78,6 +79,7 @@ class AdminSignUpForm extends React.Component {
                                 id="loginInput"
                                 label={<I18n t="name" />}
                                 onChange={this.handleChange("loginInput")}
+                                value={this.state.loginInput ? this.state.loginInput : ''}
                                 margin="dense"
                                 fullWidth
                             />
@@ -86,6 +88,7 @@ class AdminSignUpForm extends React.Component {
                                 id="passwordInput"
                                 label={<I18n t="password" />}
                                 onChange={this.handleChange("passwordInput")}
+                                value={this.state.passwordInput ? this.state.passwordInput : ''}
                                 type="password"
                                 margin="dense"
                                 fullWidth
@@ -95,6 +98,7 @@ class AdminSignUpForm extends React.Component {
                                 id="confirmationInput"
                                 label={<I18n t="confirmPassword" />}
                                 onChange={this.handleChange("confirmationInput")}
+                                value={this.state.confirmationInput ? this.state.confirmationInput : ''}
                                 type="password"
                                 margin="dense"
                                 fullWidth
