@@ -117,7 +117,7 @@ const translations = {
     snackbarSuccessMessageDelete: 'Ordinateur supprimé',
     invalidCredentials: "Les identifiants sont invalides.",
     successMessageEdit: 'Ordinateur edité',
-    successMessageNoEdit: "Ordinateur n'a pas été edité",
+    successMessageNoEdit: "L'ordinateur n'a pas été edité",
     addNewAdmin: "Ajouter un administrateur",
     //CompanyList
     companyAdded: "Entreprise ajoutée",
@@ -126,9 +126,9 @@ const translations = {
     confirmationDelete: "Êtes vous sûr de vouloir supprimer cette entreprise ?",
     yes: "oui",
     no: "non",
-    addCompany: "Ajouter entreprise",
+    addCompany: "Ajouter une entreprise",
     enterNewCompanyName: "Entrez le nom de la nouvelle entreprise",
-    searchName: "Rechercher nom",
+    searchName: "Rechercher par nom",
     errorNoCompanies: "Erreur, aucune entreprise trouvée",
     newName: "Nouveau nom",
     emptyName: "Le nom ne peut pas être vide",
@@ -149,8 +149,8 @@ const translations = {
     addAdminTitle: "Créer un nouvel Administrateur",
     admin: "Administrateurs",
     // computer error message
-    EMPTY_NAME_ERROR: "Le nom d'ordinateur ne peut être vide.",
-    UNCONSISTENT_DATES_ERROR: "La date d'introduction ne peut être après la date d'abandon."
+    EMPTY_NAME_ERROR: "Le nom de l'ordinateur ne peut être vide.",
+    UNCONSISTENT_DATES_ERROR: "La date de sortie ne peut être après la date d'abandon."
 
   }
 }
