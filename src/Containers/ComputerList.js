@@ -129,9 +129,11 @@ class ComputerList extends Component {
   }
 
   async componentWillMount() {
-    let companyList = await companyService.getAll();
+    let companyList = await companyService.getAll().catch(err => console.log(err));
+	if(companyList !== undefined){
     companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="chooseCompany" /> }));
     this.setState({ companies: companyList });
+	}
   }
 
   updateComputer = async (options) => {
