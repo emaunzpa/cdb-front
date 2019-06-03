@@ -376,7 +376,7 @@ class ComputerList extends Component {
             {
               this.state.computers ?
               this.state.computers.map(computer =>
-                <ComputerDetail snackbar={this.changeSnackbar} key={computer.id} delete={this.deleteDialog} computer={computer} />
+                <ComputerDetail companies={this.state.companies} snackbar={this.changeSnackbar} key={computer.id} delete={this.deleteDialog} computer={computer} />
               )
               : <div> <I18n t="errorNoComputers"/></div>
             }
