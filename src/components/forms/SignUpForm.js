@@ -58,6 +58,12 @@ class SignUpForm extends React.Component {
       }
     }
 
+    handleKey = (event) => {
+      if (event.key === 'Enter'){
+        this.signUp();
+      }
+    }
+
     handleSnack = () => {
       this.setState({snackbar: !this.state.snackbar});
     }
@@ -84,6 +90,7 @@ class SignUpForm extends React.Component {
                     onChange={this.handleChange("loginInput")}
                     margin="dense"
                     fullWidth
+                    onKeyPress={this.handleKey}
                 />
 
                 <TextField
@@ -93,6 +100,7 @@ class SignUpForm extends React.Component {
                     type="password"
                     margin="dense"
                     fullWidth
+                    onKeyPress={this.handleKey}
                 />
 
                 <TextField
@@ -102,6 +110,7 @@ class SignUpForm extends React.Component {
                     type="password"
                     margin="dense"
                     fullWidth
+                    onKeyPress={this.handleKey}
                 />
               </DialogContent>
               <DialogActions>

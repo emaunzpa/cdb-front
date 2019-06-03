@@ -5,12 +5,12 @@ import Pagination from '../components/pagination/pagination';
 import { CompanyDetails, CompanyHeader } from './../components/details/CompanyDetails'
 import { Table, TableBody, TableHead, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import Plus from '@material-ui/icons/Add'
 import Company from '../models/Company'
 import AddCircle from '@material-ui/icons/AddCircle';
 import I18n from '../config/i18n';
 import Footer from '../components/utils/Footer'
 import MySnackbar from '../components/utils/MySnackbar';
+import './computerList.css';
 
 class CompanyList extends Component {
 
@@ -29,7 +29,7 @@ class CompanyList extends Component {
     addCompany = async () => {
         let company = new Company({ id: undefined, name: this.state.newName });
         await companyService.create(company)
-            .catch(err => this.changeSnackbar("fail", "Something wrong happened, try later"));
+            .catch(err => this.changeSnackbar("fail", err.message));
         this.setState({
             newName: '',
             snackMessage: <I18n t='companyAdded' />,
@@ -54,7 +54,6 @@ class CompanyList extends Component {
     }
 
     keyHandler = (event) => {
-        console.log(event.target.id)
         if (event.key === 'Enter') {
             
             switch (""+event.target.id){
@@ -67,10 +66,11 @@ class CompanyList extends Component {
                         this.addCompany(this.state.newName) 
                         : this.changeSnackbar("fail", <I18n t="emptyName" />);
                     break;
+                default:
+                    break;
             }
         }
     }
-
 
     deleteDialog = (id, name) => {
         this.setState({
@@ -201,13 +201,13 @@ class CompanyList extends Component {
                         <DialogActions>
                             {
                                 this.state.newName && (this.state.newName.trim() !=="") ?
-                                    <Button onClick={() => this.addCompany(this.state.newName)}>
-                                        <Plus />
-                                    </Button>
+                                    <button id="submitBtn" onClick={() => this.addCompany(this.state.newName)}>
+                                        {<I18n t="add" />}
+                                    </button>
                                     :
-                                    <Button disabled={true}>
-                                        <Plus />
-                                    </Button>
+                                    <button id="submitBtn" onClick={() => this.addCompany(this.state.newName)} disabled>
+                                        {<I18n t="add" />}
+                                    </button>
                             }
                         </DialogActions>
                     </Dialog>
