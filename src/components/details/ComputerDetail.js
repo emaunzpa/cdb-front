@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from "@material-ui/core/Button";
 import ComputerService from '../../services/ComputerService';
-import CompanyService from '../../services/CompanyService';
 import Company from '../../models/Company';
 import userService from '../../services/UserService'
 import I18n from '../../config/i18n';
@@ -69,7 +68,7 @@ class ComputerDetail extends Component {
   updateCompany = (event) => {
     let newId = event.target.value;
     let computer = this.state.computer;
-    computer.company = newId === 0 ? new Company({ id: "", name: "" }) : this.state.companies.find(obj => obj.id === newId);
+    computer.company = newId === 0 ? new Company({ id: "", name: "" }) : this.props.companies.find(obj => obj.id === newId);
     this.setState({ computer: computer })
   };
 
@@ -81,12 +80,6 @@ class ComputerDetail extends Component {
     let isSuccess = await ComputerService.edit(this.state.computer)
     .catch(err => this.props.snackbar("fail", ""+err.message))
     isSuccess ? this.props.snackbar("success", <I18n t="successMessageEdit" />) : this.props.snackbar("fail", <I18n t="successMessageNoEdit" />);
-  }
-
-  async componentWillMount() {
-    var companyList = await CompanyService.getAll();
-    companyList.splice(0, 0, new Company({ id: 0, name: <I18n t="noCompany" /> }))
-    this.setState({ companies: companyList })
   }
 
   render() {
@@ -138,7 +131,7 @@ class ComputerDetail extends Component {
             onChange={this.updateCompany}
             margin="normal" variant="outlined"
           >
-            {this.state.companies.map(option => (
+            {this.props.companies.map(option => (
               <MenuItem key={option.id} value={option.id}>
                 {option.name}
               </MenuItem>))

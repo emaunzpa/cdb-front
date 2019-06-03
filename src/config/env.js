@@ -1,6 +1,6 @@
 
     const local = {
-        apiUrl : "http://10.0.1.154:8080/api",
+        apiUrl : "http://10.0.1.161:8080/api",
     };
 
     const prod = {
