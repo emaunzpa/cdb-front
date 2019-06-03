@@ -21,7 +21,8 @@ class Http {
         options.headers.Authorization = "Bearer " + localStorage.getItem("token");
 
         return fetch(this.baseUrl + uri, options)
-            .then(response => response.json());
+            .then(response => response.json())
+            .catch(err => Promise.reject(err));
     }
 
     post(uri, body) {
@@ -29,8 +30,9 @@ class Http {
         options.headers.Authorization = "Bearer " + localStorage.getItem("token");
 
         return fetch(this.baseUrl + uri,{...this.httpOptions, method : "POST", body : body })
-            .then(response => response.json());
-    }
+            .then(response => response.json())
+            .catch(err => Promise.reject(err));
+        }
        
 
     put(uri, body) {
@@ -38,7 +40,8 @@ class Http {
         options.headers.Authorization = "Bearer " + localStorage.getItem("token");
 
         return fetch(this.baseUrl + uri,{...this.httpOptions, method : "PUT", body : body })
-            .then(response => response.json());   
+            .then(response => response.json())
+            .catch(err => Promise.reject(err));   
     }
 
     delete(uri) {
@@ -46,7 +49,8 @@ class Http {
         options.headers.Authorization = "Bearer " + localStorage.getItem("token");
 
         return fetch(this.baseUrl + uri,{ ...this.httpOptions, method : "DELETE" })
-            .then(response => response.json());  
+            .then(response => response.json())
+            .catch(err => Promise.reject(err));
     }
 }
 
